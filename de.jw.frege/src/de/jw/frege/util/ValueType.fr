@@ -1,0 +1,34 @@
+module de.jw.frege.util.ValueType where 
+
+data ValueType = 
+    public NullType | 
+    public StringType | 
+    public IntType | 
+    public DoubleType | 
+    public BooleanType | 
+    public TimeType | 
+    public BinaryType  
+derive Eq ValueType
+derive Ord ValueType
+derive Bounded ValueType
+
+private intToValueType !index =
+    case index of
+    0 -> NullType
+    1 -> StringType
+    2 -> IntType
+    3 -> DoubleType
+    4 -> BooleanType
+    5 -> TimeType
+    6 -> BinaryType
+    _ -> error "The index is out of range."
+
+private valueTypeToInt !x =
+    case x of
+    NullType -> 0
+    StringType -> 1
+    IntType -> 2
+    DoubleType -> 3
+    BooleanType -> 4
+    TimeType -> 5
+    BinaryType -> 6

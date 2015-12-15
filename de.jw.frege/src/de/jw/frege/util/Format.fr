@@ -1,0 +1,96 @@
+module de.jw.frege.util.Format where 
+
+formatTable :: Int -> [[String]] -> String;
+public formatTable columnGap !rows =
+    let
+        --// Assume that each row has the name number of values.
+        nColumns = length (head rows)
+
+        --// Determine the length of the longest item in each column.
+        colSizes = 
+            let
+                newLengthsForRow curLengths row = 
+                    let
+                        newLengths = zipWith max curLengths (map String.length row)
+                    in
+                        foldr seq newLengths newLengths
+            in
+                fold newLengthsForRow (replicate nColumns 0) rows
+
+        textForRow :: [String] -> String;
+        textForRow row = concat (zipWith textForCol row colSizes)
+
+        textForCol :: String -> Int -> String;
+        textForCol val rowSize = 
+                let
+                    nPadChars = rowSize - (String.length val) + columnGap
+                    padding = show (replicate nPadChars ' ')
+                in
+                    val ++ padding;
+    in
+        if (length rows == 0) then ""
+        else joined "\n" (map textForRow rows) ++ "\n"
+
+formatTruncatedTable :: Int -> Int -> [[String]] -> String;
+public formatTruncatedTable maxNRows columnGap !rows = 
+    let
+        continuationRow :: [String] -> [String];
+        continuationRow row = 
+            map (\val -> "...") row;
+
+        truncatedRows :: [[String]];
+        truncatedRows = 
+            if maxNRows < 1 then rows
+            else mapIndexed (\row !index -> if index == maxNRows then continuationRow row else row) $ take (maxNRows + 1) rows;
+    in
+        formatTable columnGap truncatedRows;
+
+private mapIndexed :: (a -> Int -> b) -> [a] -> [b];
+private mapIndexed mapFunction !list = mapIndexedHelper 0 list
+    where
+        mapIndexedHelper !index !list = case list of
+            [] ->    [];
+            listHead : listTail -> mapFunction listHead index : mapIndexedHelper (index + 1) listTail
+
+formatInColumns :: Int -> Int -> [String] -> String;
+public formatInColumns nColumns columnGap values = 
+    let
+        nValues = length values;
+        nRows = div (nValues + (nColumns - 1))  nColumns;
+        padding = replicate (nColumns * nRows - nValues) "";
+    in
+        formatTable columnGap (transpose (chop nRows (values ++ padding)))
+        
+--chopExamples :: Boolean;
+--chopExamples =
+--    assert ((chop 3 [10.0, 20, 30, 40, 50, 60, 70, 80, 90, 100]) == [[10, 20, 30], [40, 50, 60], [70, 80, 90], [100]])
+--    && assert ((chop 100 [10.0, 20, 30, 40, 50, 60, 70, 80, 90, 100]) == [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]])
+private chop :: Int -> [a] -> [[a]];
+private  chop !chopLength listToChop = 
+    if chopLength > 0 then
+        let 
+            reallyChop :: [a] -> [[a]];
+            reallyChop listToChop =
+                if (length listToChop == 0) then
+                    []
+                else
+                    (take chopLength listToChop) : (reallyChop (drop chopLength listToChop));
+        in
+            reallyChop listToChop
+    else
+        error "The chop length must be positive." 
+--transposeExamples :: Boolean;
+--transposeExamples =  
+--    assert ((transpose [[1.0, 2], [3, 4], [5, 6], [7, 8]]) == [[1, 3, 5, 7], [2, 4, 6, 8]]) 
+--    && assert ((transpose [[1.0, 3, 5, 7], [2, 4]]) == [[1, 2], [3, 4], [5], [7]]) 
+--    && assert ((transpose [[1.0, 2, 3], [4], [5, 6]]) == [[1, 4, 5], [2, 6], [3]])
+--    && assert (isEmpty (transpose [[], [], []]))
+private transpose :: [[a]] -> [[a]];
+private transpose !listOfLists =
+    let
+        listOfNonEmptyLists = filter (\x -> not (length x == 0)) listOfLists;
+    in
+        if (length listOfNonEmptyLists == 0) then
+            []
+        else
+            map head listOfNonEmptyLists : transpose (map tail listOfNonEmptyLists);
