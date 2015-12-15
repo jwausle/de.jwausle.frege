@@ -1,0 +1,79 @@
+module de.jw.frege.util.StringUtil where 
+
+public space :: Int -> String;
+public space n = fold (++) " " $ replicate n " "
+
+--public words :: String -> [String];
+--public words !string = multiSplitString [" ","\t","\n"] string;
+    
+
+{--    
+public multiSplitString :: [String] -> String -> [String];
+public multiSplitString !separators !stringValue =
+    let
+        -- Breaks up the strings by applying each of the separators and concatenating the resulting lists
+        -- Note: empty lists may be produced (ex: mssh [";"," "] ["hi  hi; "] = ["hi","","hi","",""])
+        multiSplitStringHelper :: [String] -> [String] -> [String];
+        multiSplitStringHelper !separators !strings = 
+            case separators of
+            [] -> strings;
+            fs : ss -> multiSplitStringHelper ss (concatMap (splitString fs) strings)
+    in          
+        filter (not $ null) (multiSplitStringHelper separators [stringValue])
+-}
+
+
+--Data.OldList.html#isPrefixOf
+isPrefixOf              :: (Eq a) => [a] -> [a] -> Bool
+isPrefixOf [] _         =  True
+isPrefixOf _  []        =  False
+isPrefixOf (x:xs) (y:ys)=  x == y && isPrefixOf xs ys
+
+public startswith :: Eq a => [a] -> [a] -> Bool
+public startswith = isPrefixOf
+
+breakList :: ([a] -> Bool) -> [a] -> ([a], [a])
+breakList func = spanList (not • func)  
+
+private g x = x
+private f x = x
+private test = f • g
+
+spanList :: ([a] -> Bool) -> [a] -> ([a], [a])
+spanList p list = case list of
+  []     -> ([],[])
+  _:xs -> (takeWhileList p xs, dropWhileList p xs)
+  
+--takeWhileList _ [] = []
+takeWhileList :: ([a] -> Bool) -> [a] -> [a]
+takeWhileList func list = case list of
+    [] -> []
+    x:xs  ->  
+       if func list 
+       then x : takeWhileList func xs
+       else []
+
+--dropWhileList _ [] = []
+dropWhileList :: ([a] -> Bool) -> [a] -> [a]
+dropWhileList func list = case list of
+    [] -> []
+    _:xs  -> 
+       if func list
+       then dropWhileList func xs
+       else list
+
+--split :: Eq a => [a] -> [a] -> [[a]]
+split :: [Char] -> [Char] -> [[Char]]
+split _ [] = []
+split delim str =
+    let (firstline, remainder) = breakList (startswith delim) str
+    in 
+        firstline : case remainder of
+                                   [] -> []
+                                   x -> if x == delim
+                                        then [] : []
+                                        else split delim 
+                                                 (drop (length delim) x)
+
+public splitString :: String -> String -> [String]
+public splitString !separator !stringValue = map packed $ split (showChars separator) (showChars stringValue)

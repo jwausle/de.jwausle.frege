@@ -1,0 +1,86 @@
+module de.jw.frege.sql.SqlBuilder where 
+
+import de.jw.frege.sql.Sql
+import de.jw.frege.sql.SqlType
+import de.jw.frege.sql.DatabaseMetadata2
+
+import de.jw.frege.util.PrettyPrinter
+import de.jw.frege.util.TimeZone
+
+data SqlBuilder = 
+    protected SqlBuilder {
+        -- (builderState query)
+        prepareQueryFn :: (SqlBuilderState -> Query -> Query),
+        -- (builderState selectBody fromBody whereBody 
+        --               groupByBody havingBody orderByBody)
+        constructQueryFn :: (SqlBuilderState -> Document -> Document -> Document -> Document -> Document -> Document -> Document),
+ 		--  (builderState query1Text query2Text unionAll)
+        constructUnionQueryFn ::  (SqlBuilderState -> Document -> Document -> Boolean -> Document),
+        -- (builderState options exprsAndAliases)
+        buildSelectClauseFn ::    (SqlBuilderState -> [QueryOption] -> [(Expr, String)] -> Document),   
+        -- (builderState joins)  
+        buildFromClauseFn ::    (SqlBuilderState -> [JoinNode] -> Document),
+        -- (builderState restrictions joins)
+        buildWhereClauseFn ::        (SqlBuilderState -> (Maybe Expr) -> [JoinNode] -> Document),
+        -- (builderState orderExpressions) 
+        buildOrderByClauseFn ::        (SqlBuilderState -> [(Expr, Boolean)] -> Document),
+        -- (builderState groupExpressions) 
+        buildGroupByClauseFn ::         (SqlBuilderState -> [Expr] -> Document),
+        -- (builderState groupRestrictions)
+        buildHavingClauseFn ::             (SqlBuilderState -> (Maybe Expr) -> Document),
+  		--            // (databaseRef skipIfDatabaseExists)
+        buildCreateDatabaseStatementFn :: (DatabaseReference -> Bool -> Document), 
+        -- (databaseRef onlyIfDatabaseExists)  
+        buildDropDatabaseStatementFn ::  (DatabaseReference -> Bool -> Document),
+        -- (tableDesc skipIfTableExists)
+        buildCreateTableStatementFn ::           (TableDescription -> Bool -> Document),
+        -- (viewRef viewDefinition)
+        buildCreateViewStatementFn ::          (TableReference -> Query -> Bool -> Document),
+        -- (tableRef onlyIfTableExists) 
+        buildDropTableStatementFn ::           (TableReference -> Bool -> Document),
+        -- (viewRef onlyIfViewExists) 
+        buildDropViewStatementFn ::           (TableReference -> Bool -> Document),
+        -- (tableRef maybeDestColumns rowValues) 
+        buildInsertValuesStatementFn ::      (TableReference -> Maybe [String] -> [Expr] -> Document),
+        -- (tableRef maybeDestColumns insertQuery)
+        buildInsertQueryValuesStatementFn :: (TableReference -> Maybe [String] -> Query -> Document),
+        -- (builderState tableRef destColumns newValues condition)
+        buildUpdateValuesStatementFn ::     (SqlBuilderState -> TableReference -> [String] -> [Expr] -> TypedExpr Bool -> Document),
+        -- (builderState tableRef, condition)
+        buildDeleteRowsStatementFn ::   (SqlBuilderState -> TableReference -> TypedExpr Bool -> Document),
+        buildCommitStatementFn ::    Document,
+        -- (fieldDesc)  
+        buildFieldDescriptionFn ::          (FieldDescription -> Document),
+        -- (dataType) 
+        buildFieldTypeFn ::        (SqlType -> Document),
+        parameterToSqlFn ::            (Parameter -> Document),
+        -- (builderState exprList)         
+        listToSqlFn ::       (SqlBuilderState -> [Expr] -> Document),
+        -- (builderState func argExprs) 
+        functionToSqlFn ::        (SqlBuilderState -> DbFunction -> [Expr] -> Document),
+        -- (dbFunction)
+        functionNameFn ::            (DbFunction -> String),
+        -- (operator)
+        operatorTextFn ::    (DbFunction -> String),
+     	-- (exprText)
+        addParensFn ::         (Document -> Document),
+        -- (indentifierText) 
+        quoteIdentifierFn ::         (String -> Document),
+        -- (queryTable)
+        buildTableAndAliasTextFn ::          (SqlBuilderState -> QueryTable -> Document),
+        -- (name)
+        makeSafeNameFn ::       (String -> String),
+        primitiveValueBuilder ::    PrimitiveValueBuilder
+		} 
+
+data SqlBuilderState = private SqlBuilderState  { outerQueryTables :: [QueryTable] }
+
+data PrimitiveValueBuilder = PrimitiveValueBuilder {
+        intToSqlFn          :: (Int -> Document),--                         // (intVal)
+        doubleToSqlFn       :: (Double -> Document),--                      // (doubleVal)
+        stringToSqlFn       :: (String -> Document),--                      // (stringVal)
+        timeToSqlFn         :: (Time -> TimeZone -> Document),--            // (timeVal, timeZone)
+        booleanToSqlFn      :: (Bool -> Document),--                        // (boolVal)
+        nullToSqlFn         :: Document,--
+        timeIntervalToSqlFn :: (TimeInterval -> Document)--                 // (timeInterval)
+        }

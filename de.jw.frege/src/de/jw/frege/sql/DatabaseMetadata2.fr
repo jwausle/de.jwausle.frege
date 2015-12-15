@@ -1,19 +1,20 @@
-module de.jw.frege.sql.DatabaseMetadata where
+module de.jw.frege.sql.DatabaseMetadata2 where
 
 import de.jw.frege.sql.SqlType
 import de.jw.frege.util.Format
 
-data DatabaseMetadata =  DatabaseReference  { databaseName :: String }
-derive Eq DatabaseMetadata
+data Test = public Test
+data DatabaseReference = DatabaseReference  { databaseName :: String }
+derive Eq DatabaseReference
 
-newDatabaseReference :: String -> DatabaseMetadata;
+newDatabaseReference :: String -> DatabaseReference;
 public newDatabaseReference databaseName = DatabaseReference { databaseName };
 
-getDatabaseNameFromReference :: DatabaseMetadata -> String;
+getDatabaseNameFromReference :: DatabaseReference -> String;
 public getDatabaseNameFromReference !ref = 
     case ref of DatabaseReference databaseName -> databaseName  
 
-data TableReference = TableReference { tableName :: String }
+data TableReference = public TableReference { tableName :: String }
 derive Eq TableReference
 instance Show TableReference where show = getTableNameFromReference
 
@@ -24,7 +25,7 @@ getTableNameFromReference :: TableReference -> String;
 public getTableNameFromReference !ref = 
     case ref of TableReference tableName -> tableName;
 
-data FieldDescription = FieldDescription { 
+data FieldDescription = public FieldDescription { 
         fieldName   :: String,
         dataType    :: SqlType, 
         nullable    :: Bool, 
