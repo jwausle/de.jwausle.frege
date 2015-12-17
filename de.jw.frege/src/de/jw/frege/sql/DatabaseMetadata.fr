@@ -1,4 +1,4 @@
-module de.jw.frege.sql.DatabaseMetadata2 where
+module de.jw.frege.sql.DatabaseMetadata where
 
 import de.jw.frege.sql.SqlType
 import de.jw.frege.util.Format

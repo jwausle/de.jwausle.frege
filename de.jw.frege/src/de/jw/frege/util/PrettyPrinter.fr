@@ -2,9 +2,9 @@ module de.jw.frege.util.PrettyPrinter where
 
 import de.jw.frege.util.StringUtil
 
-infixr 5 `:<|>`
-infixr 6 `:<>`
-infixr 6 `<>`
+--infixr 5 `:<|>`
+--infixr 6 `:<>`
+--infixr 6 `<>`
 
 
 --class Document where 
@@ -20,10 +20,10 @@ data Document  =
     LINE                                  | 
     UNION  { doc1            :: Document, 
              doc2            :: Document}
-private plusplus doc doc = APPEND doc doc
+public plusplus doc doc = APPEND doc doc
 
-private isEmptyDocument :: Document -> Bool
-private isEmptyDocument doc = case doc of 
+public isEmptyDocument :: Document -> Bool
+public isEmptyDocument doc = case doc of 
     NIL -> true
     _   -> false
 
@@ -45,8 +45,8 @@ data InternalDoc =
     Line {  indent          :: Int, 
             doc             :: InternalDoc }   
 
-private emptyDoc :: Document;
-private emptyDoc = NIL;
+public emptyDoc :: Document;
+public emptyDoc = NIL;
          
 public nest :: Int -> Document -> Document;
 public nest i x = NEST i x;
