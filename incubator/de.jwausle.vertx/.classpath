@@ -15,6 +15,11 @@
 	<classpathentry exported="true" kind="lib" path="/Users/winter/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/45c37a03be19f3e0db825fd7814d0bbec40b9e0/jackson-databind-2.6.1.jar" sourcepath="/Users/winter/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.1/56c55af2ce78286195b16521a82b331cc92cae0/jackson-databind-2.6.1-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/winter/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.0.33.Final/56c31f1e373a9374f56173383fe8b6e089ea0351/netty-codec-4.0.33.Final.jar" sourcepath="/Users/winter/.gradle/caches/modules-2/files-2.1/io.netty/netty-codec/4.0.33.Final/e0e10eafd9af7cd9cb15cd2b9dbbf70b9917adf0/netty-codec-4.0.33.Final-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/Users/winter/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.0/a0990e2e812ac6639b6ce955c91b13228500476e/jackson-annotations-2.6.0.jar" sourcepath="/Users/winter/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.6.0/7bcb615d523d88acbc121c92aafeba8d37a83792/jackson-annotations-2.6.0-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/winter/.m2/repository/de/jwausle/de.jwausle.frege.java.net/3.23.422-ga05a487/de.jwausle.frege.java.net-3.23.422-ga05a487.jar"/>
+	<classpathentry kind="lib" path="/Users/winter/.m2/repository/de/jwausle/de.jwausle.frege.java.text/3.23.422-ga05a487/de.jwausle.frege.java.text-3.23.422-ga05a487.jar"/>
+	<classpathentry kind="lib" path="/Users/winter/.m2/repository/de/jwausle/de.jwausle.frege.java.nio/3.23.422-ga05a487/de.jwausle.frege.java.nio-3.23.422-ga05a487.jar"/>
+	<classpathentry kind="lib" path="/Users/winter/.m2/repository/de/jwausle/de.jwausle.frege.netty/3.23.422-ga05a487/de.jwausle.frege.netty-3.23.422-ga05a487.jar"/>
+	<classpathentry kind="lib" path="/Users/winter/.m2/repository/de/jwausle/de.jwausle.frege.java.time/3.23.422-ga05a487/de.jwausle.frege.java.time-3.23.422-ga05a487.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes/main"/>
 </classpath>
