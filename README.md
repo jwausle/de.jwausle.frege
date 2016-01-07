@@ -33,3 +33,8 @@ Each sub project can build locally.
 You find the last builded binary *.jar in `build-result` folder
 
 Planned: release all binaries at bintray.
+
+## Open in eclipse ##
+
+Run `sh build.sh eclipse` to generate .classpath and .project files
+
