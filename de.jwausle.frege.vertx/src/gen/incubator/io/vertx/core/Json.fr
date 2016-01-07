@@ -1,0 +1,186 @@
+module io.vertx.core.Json where
+
+import java.Util
+import java.Time
+import io.vertx.core.Buffer
+import java.util.Stream
+
+data JsonObject = pure native io.vertx.core.json.JsonObject where
+
+  native new :: Mutable s (Map String Object) -> ST s JsonObject
+              | () -> ST s JsonObject
+              | String -> ST s JsonObject
+
+  pure native clear :: JsonObject -> JsonObject
+
+  pure native containsKey :: JsonObject -> String -> Bool
+
+  pure native copy :: JsonObject -> JsonObject
+
+  pure native encode :: JsonObject -> String
+
+  pure native encodePrettily :: JsonObject -> String
+
+  pure native equals :: JsonObject -> Object -> Bool
+
+  native fieldNames :: JsonObject -> STMutable s (Set String)
+
+  native getBinary :: JsonObject -> String -> Mutable s (JArray Byte) -> STMutable s (JArray Byte)
+                    | JsonObject -> String -> STMutable s (JArray Byte)
+
+  pure native getBoolean :: JsonObject -> String -> Bool -> Bool
+                          | JsonObject -> String -> Bool
+
+  pure native getDouble :: JsonObject -> String -> Double
+                         | JsonObject -> String -> Double -> Double
+
+  pure native getFloat :: JsonObject -> String -> Float -> Float
+                        | JsonObject -> String -> Float
+
+  pure native getInstant :: JsonObject -> String -> Instant
+                          | JsonObject -> String -> Instant -> Instant
+
+  pure native getInteger :: JsonObject -> String -> Int
+                          | JsonObject -> String -> Int -> Int
+
+  pure native getJsonArray :: JsonObject -> String -> JsonArray
+                            | JsonObject -> String -> JsonArray -> JsonArray
+
+  pure native getJsonObject :: JsonObject -> String -> JsonObject
+                             | JsonObject -> String -> JsonObject -> JsonObject
+
+  pure native getLong :: JsonObject -> String -> Long -> Long
+                       | JsonObject -> String -> Long
+
+  native getMap :: JsonObject -> STMutable s (Map String Object)
+
+  pure native getString :: JsonObject -> String -> String -> String
+                         | JsonObject -> String -> String
+
+  pure native getValue :: JsonObject -> String -> Object -> Object
+                        | JsonObject -> String -> Object
+
+  pure native hashCode :: JsonObject -> Int
+
+  pure native isEmpty :: JsonObject -> Bool
+
+  native iterator :: JsonObject -> STMutable s (Iterator (MapEntry String Object))
+
+  pure native mergeIn :: JsonObject -> JsonObject -> JsonObject
+
+  native put :: JsonObject -> String -> Int -> ST s JsonObject
+              | JsonObject -> String -> Long -> ST s JsonObject
+              | JsonObject -> String -> Double -> ST s JsonObject
+              | JsonObject -> String -> Float -> ST s JsonObject
+              | JsonObject -> String -> String -> ST s JsonObject
+              | JsonObject -> String -> CharSequence -> ST s JsonObject
+              | JsonObject -> String -> Enum -> ST s JsonObject
+              | JsonObject -> String -> Object -> ST s JsonObject
+              | JsonObject -> String -> Instant -> ST s JsonObject
+              | JsonObject -> String -> Mutable s (JArray Byte) -> ST s JsonObject
+              | JsonObject -> String -> JsonArray -> ST s JsonObject
+              | JsonObject -> String -> JsonObject -> ST s JsonObject
+              | JsonObject -> String -> Bool -> ST s JsonObject
+
+  pure native putNull :: JsonObject -> String -> JsonObject
+
+  pure native readFromBuffer :: JsonObject -> Int -> Buffer -> Int
+
+  pure native remove :: JsonObject -> String -> Object
+
+  pure native size :: JsonObject -> Int
+
+  native stream :: JsonObject -> STMutable s (Stream (MapEntry String Object))
+
+  pure native toString :: JsonObject -> String
+
+  pure native writeToBuffer :: JsonObject -> Buffer -> ()
+
+
+import java.Util
+import java.Time
+import io.vertx.core.Buffer
+import java.util.Stream
+
+data JsonArray = pure native io.vertx.core.json.JsonArray where
+
+  native new :: Mutable s List -> ST s JsonArray
+              | () -> ST s JsonArray
+              | String -> ST s JsonArray
+
+  native add :: JsonArray -> Int -> ST s JsonArray
+              | JsonArray -> Long -> ST s JsonArray
+              | JsonArray -> Double -> ST s JsonArray
+              | JsonArray -> Float -> ST s JsonArray
+              | JsonArray -> String -> ST s JsonArray
+              | JsonArray -> CharSequence -> ST s JsonArray
+              | JsonArray -> Enum -> ST s JsonArray
+              | JsonArray -> Object -> ST s JsonArray
+              | JsonArray -> Instant -> ST s JsonArray
+              | JsonArray -> Mutable s (JArray Byte) -> ST s JsonArray
+              | JsonArray -> JsonArray -> ST s JsonArray
+              | JsonArray -> JsonObject -> ST s JsonArray
+              | JsonArray -> Bool -> ST s JsonArray
+
+  pure native addAll :: JsonArray -> JsonArray -> JsonArray
+
+  pure native addNull :: JsonArray -> JsonArray
+
+  pure native clear :: JsonArray -> JsonArray
+
+  pure native contains :: JsonArray -> Object -> Bool
+
+  pure native copy :: JsonArray -> JsonArray
+
+  pure native encode :: JsonArray -> String
+
+  pure native encodePrettily :: JsonArray -> String
+
+  pure native equals :: JsonArray -> Object -> Bool
+
+  native getBinary :: JsonArray -> Int -> STMutable s (JArray Byte)
+
+  pure native getBoolean :: JsonArray -> Int -> Bool
+
+  pure native getDouble :: JsonArray -> Int -> Double
+
+  pure native getFloat :: JsonArray -> Int -> Float
+
+  pure native getInstant :: JsonArray -> Int -> Instant
+
+  pure native getInteger :: JsonArray -> Int -> Int
+
+  pure native getJsonArray :: JsonArray -> Int -> JsonArray
+
+  pure native getJsonObject :: JsonArray -> Int -> JsonObject
+
+  native getList :: JsonArray -> STMutable s List
+
+  pure native getLong :: JsonArray -> Int -> Long
+
+  pure native getString :: JsonArray -> Int -> String
+
+  pure native getValue :: JsonArray -> Int -> Object
+
+  pure native hasNull :: JsonArray -> Int -> Bool
+
+  pure native hashCode :: JsonArray -> Int
+
+  pure native isEmpty :: JsonArray -> Bool
+
+  native iterator :: JsonArray -> STMutable s (Iterator Object)
+
+  pure native readFromBuffer :: JsonArray -> Int -> Buffer -> Int
+
+  pure native remove :: JsonArray -> Int -> Object
+                      | JsonArray -> Object -> Bool
+
+  pure native size :: JsonArray -> Int
+
+  native stream :: JsonArray -> STMutable s (Stream Object)
+
+  pure native toString :: JsonArray -> String
+
+  pure native writeToBuffer :: JsonArray -> Buffer -> ()
+
+

@@ -1,0 +1,365 @@
+module io.vertx.core.Net where
+
+import io.vertx.core.Json
+import io.vertx.core.Buffer
+
+data JksOptions = pure native io.vertx.core.net.JksOptions where
+
+  pure native new :: JsonObject -> JksOptions
+                   | JksOptions -> JksOptions
+                   | () -> JksOptions
+
+  pure native clone :: JksOptions -> JksOptions
+
+  pure native equals :: JksOptions -> Object -> Bool
+
+  pure native getPassword :: JksOptions -> String
+
+  pure native getPath :: JksOptions -> String
+
+  pure native getValue :: JksOptions -> Buffer
+
+  pure native hashCode :: JksOptions -> Int
+
+  pure native setPassword :: JksOptions -> String -> JksOptions
+
+  pure native setPath :: JksOptions -> String -> JksOptions
+
+  pure native setValue :: JksOptions -> Buffer -> JksOptions
+
+derive Cloneable JksOptions
+
+import io.vertx.core.Json
+import io.vertx.core.Buffer
+
+data PemKeyCertOptions = pure native io.vertx.core.net.PemKeyCertOptions where
+
+  pure native new :: JsonObject -> PemKeyCertOptions
+                   | PemKeyCertOptions -> PemKeyCertOptions
+                   | () -> PemKeyCertOptions
+
+  pure native clone :: PemKeyCertOptions -> PemKeyCertOptions
+
+  pure native equals :: PemKeyCertOptions -> Object -> Bool
+
+  pure native getCertPath :: PemKeyCertOptions -> String
+
+  pure native getCertValue :: PemKeyCertOptions -> Buffer
+
+  pure native getKeyPath :: PemKeyCertOptions -> String
+
+  pure native getKeyValue :: PemKeyCertOptions -> Buffer
+
+  pure native hashCode :: PemKeyCertOptions -> Int
+
+  pure native setCertPath :: PemKeyCertOptions -> String -> PemKeyCertOptions
+
+  pure native setCertValue :: PemKeyCertOptions -> Buffer -> PemKeyCertOptions
+
+  pure native setKeyPath :: PemKeyCertOptions -> String -> PemKeyCertOptions
+
+  pure native setKeyValue :: PemKeyCertOptions -> Buffer -> PemKeyCertOptions
+
+derive Cloneable PemKeyCertOptions
+
+import io.vertx.core.Json
+import io.vertx.core.Buffer
+import java.Util
+
+data PemTrustOptions = pure native io.vertx.core.net.PemTrustOptions where
+
+  pure native new :: JsonObject -> PemTrustOptions
+                   | PemTrustOptions -> PemTrustOptions
+                   | () -> PemTrustOptions
+
+  pure native addCertPath :: PemTrustOptions -> String -> PemTrustOptions
+
+  pure native addCertValue :: PemTrustOptions -> Buffer -> PemTrustOptions
+
+  pure native clone :: PemTrustOptions -> PemTrustOptions
+
+  native getCertPaths :: PemTrustOptions -> STMutable s (List String)
+
+  native getCertValues :: PemTrustOptions -> STMutable s (List Buffer)
+
+derive Cloneable PemTrustOptions
+
+import io.vertx.core.Json
+import io.vertx.core.Buffer
+
+data PfxOptions = pure native io.vertx.core.net.PfxOptions where
+
+  pure native new :: JsonObject -> PfxOptions
+                   | PfxOptions -> PfxOptions
+                   | () -> PfxOptions
+
+  pure native clone :: PfxOptions -> PfxOptions
+
+  pure native equals :: PfxOptions -> Object -> Bool
+
+  pure native getPassword :: PfxOptions -> String
+
+  pure native getPath :: PfxOptions -> String
+
+  pure native getValue :: PfxOptions -> Buffer
+
+  pure native hashCode :: PfxOptions -> Int
+
+  pure native setPassword :: PfxOptions -> String -> PfxOptions
+
+  pure native setPath :: PfxOptions -> String -> PfxOptions
+
+  pure native setValue :: PfxOptions -> Buffer -> PfxOptions
+
+derive Cloneable PfxOptions
+
+import io.vertx.Core
+
+data NetClient = pure native io.vertx.core.net.NetClient where
+
+  pure native close :: NetClient -> ()
+
+  pure native connect :: NetClient -> Int -> String -> Handler (AsyncResult NetSocket) -> NetClient
+
+
+import io.vertx.core.Json
+import io.vertx.core.Buffer
+
+data NetClientOptions = pure native io.vertx.core.net.NetClientOptions where
+
+  pure native default_reconnect_attempts "io.vertx.core.net.NetClientOptions.DEFAULT_RECONNECT_ATTEMPTS" :: Int
+  pure native default_reconnect_interval "io.vertx.core.net.NetClientOptions.DEFAULT_RECONNECT_INTERVAL" :: Long
+
+  pure native new :: JsonObject -> NetClientOptions
+                   | NetClientOptions -> NetClientOptions
+                   | () -> NetClientOptions
+
+  pure native addCrlPath :: NetClientOptions -> String -> NetClientOptions
+
+  pure native addCrlValue :: NetClientOptions -> Buffer -> NetClientOptions
+
+  pure native addEnabledCipherSuite :: NetClientOptions -> String -> NetClientOptions
+
+  pure native equals :: NetClientOptions -> Object -> Bool
+
+  pure native getReconnectAttempts :: NetClientOptions -> Int
+
+  pure native getReconnectInterval :: NetClientOptions -> Long
+
+  pure native hashCode :: NetClientOptions -> Int
+
+  pure native setConnectTimeout :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setIdleTimeout :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setKeyStoreOptions :: NetClientOptions -> JksOptions -> NetClientOptions
+
+  pure native setPemKeyCertOptions :: NetClientOptions -> PemKeyCertOptions -> NetClientOptions
+
+  pure native setPemTrustOptions :: NetClientOptions -> PemTrustOptions -> NetClientOptions
+
+  pure native setPfxKeyCertOptions :: NetClientOptions -> PfxOptions -> NetClientOptions
+
+  pure native setPfxTrustOptions :: NetClientOptions -> PfxOptions -> NetClientOptions
+
+  pure native setReceiveBufferSize :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setReconnectAttempts :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setReconnectInterval :: NetClientOptions -> Long -> NetClientOptions
+
+  pure native setReuseAddress :: NetClientOptions -> Bool -> NetClientOptions
+
+  pure native setSendBufferSize :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setSoLinger :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setSsl :: NetClientOptions -> Bool -> NetClientOptions
+
+  pure native setTcpKeepAlive :: NetClientOptions -> Bool -> NetClientOptions
+
+  pure native setTcpNoDelay :: NetClientOptions -> Bool -> NetClientOptions
+
+  pure native setTrafficClass :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setTrustAll :: NetClientOptions -> Bool -> NetClientOptions
+
+  pure native setTrustStoreOptions :: NetClientOptions -> JksOptions -> NetClientOptions
+
+  pure native setUsePooledBuffers :: NetClientOptions -> Bool -> NetClientOptions
+
+
+import io.vertx.core.Json
+import io.vertx.core.Http
+import io.vertx.core.Buffer
+
+data NetServerOptions = pure native io.vertx.core.net.NetServerOptions where
+
+  pure native default_port "io.vertx.core.net.NetServerOptions.DEFAULT_PORT" :: Int
+  pure native default_host "io.vertx.core.net.NetServerOptions.DEFAULT_HOST" :: String
+  pure native default_accept_backlog "io.vertx.core.net.NetServerOptions.DEFAULT_ACCEPT_BACKLOG" :: Int
+  pure native default_client_auth "io.vertx.core.net.NetServerOptions.DEFAULT_CLIENT_AUTH" :: ClientAuth
+
+  pure native new :: JsonObject -> NetServerOptions
+                   | NetServerOptions -> NetServerOptions
+                   | () -> NetServerOptions
+
+  pure native addCrlPath :: NetServerOptions -> String -> NetServerOptions
+
+  pure native addCrlValue :: NetServerOptions -> Buffer -> NetServerOptions
+
+  pure native addEnabledCipherSuite :: NetServerOptions -> String -> NetServerOptions
+
+  pure native equals :: NetServerOptions -> Object -> Bool
+
+  pure native getAcceptBacklog :: NetServerOptions -> Int
+
+  pure native getClientAuth :: NetServerOptions -> ClientAuth
+
+  pure native getHost :: NetServerOptions -> String
+
+  pure native getPort :: NetServerOptions -> Int
+
+  pure native hashCode :: NetServerOptions -> Int
+
+  pure native isClientAuthRequired :: NetServerOptions -> Bool
+
+  pure native setAcceptBacklog :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setClientAuth :: NetServerOptions -> ClientAuth -> NetServerOptions
+
+  pure native setClientAuthRequired :: NetServerOptions -> Bool -> NetServerOptions
+
+  pure native setHost :: NetServerOptions -> String -> NetServerOptions
+
+  pure native setIdleTimeout :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setKeyStoreOptions :: NetServerOptions -> JksOptions -> NetServerOptions
+
+  pure native setPemKeyCertOptions :: NetServerOptions -> PemKeyCertOptions -> NetServerOptions
+
+  pure native setPemTrustOptions :: NetServerOptions -> PemTrustOptions -> NetServerOptions
+
+  pure native setPfxKeyCertOptions :: NetServerOptions -> PfxOptions -> NetServerOptions
+
+  pure native setPfxTrustOptions :: NetServerOptions -> PfxOptions -> NetServerOptions
+
+  pure native setPort :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setReceiveBufferSize :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setReuseAddress :: NetServerOptions -> Bool -> NetServerOptions
+
+  pure native setSendBufferSize :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setSoLinger :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setSsl :: NetServerOptions -> Bool -> NetServerOptions
+
+  pure native setTcpKeepAlive :: NetServerOptions -> Bool -> NetServerOptions
+
+  pure native setTcpNoDelay :: NetServerOptions -> Bool -> NetServerOptions
+
+  pure native setTrafficClass :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setTrustStoreOptions :: NetServerOptions -> JksOptions -> NetServerOptions
+
+  pure native setUsePooledBuffers :: NetServerOptions -> Bool -> NetServerOptions
+
+
+import io.vertx.Core
+
+data NetServer = pure native io.vertx.core.net.NetServer where
+
+  pure native actualPort :: NetServer -> Int
+
+  pure native close :: NetServer -> ()
+                     | NetServer -> Handler (AsyncResult Void) -> ()
+
+  pure native connectHandler :: NetServer -> Handler NetSocket -> NetServer
+                              | NetServer -> Handler NetSocket
+
+  pure native connectStream :: NetServer -> NetSocketStream
+
+  pure native listen :: NetServer -> Handler (AsyncResult NetServer) -> NetServer
+                      | NetServer -> Int -> String -> NetServer
+                      | NetServer -> Int -> Handler (AsyncResult NetServer) -> NetServer
+                      | NetServer -> Int -> NetServer
+                      | NetServer -> Int -> String -> Handler (AsyncResult NetServer) -> NetServer
+                      | NetServer -> NetServer
+
+
+
+data SocketAddress = pure native io.vertx.core.net.SocketAddress where
+
+  pure native host :: SocketAddress -> String
+
+  pure native port :: SocketAddress -> Int
+
+
+import io.vertx.Core
+import javax.security.Cert
+import javax.net.Ssl
+import io.vertx.core.Buffer
+
+data NetSocket = pure native io.vertx.core.net.NetSocket where
+
+  pure native close :: NetSocket -> ()
+
+  pure native closeHandler :: NetSocket -> Handler Void -> NetSocket
+
+  pure native drainHandler :: NetSocket -> Handler Void -> NetSocket
+
+  pure native end :: NetSocket -> ()
+
+  pure native endHandler :: NetSocket -> Handler Void -> NetSocket
+
+  pure native exceptionHandler :: NetSocket -> Handler Throwable -> NetSocket
+
+  pure native handler :: NetSocket -> Handler Buffer -> NetSocket
+
+  pure native isSsl :: NetSocket -> Bool
+
+  pure native localAddress :: NetSocket -> SocketAddress
+
+  pure native pause :: NetSocket -> NetSocket
+
+  native peerCertificateChain :: NetSocket -> STMutable s (JArray X509Certificate) throws SSLPeerUnverifiedException
+
+  pure native remoteAddress :: NetSocket -> SocketAddress
+
+  pure native resume :: NetSocket -> NetSocket
+
+  pure native sendFile :: NetSocket -> String -> Long -> Long -> NetSocket
+                        | NetSocket -> String -> NetSocket
+                        | NetSocket -> String -> Long -> NetSocket
+                        | NetSocket -> String -> Long -> Handler (AsyncResult Void) -> NetSocket
+                        | NetSocket -> String -> Long -> Long -> Handler (AsyncResult Void) -> NetSocket
+                        | NetSocket -> String -> Handler (AsyncResult Void) -> NetSocket
+
+  pure native setWriteQueueMaxSize :: NetSocket -> Int -> NetSocket
+
+  pure native upgradeToSsl :: NetSocket -> Handler Void -> NetSocket
+
+  pure native write :: NetSocket -> String -> NetSocket
+                     | NetSocket -> Buffer -> NetSocket
+                     | NetSocket -> String -> String -> NetSocket
+
+  pure native writeHandlerID :: NetSocket -> String
+
+
+import io.vertx.Core
+
+data NetSocketStream = pure native io.vertx.core.net.NetSocketStream where
+
+  pure native endHandler :: NetSocketStream -> Handler Void -> NetSocketStream
+
+  pure native exceptionHandler :: NetSocketStream -> Handler Throwable -> NetSocketStream
+
+  pure native handler :: NetSocketStream -> Handler NetSocket -> NetSocketStream
+
+  pure native pause :: NetSocketStream -> NetSocketStream
+
+  pure native resume :: NetSocketStream -> NetSocketStream
+
+

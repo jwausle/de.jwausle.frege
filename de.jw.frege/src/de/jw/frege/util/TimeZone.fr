@@ -1,8 +1,0 @@
-module de.jw.frege.util.TimeZone where
-
-type TimeZone = TimeZoneJ
-
-protected data TimeZoneJ = native java.util.TimeZone where
-    pure native makeTimeZone java.util.TimeZone.getTimeZone :: String -> TimeZoneJ
-    pure native currentTimeZone java.util.TimeZone.getDefault :: TimeZoneJ
-    pure native getID :: TimeZoneJ -> String 

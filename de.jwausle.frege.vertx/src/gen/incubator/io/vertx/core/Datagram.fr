@@ -1,0 +1,109 @@
+module io.vertx.core.Datagram where
+
+import io.vertx.core.Json
+
+data DatagramSocketOptions = pure native io.vertx.core.datagram.DatagramSocketOptions where
+
+  pure native default_broadcast "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_BROADCAST" :: Bool
+  pure native default_loopback_mode_disabled "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_LOOPBACK_MODE_DISABLED" :: Bool
+  pure native default_multicast_time_to_live "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_MULTICAST_TIME_TO_LIVE" :: Int
+  pure native default_multicast_network_interface "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_MULTICAST_NETWORK_INTERFACE" :: String
+  pure native default_reuse_address "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_REUSE_ADDRESS" :: Bool
+  pure native default_ipv6 "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_IPV6" :: Bool
+
+  pure native new :: JsonObject -> DatagramSocketOptions
+                   | DatagramSocketOptions -> DatagramSocketOptions
+                   | () -> DatagramSocketOptions
+
+  pure native equals :: DatagramSocketOptions -> Object -> Bool
+
+  pure native getMulticastNetworkInterface :: DatagramSocketOptions -> String
+
+  pure native getMulticastTimeToLive :: DatagramSocketOptions -> Int
+
+  pure native getReceiveBufferSize :: DatagramSocketOptions -> Int
+
+  pure native getSendBufferSize :: DatagramSocketOptions -> Int
+
+  pure native getTrafficClass :: DatagramSocketOptions -> Int
+
+  pure native hashCode :: DatagramSocketOptions -> Int
+
+  pure native isBroadcast :: DatagramSocketOptions -> Bool
+
+  pure native isIpV6 :: DatagramSocketOptions -> Bool
+
+  pure native isLoopbackModeDisabled :: DatagramSocketOptions -> Bool
+
+  pure native setBroadcast :: DatagramSocketOptions -> Bool -> DatagramSocketOptions
+
+  pure native setIpV6 :: DatagramSocketOptions -> Bool -> DatagramSocketOptions
+
+  pure native setLoopbackModeDisabled :: DatagramSocketOptions -> Bool -> DatagramSocketOptions
+
+  pure native setMulticastNetworkInterface :: DatagramSocketOptions -> String -> DatagramSocketOptions
+
+  pure native setMulticastTimeToLive :: DatagramSocketOptions -> Int -> DatagramSocketOptions
+
+  pure native setReceiveBufferSize :: DatagramSocketOptions -> Int -> DatagramSocketOptions
+
+  pure native setReuseAddress :: DatagramSocketOptions -> Bool -> DatagramSocketOptions
+
+  pure native setSendBufferSize :: DatagramSocketOptions -> Int -> DatagramSocketOptions
+
+  pure native setTrafficClass :: DatagramSocketOptions -> Int -> DatagramSocketOptions
+
+
+import io.vertx.Core
+import io.vertx.core.Net
+import io.vertx.core.Buffer
+
+data DatagramSocket = pure native io.vertx.core.datagram.DatagramSocket where
+
+  pure native blockMulticastGroup :: DatagramSocket -> String -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+                                   | DatagramSocket -> String -> String -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+
+  pure native close :: DatagramSocket -> ()
+                     | DatagramSocket -> Handler (AsyncResult Void) -> ()
+
+  pure native endHandler :: DatagramSocket -> Handler Void -> DatagramSocket
+
+  pure native exceptionHandler :: DatagramSocket -> Handler Throwable -> DatagramSocket
+
+  pure native handler :: DatagramSocket -> Handler DatagramPacket -> DatagramSocket
+
+  pure native listen :: DatagramSocket -> Int -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+
+  pure native listenMulticastGroup :: DatagramSocket -> String -> String -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+                                    | DatagramSocket -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+
+  pure native localAddress :: DatagramSocket -> SocketAddress
+
+  pure native pause :: DatagramSocket -> DatagramSocket
+
+  pure native resume :: DatagramSocket -> DatagramSocket
+
+  pure native send :: DatagramSocket -> Buffer -> Int -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+                    | DatagramSocket -> String -> Int -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+                    | DatagramSocket -> String -> String -> Int -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+
+  pure native sender :: DatagramSocket -> Int -> String -> PacketWritestream
+
+  pure native unlistenMulticastGroup :: DatagramSocket -> String -> String -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+                                      | DatagramSocket -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+
+
+import io.vertx.Core
+import io.vertx.core.Buffer
+
+data PacketWritestream = pure native io.vertx.core.datagram.PacketWritestream where
+
+  pure native drainHandler :: PacketWritestream -> Handler Void -> PacketWritestream
+
+  pure native exceptionHandler :: PacketWritestream -> Handler Throwable -> PacketWritestream
+
+  pure native setWriteQueueMaxSize :: PacketWritestream -> Int -> PacketWritestream
+
+  pure native write :: PacketWritestream -> Buffer -> PacketWritestream
+
+

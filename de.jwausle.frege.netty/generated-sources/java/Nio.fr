@@ -1,0 +1,99 @@
+module java.Nio where
+
+
+data ByteBuffer = native java.nio.ByteBuffer where
+
+  native allocate "java.nio.ByteBuffer.allocate" :: Int -> STMutable s ByteBuffer
+
+  native allocateDirect "java.nio.ByteBuffer.allocateDirect" :: Int -> STMutable s ByteBuffer
+
+  native array :: Mutable s ByteBuffer -> STMutable s (JArray Byte)
+
+  native arrayOffset :: Mutable s ByteBuffer -> ST s Int
+
+  native asCharBuffer :: Mutable s ByteBuffer -> STMutable s CharBuffer
+
+  native asDoubleBuffer :: Mutable s ByteBuffer -> STMutable s DoubleBuffer
+
+  native asFloatBuffer :: Mutable s ByteBuffer -> STMutable s FloatBuffer
+
+  native asIntBuffer :: Mutable s ByteBuffer -> STMutable s IntBuffer
+
+  native asLongBuffer :: Mutable s ByteBuffer -> STMutable s LongBuffer
+
+  native asReadOnlyBuffer :: Mutable s ByteBuffer -> STMutable s ByteBuffer
+
+  native asShortBuffer :: Mutable s ByteBuffer -> STMutable s ShortBuffer
+
+  native compact :: Mutable s ByteBuffer -> STMutable s ByteBuffer
+
+  native compareTo :: Mutable s ByteBuffer -> Mutable s ByteBuffer -> ST s Int
+
+  native duplicate :: Mutable s ByteBuffer -> STMutable s ByteBuffer
+
+  native equals :: Mutable s ByteBuffer -> Object -> ST s Bool
+
+  native get :: Mutable s ByteBuffer -> Int -> ST s Byte
+              | Mutable s ByteBuffer -> Mutable s (JArray Byte) -> Int -> Int -> STMutable s ByteBuffer
+              | Mutable s ByteBuffer -> ST s Byte
+              | Mutable s ByteBuffer -> Mutable s (JArray Byte) -> STMutable s ByteBuffer
+
+  native getChar :: Mutable s ByteBuffer -> Int -> ST s Char
+                  | Mutable s ByteBuffer -> ST s Char
+
+  native getDouble :: Mutable s ByteBuffer -> Int -> ST s Double
+                    | Mutable s ByteBuffer -> ST s Double
+
+  native getFloat :: Mutable s ByteBuffer -> ST s Float
+                   | Mutable s ByteBuffer -> Int -> ST s Float
+
+  native getInt :: Mutable s ByteBuffer -> ST s Int
+                 | Mutable s ByteBuffer -> Int -> ST s Int
+
+  native getLong :: Mutable s ByteBuffer -> Int -> ST s Long
+                  | Mutable s ByteBuffer -> ST s Long
+
+  native getShort :: Mutable s ByteBuffer -> ST s Short
+                   | Mutable s ByteBuffer -> Int -> ST s Short
+
+  native hasArray :: Mutable s ByteBuffer -> ST s Bool
+
+  native hashCode :: Mutable s ByteBuffer -> ST s Int
+
+  native isDirect :: Mutable s ByteBuffer -> ST s Bool
+
+  native order :: Mutable s ByteBuffer -> ByteOrder -> STMutable s ByteBuffer
+                | Mutable s ByteBuffer -> ST s ByteOrder
+
+  native put :: Mutable s ByteBuffer -> Mutable s (JArray Byte) -> Int -> Int -> STMutable s ByteBuffer
+              | Mutable s ByteBuffer -> Byte -> STMutable s ByteBuffer
+              | Mutable s ByteBuffer -> Mutable s ByteBuffer -> STMutable s ByteBuffer
+              | Mutable s ByteBuffer -> Int -> Byte -> STMutable s ByteBuffer
+              | Mutable s ByteBuffer -> Mutable s (JArray Byte) -> STMutable s ByteBuffer
+
+  native putChar :: Mutable s ByteBuffer -> Int -> Char -> STMutable s ByteBuffer
+                  | Mutable s ByteBuffer -> Char -> STMutable s ByteBuffer
+
+  native putDouble :: Mutable s ByteBuffer -> Int -> Double -> STMutable s ByteBuffer
+                    | Mutable s ByteBuffer -> Double -> STMutable s ByteBuffer
+
+  native putFloat :: Mutable s ByteBuffer -> Float -> STMutable s ByteBuffer
+                   | Mutable s ByteBuffer -> Int -> Float -> STMutable s ByteBuffer
+
+  native putInt :: Mutable s ByteBuffer -> Int -> STMutable s ByteBuffer
+                 | Mutable s ByteBuffer -> Int -> Int -> STMutable s ByteBuffer
+
+  native putLong :: Mutable s ByteBuffer -> Int -> Long -> STMutable s ByteBuffer
+                  | Mutable s ByteBuffer -> Long -> STMutable s ByteBuffer
+
+  native putShort :: Mutable s ByteBuffer -> Int -> Short -> STMutable s ByteBuffer
+                   | Mutable s ByteBuffer -> Short -> STMutable s ByteBuffer
+
+  native slice :: Mutable s ByteBuffer -> STMutable s ByteBuffer
+
+  native toString :: Mutable s ByteBuffer -> ST s String
+
+  native wrap "java.nio.ByteBuffer.wrap" :: Mutable s (JArray Byte) -> STMutable s ByteBuffer
+                                          | Mutable s (JArray Byte) -> Int -> Int -> STMutable s ByteBuffer
+
+

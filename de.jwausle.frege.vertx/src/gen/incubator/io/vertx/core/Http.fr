@@ -1,0 +1,821 @@
+module io.vertx.core.Http where
+
+import io.vertx.core.Json
+import io.vertx.core.Buffer
+import io.vertx.core.Net
+
+data HttpClientOptions = pure native io.vertx.core.http.HttpClientOptions where
+
+  pure native default_max_pool_size "io.vertx.core.http.HttpClientOptions.DEFAULT_MAX_POOL_SIZE" :: Int
+  pure native default_keep_alive "io.vertx.core.http.HttpClientOptions.DEFAULT_KEEP_ALIVE" :: Bool
+  pure native default_pipelining "io.vertx.core.http.HttpClientOptions.DEFAULT_PIPELINING" :: Bool
+  pure native default_try_use_compression "io.vertx.core.http.HttpClientOptions.DEFAULT_TRY_USE_COMPRESSION" :: Bool
+  pure native default_verify_host "io.vertx.core.http.HttpClientOptions.DEFAULT_VERIFY_HOST" :: Bool
+  pure native default_max_websocket_frame_size "io.vertx.core.http.HttpClientOptions.DEFAULT_MAX_WEBSOCKET_FRAME_SIZE" :: Int
+  pure native default_default_host "io.vertx.core.http.HttpClientOptions.DEFAULT_DEFAULT_HOST" :: String
+  pure native default_default_port "io.vertx.core.http.HttpClientOptions.DEFAULT_DEFAULT_PORT" :: Int
+  pure native default_protocol_version "io.vertx.core.http.HttpClientOptions.DEFAULT_PROTOCOL_VERSION" :: HttpVersion
+  pure native default_max_chunk_size "io.vertx.core.http.HttpClientOptions.DEFAULT_MAX_CHUNK_SIZE" :: Int
+  pure native default_max_wait_queue_size "io.vertx.core.http.HttpClientOptions.DEFAULT_MAX_WAIT_QUEUE_SIZE" :: Int
+
+  pure native new :: JsonObject -> HttpClientOptions
+                   | HttpClientOptions -> HttpClientOptions
+                   | () -> HttpClientOptions
+
+  pure native addCrlPath :: HttpClientOptions -> String -> HttpClientOptions
+
+  pure native addCrlValue :: HttpClientOptions -> Buffer -> HttpClientOptions
+
+  pure native addEnabledCipherSuite :: HttpClientOptions -> String -> HttpClientOptions
+
+  pure native equals :: HttpClientOptions -> Object -> Bool
+
+  pure native getDefaultHost :: HttpClientOptions -> String
+
+  pure native getDefaultPort :: HttpClientOptions -> Int
+
+  pure native getMaxChunkSize :: HttpClientOptions -> Int
+
+  pure native getMaxPoolSize :: HttpClientOptions -> Int
+
+  pure native getMaxWaitQueueSize :: HttpClientOptions -> Int
+
+  pure native getMaxWebsocketFrameSize :: HttpClientOptions -> Int
+
+  pure native getProtocolVersion :: HttpClientOptions -> HttpVersion
+
+  pure native hashCode :: HttpClientOptions -> Int
+
+  pure native isKeepAlive :: HttpClientOptions -> Bool
+
+  pure native isPipelining :: HttpClientOptions -> Bool
+
+  pure native isTryUseCompression :: HttpClientOptions -> Bool
+
+  pure native isVerifyHost :: HttpClientOptions -> Bool
+
+  pure native setConnectTimeout :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setDefaultHost :: HttpClientOptions -> String -> HttpClientOptions
+
+  pure native setDefaultPort :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setIdleTimeout :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setKeepAlive :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setKeyStoreOptions :: HttpClientOptions -> JksOptions -> HttpClientOptions
+
+  pure native setMaxChunkSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setMaxPoolSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setMaxWaitQueueSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setMaxWebsocketFrameSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setPemKeyCertOptions :: HttpClientOptions -> PemKeyCertOptions -> HttpClientOptions
+
+  pure native setPemTrustOptions :: HttpClientOptions -> PemTrustOptions -> HttpClientOptions
+
+  pure native setPfxKeyCertOptions :: HttpClientOptions -> PfxOptions -> HttpClientOptions
+
+  pure native setPfxTrustOptions :: HttpClientOptions -> PfxOptions -> HttpClientOptions
+
+  pure native setPipelining :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setProtocolVersion :: HttpClientOptions -> HttpVersion -> HttpClientOptions
+
+  pure native setReceiveBufferSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setReuseAddress :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setSendBufferSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setSoLinger :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setSsl :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setTcpKeepAlive :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setTcpNoDelay :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setTrafficClass :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setTrustAll :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setTrustStoreOptions :: HttpClientOptions -> JksOptions -> HttpClientOptions
+
+  pure native setTryUseCompression :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setUsePooledBuffers :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setVerifyHost :: HttpClientOptions -> Bool -> HttpClientOptions
+
+
+import io.vertx.Core
+
+data HttpClient = pure native io.vertx.core.http.HttpClient where
+
+  pure native close :: HttpClient -> ()
+
+  pure native delete :: HttpClient -> String -> HttpClientRequest
+                      | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                      | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                      | HttpClient -> Int -> String -> String -> HttpClientRequest
+                      | HttpClient -> String -> String -> HttpClientRequest
+                      | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native deleteAbs :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                         | HttpClient -> String -> HttpClientRequest
+
+  pure native get :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                   | HttpClient -> String -> HttpClientRequest
+                   | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                   | HttpClient -> Int -> String -> String -> HttpClientRequest
+                   | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                   | HttpClient -> String -> String -> HttpClientRequest
+
+  pure native getAbs :: HttpClient -> String -> HttpClientRequest
+                      | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native getNow :: HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClient
+                      | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClient
+                      | HttpClient -> String -> Handler HttpClientResponse -> HttpClient
+
+  pure native head :: HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                    | HttpClient -> String -> HttpClientRequest
+                    | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                    | HttpClient -> Int -> String -> String -> HttpClientRequest
+                    | HttpClient -> String -> String -> HttpClientRequest
+                    | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native headAbs :: HttpClient -> String -> HttpClientRequest
+                       | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native headNow :: HttpClient -> String -> Handler HttpClientResponse -> HttpClient
+                       | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClient
+                       | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClient
+
+  pure native options :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> Int -> String -> String -> HttpClientRequest
+                       | HttpClient -> String -> String -> HttpClientRequest
+                       | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> String -> HttpClientRequest
+
+  pure native optionsAbs :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                          | HttpClient -> String -> HttpClientRequest
+
+  pure native optionsNow :: HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClient
+                          | HttpClient -> String -> Handler HttpClientResponse -> HttpClient
+                          | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClient
+
+  pure native post :: HttpClient -> Int -> String -> String -> HttpClientRequest
+                    | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                    | HttpClient -> String -> String -> HttpClientRequest
+                    | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                    | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                    | HttpClient -> String -> HttpClientRequest
+
+  pure native postAbs :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> String -> HttpClientRequest
+
+  pure native put :: HttpClient -> String -> HttpClientRequest
+                   | HttpClient -> Int -> String -> String -> HttpClientRequest
+                   | HttpClient -> String -> String -> HttpClientRequest
+                   | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                   | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                   | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native putAbs :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                      | HttpClient -> String -> HttpClientRequest
+
+  pure native request :: HttpClient -> HttpMethod -> String -> String -> HttpClientRequest
+                       | HttpClient -> HttpMethod -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> HttpMethod -> Int -> String -> String -> HttpClientRequest
+                       | HttpClient -> HttpMethod -> String -> HttpClientRequest
+                       | HttpClient -> HttpMethod -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> HttpMethod -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native requestAbs :: HttpClient -> HttpMethod -> String -> Handler HttpClientResponse -> HttpClientRequest
+                          | HttpClient -> HttpMethod -> String -> HttpClientRequest
+
+  pure native websocket :: HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> MultiMap -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> Int -> String -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> MultiMap -> Handler WebSocket -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> Int -> String -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> String -> MultiMap -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> String -> MultiMap -> Handler WebSocket -> HttpClient
+
+  pure native websocketStream :: HttpClient -> String -> String -> MultiMap -> WebSocketStream
+                               | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> WebSocketStream
+                               | HttpClient -> Int -> String -> String -> MultiMap -> WebSocketStream
+                               | HttpClient -> String -> String -> WebSocketStream
+                               | HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> WebSocketStream
+                               | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> String -> WebSocketStream
+                               | HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> String -> WebSocketStream
+                               | HttpClient -> String -> MultiMap -> WebsocketVersion -> String -> WebSocketStream
+                               | HttpClient -> String -> MultiMap -> WebsocketVersion -> WebSocketStream
+                               | HttpClient -> String -> MultiMap -> WebSocketStream
+                               | HttpClient -> String -> WebSocketStream
+                               | HttpClient -> Int -> String -> String -> WebSocketStream
+
+
+
+data HttpVersion = pure native io.vertx.core.http.HttpVersion where
+
+  pure native http_1_0 "io.vertx.core.http.HttpVersion.HTTP_1_0" :: HttpVersion
+  pure native http_1_1 "io.vertx.core.http.HttpVersion.HTTP_1_1" :: HttpVersion
+
+  pure native valueOf "io.vertx.core.http.HttpVersion.valueOf" :: String -> HttpVersion
+
+  native values "io.vertx.core.http.HttpVersion.values" :: () -> STMutable s (JArray HttpVersion)
+
+derive Serializable HttpVersion
+
+import io.vertx.Core
+
+data HttpServer = pure native io.vertx.core.http.HttpServer where
+
+  pure native close :: HttpServer -> ()
+                     | HttpServer -> Handler (AsyncResult Void) -> ()
+
+  pure native listen :: HttpServer -> Int -> Handler (AsyncResult HttpServer) -> HttpServer
+                      | HttpServer -> Int -> HttpServer
+                      | HttpServer -> Int -> String -> Handler (AsyncResult HttpServer) -> HttpServer
+                      | HttpServer -> HttpServer
+                      | HttpServer -> Int -> String -> HttpServer
+                      | HttpServer -> Handler (AsyncResult HttpServer) -> HttpServer
+
+  pure native requestHandler :: HttpServer -> Handler HttpServerRequest -> HttpServer
+                              | HttpServer -> Handler HttpServerRequest
+
+  pure native requestStream :: HttpServer -> HttpServerRequestStream
+
+  pure native websocketHandler :: HttpServer -> Handler ServerWebSocket
+                                | HttpServer -> Handler ServerWebSocket -> HttpServer
+
+  pure native websocketStream :: HttpServer -> ServerWebSocketStream
+
+
+import io.vertx.core.Json
+import io.vertx.core.Buffer
+import io.vertx.core.Net
+
+data HttpServerOptions = pure native io.vertx.core.http.HttpServerOptions where
+
+  pure native default_port "io.vertx.core.http.HttpServerOptions.DEFAULT_PORT" :: Int
+  pure native default_compression_supported "io.vertx.core.http.HttpServerOptions.DEFAULT_COMPRESSION_SUPPORTED" :: Bool
+  pure native default_max_websocket_frame_size "io.vertx.core.http.HttpServerOptions.DEFAULT_MAX_WEBSOCKET_FRAME_SIZE" :: Int
+  pure native default_max_chunk_size "io.vertx.core.http.HttpServerOptions.DEFAULT_MAX_CHUNK_SIZE" :: Int
+  pure native default_handle_100_contine_automatically "io.vertx.core.http.HttpServerOptions.DEFAULT_HANDLE_100_CONTINE_AUTOMATICALLY" :: Bool
+
+  pure native new :: JsonObject -> HttpServerOptions
+                   | HttpServerOptions -> HttpServerOptions
+                   | () -> HttpServerOptions
+
+  pure native addCrlPath :: HttpServerOptions -> String -> HttpServerOptions
+
+  pure native addCrlValue :: HttpServerOptions -> Buffer -> HttpServerOptions
+
+  pure native addEnabledCipherSuite :: HttpServerOptions -> String -> HttpServerOptions
+
+  pure native equals :: HttpServerOptions -> Object -> Bool
+
+  pure native getMaxChunkSize :: HttpServerOptions -> Int
+
+  pure native getMaxWebsocketFrameSize :: HttpServerOptions -> Int
+
+  pure native getWebsocketSubProtocols :: HttpServerOptions -> String
+
+  pure native hashCode :: HttpServerOptions -> Int
+
+  pure native isCompressionSupported :: HttpServerOptions -> Bool
+
+  pure native isHandle100ContinueAutomatically :: HttpServerOptions -> Bool
+
+  pure native setAcceptBacklog :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setClientAuth :: HttpServerOptions -> ClientAuth -> HttpServerOptions
+
+  pure native setClientAuthRequired :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setCompressionSupported :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setHandle100ContinueAutomatically :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setHost :: HttpServerOptions -> String -> HttpServerOptions
+
+  pure native setIdleTimeout :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setKeyStoreOptions :: HttpServerOptions -> JksOptions -> HttpServerOptions
+
+  pure native setMaxChunkSize :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setMaxWebsocketFrameSize :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setPemKeyCertOptions :: HttpServerOptions -> PemKeyCertOptions -> HttpServerOptions
+
+  pure native setPemTrustOptions :: HttpServerOptions -> PemTrustOptions -> HttpServerOptions
+
+  pure native setPfxKeyCertOptions :: HttpServerOptions -> PfxOptions -> HttpServerOptions
+
+  pure native setPfxTrustOptions :: HttpServerOptions -> PfxOptions -> HttpServerOptions
+
+  pure native setPort :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setReceiveBufferSize :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setReuseAddress :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setSendBufferSize :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setSoLinger :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setSsl :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setTcpKeepAlive :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setTcpNoDelay :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setTrafficClass :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setTrustStoreOptions :: HttpServerOptions -> JksOptions -> HttpServerOptions
+
+  pure native setUsePooledBuffers :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setWebsocketSubProtocols :: HttpServerOptions -> String -> HttpServerOptions
+
+
+import io.vertx.Core
+import io.vertx.core.Buffer
+
+data HttpClientRequest = pure native io.vertx.core.http.HttpClientRequest where
+
+  pure native continueHandler :: HttpClientRequest -> Handler Void -> HttpClientRequest
+
+  pure native drainHandler :: HttpClientRequest -> Handler Void -> HttpClientRequest
+
+  pure native end :: HttpClientRequest -> Buffer -> ()
+                   | HttpClientRequest -> ()
+                   | HttpClientRequest -> String -> ()
+                   | HttpClientRequest -> String -> String -> ()
+
+  pure native endHandler :: HttpClientRequest -> Handler Void -> HttpClientRequest
+
+  pure native exceptionHandler :: HttpClientRequest -> Handler Throwable -> HttpClientRequest
+
+  pure native handler :: HttpClientRequest -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native headers :: HttpClientRequest -> MultiMap
+
+  pure native isChunked :: HttpClientRequest -> Bool
+
+  pure native method :: HttpClientRequest -> HttpMethod
+
+  pure native pause :: HttpClientRequest -> HttpClientRequest
+
+  pure native putHeader :: HttpClientRequest -> CharSequence -> Iterable CharSequence -> HttpClientRequest
+                         | HttpClientRequest -> String -> Iterable String -> HttpClientRequest
+                         | HttpClientRequest -> String -> String -> HttpClientRequest
+                         | HttpClientRequest -> CharSequence -> CharSequence -> HttpClientRequest
+
+  pure native resume :: HttpClientRequest -> HttpClientRequest
+
+  pure native sendHead :: HttpClientRequest -> HttpClientRequest
+
+  pure native setChunked :: HttpClientRequest -> Bool -> HttpClientRequest
+
+  pure native setTimeout :: HttpClientRequest -> Long -> HttpClientRequest
+
+  pure native setWriteQueueMaxSize :: HttpClientRequest -> Int -> HttpClientRequest
+
+  pure native uri :: HttpClientRequest -> String
+
+  pure native write :: HttpClientRequest -> String -> HttpClientRequest
+                     | HttpClientRequest -> Buffer -> HttpClientRequest
+                     | HttpClientRequest -> String -> String -> HttpClientRequest
+
+
+import io.vertx.Core
+import java.Util
+import io.vertx.core.Net
+
+data HttpClientResponse = pure native io.vertx.core.http.HttpClientResponse where
+
+  pure native bodyHandler :: HttpClientResponse -> Handler Buffer -> HttpClientResponse
+
+  native cookies :: HttpClientResponse -> STMutable s (List String)
+
+  pure native endHandler :: HttpClientResponse -> Handler Void -> HttpClientResponse
+
+  pure native exceptionHandler :: HttpClientResponse -> Handler Throwable -> HttpClientResponse
+
+  pure native getHeader :: HttpClientResponse -> String -> String
+                         | HttpClientResponse -> CharSequence -> String
+
+  pure native getTrailer :: HttpClientResponse -> String -> String
+
+  pure native handler :: HttpClientResponse -> Handler Buffer -> HttpClientResponse
+
+  pure native headers :: HttpClientResponse -> MultiMap
+
+  pure native netSocket :: HttpClientResponse -> NetSocket
+
+  pure native pause :: HttpClientResponse -> HttpClientResponse
+
+  pure native resume :: HttpClientResponse -> HttpClientResponse
+
+  pure native statusCode :: HttpClientResponse -> Int
+
+  pure native statusMessage :: HttpClientResponse -> String
+
+  pure native trailers :: HttpClientResponse -> MultiMap
+
+
+
+data WebsocketVersion = pure native io.vertx.core.http.WebsocketVersion where
+
+  pure native v00 "io.vertx.core.http.WebsocketVersion.V00" :: WebsocketVersion
+  pure native v07 "io.vertx.core.http.WebsocketVersion.V07" :: WebsocketVersion
+  pure native v08 "io.vertx.core.http.WebsocketVersion.V08" :: WebsocketVersion
+  pure native v13 "io.vertx.core.http.WebsocketVersion.V13" :: WebsocketVersion
+
+  pure native valueOf "io.vertx.core.http.WebsocketVersion.valueOf" :: String -> WebsocketVersion
+
+  native values "io.vertx.core.http.WebsocketVersion.values" :: () -> STMutable s (JArray WebsocketVersion)
+
+derive Serializable WebsocketVersion
+
+import io.vertx.Core
+import io.vertx.core.Buffer
+
+data WebSocket = pure native io.vertx.core.http.WebSocket where
+
+  pure native closeHandler :: WebSocket -> Handler Void -> WebSocket
+
+  pure native drainHandler :: WebSocket -> Handler Void -> WebSocket
+
+  pure native endHandler :: WebSocket -> Handler Void -> WebSocket
+
+  pure native exceptionHandler :: WebSocket -> Handler Throwable -> WebSocket
+
+  pure native frameHandler :: WebSocket -> Handler WebSocketFrame -> WebSocket
+
+  pure native handler :: WebSocket -> Handler Buffer -> WebSocket
+
+  pure native pause :: WebSocket -> WebSocket
+
+  pure native resume :: WebSocket -> WebSocket
+
+  pure native setWriteQueueMaxSize :: WebSocket -> Int -> WebSocket
+
+  pure native write :: WebSocket -> Buffer -> WebSocket
+
+  pure native writeBinaryMessage :: WebSocket -> Buffer -> WebSocket
+
+  pure native writeFinalBinaryFrame :: WebSocket -> Buffer -> WebSocket
+
+  pure native writeFinalTextFrame :: WebSocket -> String -> WebSocket
+
+  pure native writeFrame :: WebSocket -> WebSocketFrame -> WebSocket
+
+
+import io.vertx.Core
+
+data WebSocketStream = pure native io.vertx.core.http.WebSocketStream where
+
+  pure native endHandler :: WebSocketStream -> Handler Void -> WebSocketStream
+
+  pure native exceptionHandler :: WebSocketStream -> Handler Throwable -> WebSocketStream
+
+  pure native handler :: WebSocketStream -> Handler WebSocket -> WebSocketStream
+
+  pure native pause :: WebSocketStream -> WebSocketStream
+
+  pure native resume :: WebSocketStream -> WebSocketStream
+
+
+import io.vertx.Core
+
+data HttpServerRequestStream = pure native io.vertx.core.http.HttpServerRequestStream where
+
+  pure native endHandler :: HttpServerRequestStream -> Handler Void -> HttpServerRequestStream
+
+  pure native exceptionHandler :: HttpServerRequestStream -> Handler Throwable -> HttpServerRequestStream
+
+  pure native handler :: HttpServerRequestStream -> Handler HttpServerRequest -> HttpServerRequestStream
+
+  pure native pause :: HttpServerRequestStream -> HttpServerRequestStream
+
+  pure native resume :: HttpServerRequestStream -> HttpServerRequestStream
+
+
+import io.vertx.core.Spi
+import io.vertx.core.Buffer
+
+data WebSocketFrame = pure native io.vertx.core.http.WebSocketFrame where
+
+  pure native factory "io.vertx.core.http.WebSocketFrame.factory" :: WebSocketFrameFactory
+
+  pure native binaryData :: WebSocketFrame -> Buffer
+
+  pure native binaryFrame "io.vertx.core.http.WebSocketFrame.binaryFrame" :: Buffer -> Bool -> WebSocketFrame
+
+  pure native continuationFrame "io.vertx.core.http.WebSocketFrame.continuationFrame" :: Buffer -> Bool -> WebSocketFrame
+
+  pure native isBinary :: WebSocketFrame -> Bool
+
+  pure native isContinuation :: WebSocketFrame -> Bool
+
+  pure native isFinal :: WebSocketFrame -> Bool
+
+  pure native isText :: WebSocketFrame -> Bool
+
+  pure native textData :: WebSocketFrame -> String
+
+  pure native textFrame "io.vertx.core.http.WebSocketFrame.textFrame" :: String -> Bool -> WebSocketFrame
+
+
+
+data HttpMethod = pure native io.vertx.core.http.HttpMethod where
+
+  pure native options "io.vertx.core.http.HttpMethod.OPTIONS" :: HttpMethod
+  pure native get "io.vertx.core.http.HttpMethod.GET" :: HttpMethod
+  pure native head "io.vertx.core.http.HttpMethod.HEAD" :: HttpMethod
+  pure native post "io.vertx.core.http.HttpMethod.POST" :: HttpMethod
+  pure native put "io.vertx.core.http.HttpMethod.PUT" :: HttpMethod
+  pure native delete "io.vertx.core.http.HttpMethod.DELETE" :: HttpMethod
+  pure native trace "io.vertx.core.http.HttpMethod.TRACE" :: HttpMethod
+  pure native connect "io.vertx.core.http.HttpMethod.CONNECT" :: HttpMethod
+  pure native patch "io.vertx.core.http.HttpMethod.PATCH" :: HttpMethod
+
+  pure native valueOf "io.vertx.core.http.HttpMethod.valueOf" :: String -> HttpMethod
+
+  native values "io.vertx.core.http.HttpMethod.values" :: () -> STMutable s (JArray HttpMethod)
+
+derive Serializable HttpMethod
+
+import io.vertx.Core
+import io.vertx.core.Net
+import javax.security.Cert
+import javax.net.Ssl
+
+data HttpServerRequest = pure native io.vertx.core.http.HttpServerRequest where
+
+  pure native absoluteURI :: HttpServerRequest -> String
+
+  pure native bodyHandler :: HttpServerRequest -> Handler Buffer -> HttpServerRequest
+
+  pure native endHandler :: HttpServerRequest -> Handler Void -> HttpServerRequest
+
+  pure native exceptionHandler :: HttpServerRequest -> Handler Throwable -> HttpServerRequest
+
+  pure native formAttributes :: HttpServerRequest -> MultiMap
+
+  pure native getFormAttribute :: HttpServerRequest -> String -> String
+
+  pure native getHeader :: HttpServerRequest -> CharSequence -> String
+                         | HttpServerRequest -> String -> String
+
+  pure native getParam :: HttpServerRequest -> String -> String
+
+  pure native handler :: HttpServerRequest -> Handler Buffer -> HttpServerRequest
+
+  pure native headers :: HttpServerRequest -> MultiMap
+
+  pure native isEnded :: HttpServerRequest -> Bool
+
+  pure native isExpectMultipart :: HttpServerRequest -> Bool
+
+  pure native localAddress :: HttpServerRequest -> SocketAddress
+
+  pure native method :: HttpServerRequest -> HttpMethod
+
+  pure native netSocket :: HttpServerRequest -> NetSocket
+
+  pure native params :: HttpServerRequest -> MultiMap
+
+  pure native path :: HttpServerRequest -> String
+
+  pure native pause :: HttpServerRequest -> HttpServerRequest
+
+  native peerCertificateChain :: HttpServerRequest -> STMutable s (JArray X509Certificate) throws SSLPeerUnverifiedException
+
+  pure native query :: HttpServerRequest -> String
+
+  pure native remoteAddress :: HttpServerRequest -> SocketAddress
+
+  pure native response :: HttpServerRequest -> HttpServerResponse
+
+  pure native resume :: HttpServerRequest -> HttpServerRequest
+
+  pure native setExpectMultipart :: HttpServerRequest -> Bool -> HttpServerRequest
+
+  pure native upgrade :: HttpServerRequest -> ServerWebSocket
+
+  pure native uploadHandler :: HttpServerRequest -> Handler HttpServerFileUpload -> HttpServerRequest
+
+  pure native uri :: HttpServerRequest -> String
+
+  pure native version :: HttpServerRequest -> HttpVersion
+
+
+import io.vertx.Core
+import javax.security.Cert
+import javax.net.Ssl
+import io.vertx.core.Buffer
+
+data ServerWebSocket = pure native io.vertx.core.http.ServerWebSocket where
+
+  pure native closeHandler :: ServerWebSocket -> Handler Void -> ServerWebSocket
+
+  pure native drainHandler :: ServerWebSocket -> Handler Void -> ServerWebSocket
+
+  pure native endHandler :: ServerWebSocket -> Handler Void -> ServerWebSocket
+
+  pure native exceptionHandler :: ServerWebSocket -> Handler Throwable -> ServerWebSocket
+
+  pure native frameHandler :: ServerWebSocket -> Handler WebSocketFrame -> ServerWebSocket
+
+  pure native handler :: ServerWebSocket -> Handler Buffer -> ServerWebSocket
+
+  pure native headers :: ServerWebSocket -> MultiMap
+
+  pure native path :: ServerWebSocket -> String
+
+  pure native pause :: ServerWebSocket -> ServerWebSocket
+
+  native peerCertificateChain :: ServerWebSocket -> STMutable s (JArray X509Certificate) throws SSLPeerUnverifiedException
+
+  pure native query :: ServerWebSocket -> String
+
+  pure native reject :: ServerWebSocket -> ()
+
+  pure native resume :: ServerWebSocket -> ServerWebSocket
+
+  pure native setWriteQueueMaxSize :: ServerWebSocket -> Int -> ServerWebSocket
+
+  pure native uri :: ServerWebSocket -> String
+
+  pure native write :: ServerWebSocket -> Buffer -> ServerWebSocket
+
+  pure native writeBinaryMessage :: ServerWebSocket -> Buffer -> ServerWebSocket
+
+  pure native writeFinalBinaryFrame :: ServerWebSocket -> Buffer -> ServerWebSocket
+
+  pure native writeFinalTextFrame :: ServerWebSocket -> String -> ServerWebSocket
+
+  pure native writeFrame :: ServerWebSocket -> WebSocketFrame -> ServerWebSocket
+
+
+import io.vertx.Core
+
+data ServerWebSocketStream = pure native io.vertx.core.http.ServerWebSocketStream where
+
+  pure native endHandler :: ServerWebSocketStream -> Handler Void -> ServerWebSocketStream
+
+  pure native exceptionHandler :: ServerWebSocketStream -> Handler Throwable -> ServerWebSocketStream
+
+  pure native handler :: ServerWebSocketStream -> Handler ServerWebSocket -> ServerWebSocketStream
+
+  pure native pause :: ServerWebSocketStream -> ServerWebSocketStream
+
+  pure native resume :: ServerWebSocketStream -> ServerWebSocketStream
+
+
+
+data ClientAuth = pure native io.vertx.core.http.ClientAuth where
+
+  pure native none "io.vertx.core.http.ClientAuth.NONE" :: ClientAuth
+  pure native request "io.vertx.core.http.ClientAuth.REQUEST" :: ClientAuth
+  pure native required "io.vertx.core.http.ClientAuth.REQUIRED" :: ClientAuth
+
+  pure native valueOf "io.vertx.core.http.ClientAuth.valueOf" :: String -> ClientAuth
+
+  native values "io.vertx.core.http.ClientAuth.values" :: () -> STMutable s (JArray ClientAuth)
+
+derive Serializable ClientAuth
+
+import io.vertx.Core
+
+data HttpServerFileUpload = pure native io.vertx.core.http.HttpServerFileUpload where
+
+  pure native charset :: HttpServerFileUpload -> String
+
+  pure native contentTransferEncoding :: HttpServerFileUpload -> String
+
+  pure native contentType :: HttpServerFileUpload -> String
+
+  pure native endHandler :: HttpServerFileUpload -> Handler Void -> HttpServerFileUpload
+
+  pure native exceptionHandler :: HttpServerFileUpload -> Handler Throwable -> HttpServerFileUpload
+
+  pure native filename :: HttpServerFileUpload -> String
+
+  pure native handler :: HttpServerFileUpload -> Handler Buffer -> HttpServerFileUpload
+
+  pure native isSizeAvailable :: HttpServerFileUpload -> Bool
+
+  pure native name :: HttpServerFileUpload -> String
+
+  pure native pause :: HttpServerFileUpload -> HttpServerFileUpload
+
+  pure native resume :: HttpServerFileUpload -> HttpServerFileUpload
+
+  pure native size :: HttpServerFileUpload -> Long
+
+  pure native streamToFileSystem :: HttpServerFileUpload -> String -> HttpServerFileUpload
+
+
+import io.vertx.Core
+import io.vertx.core.Buffer
+
+data HttpServerResponse = pure native io.vertx.core.http.HttpServerResponse where
+
+  pure native bodyEndHandler :: HttpServerResponse -> Handler Void -> HttpServerResponse
+
+  pure native bytesWritten :: HttpServerResponse -> Long
+
+  pure native close :: HttpServerResponse -> ()
+
+  pure native closeHandler :: HttpServerResponse -> Handler Void -> HttpServerResponse
+
+  pure native closed :: HttpServerResponse -> Bool
+
+  pure native drainHandler :: HttpServerResponse -> Handler Void -> HttpServerResponse
+
+  pure native end :: HttpServerResponse -> String -> ()
+                   | HttpServerResponse -> ()
+                   | HttpServerResponse -> Buffer -> ()
+                   | HttpServerResponse -> String -> String -> ()
+
+  pure native ended :: HttpServerResponse -> Bool
+
+  pure native exceptionHandler :: HttpServerResponse -> Handler Throwable -> HttpServerResponse
+
+  pure native getStatusCode :: HttpServerResponse -> Int
+
+  pure native getStatusMessage :: HttpServerResponse -> String
+
+  pure native headWritten :: HttpServerResponse -> Bool
+
+  pure native headers :: HttpServerResponse -> MultiMap
+
+  pure native headersEndHandler :: HttpServerResponse -> Handler Void -> HttpServerResponse
+
+  pure native isChunked :: HttpServerResponse -> Bool
+
+  pure native putHeader :: HttpServerResponse -> String -> String -> HttpServerResponse
+                         | HttpServerResponse -> CharSequence -> CharSequence -> HttpServerResponse
+                         | HttpServerResponse -> CharSequence -> Iterable CharSequence -> HttpServerResponse
+                         | HttpServerResponse -> String -> Iterable String -> HttpServerResponse
+
+  pure native putTrailer :: HttpServerResponse -> CharSequence -> CharSequence -> HttpServerResponse
+                          | HttpServerResponse -> CharSequence -> Iterable CharSequence -> HttpServerResponse
+                          | HttpServerResponse -> String -> Iterable String -> HttpServerResponse
+                          | HttpServerResponse -> String -> String -> HttpServerResponse
+
+  pure native sendFile :: HttpServerResponse -> String -> Handler (AsyncResult Void) -> HttpServerResponse
+                        | HttpServerResponse -> String -> Long -> Long -> HttpServerResponse
+                        | HttpServerResponse -> String -> Long -> HttpServerResponse
+                        | HttpServerResponse -> String -> HttpServerResponse
+                        | HttpServerResponse -> String -> Long -> Handler (AsyncResult Void) -> HttpServerResponse
+                        | HttpServerResponse -> String -> Long -> Long -> Handler (AsyncResult Void) -> HttpServerResponse
+
+  pure native setChunked :: HttpServerResponse -> Bool -> HttpServerResponse
+
+  pure native setStatusCode :: HttpServerResponse -> Int -> HttpServerResponse
+
+  pure native setStatusMessage :: HttpServerResponse -> String -> HttpServerResponse
+
+  pure native setWriteQueueMaxSize :: HttpServerResponse -> Int -> HttpServerResponse
+
+  pure native trailers :: HttpServerResponse -> MultiMap
+
+  pure native write :: HttpServerResponse -> String -> HttpServerResponse
+                     | HttpServerResponse -> Buffer -> HttpServerResponse
+                     | HttpServerResponse -> String -> String -> HttpServerResponse
+
+  pure native writeContinue :: HttpServerResponse -> HttpServerResponse
+
+

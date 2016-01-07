@@ -1,0 +1,98 @@
+module io.vertx.core.Shareddata where
+
+import io.vertx.Core
+
+data SharedData = pure native io.vertx.core.shareddata.SharedData where
+
+  pure native getClusterWideMap :: SharedData -> String -> Handler (AsyncResult (AsyncMap k v)) -> ()
+
+  pure native getCounter :: SharedData -> String -> Handler (AsyncResult Counter) -> ()
+
+  pure native getLocalMap :: SharedData -> String -> LocalMap k v
+
+  pure native getLock :: SharedData -> String -> Handler (AsyncResult Lock) -> ()
+
+  pure native getLockWithTimeout :: SharedData -> String -> Long -> Handler (AsyncResult Lock) -> ()
+
+
+import java.Util
+
+data LocalMap k v = pure native io.vertx.core.shareddata.LocalMap where
+
+  pure native clear :: LocalMap k v -> ()
+
+  pure native close :: LocalMap k v -> ()
+
+  pure native get :: LocalMap k v -> k -> v
+
+  pure native isEmpty :: LocalMap k v -> Bool
+
+  native keySet :: LocalMap k v -> STMutable s (Set k)
+
+  pure native put :: LocalMap k v -> k -> v -> v
+
+  pure native putIfAbsent :: LocalMap k v -> k -> v -> v
+
+  pure native remove :: LocalMap k v -> k -> v
+
+  pure native removeIfPresent :: LocalMap k v -> k -> v -> Bool
+
+  pure native replace :: LocalMap k v -> k -> v -> v
+
+  pure native replaceIfPresent :: LocalMap k v -> k -> v -> v -> Bool
+
+  pure native size :: LocalMap k v -> Int
+
+  native values :: LocalMap k v -> STMutable s (Collection v)
+
+
+
+data Lock = pure native io.vertx.core.shareddata.Lock where
+
+  pure native release :: Lock -> ()
+
+
+import io.vertx.Core
+
+data AsyncMap k v = pure native io.vertx.core.shareddata.AsyncMap where
+
+  pure native clear :: AsyncMap k v -> Handler (AsyncResult Void) -> ()
+
+  pure native get :: AsyncMap k v -> k -> Handler (AsyncResult v) -> ()
+
+  pure native put :: AsyncMap k v -> k -> v -> Long -> Handler (AsyncResult Void) -> ()
+                   | AsyncMap k v -> k -> v -> Handler (AsyncResult Void) -> ()
+
+  pure native putIfAbsent :: AsyncMap k v -> k -> v -> Handler (AsyncResult v) -> ()
+                           | AsyncMap k v -> k -> v -> Long -> Handler (AsyncResult v) -> ()
+
+  pure native remove :: AsyncMap k v -> k -> Handler (AsyncResult v) -> ()
+
+  pure native removeIfPresent :: AsyncMap k v -> k -> v -> Handler (AsyncResult Bool) -> ()
+
+  pure native replace :: AsyncMap k v -> k -> v -> Handler (AsyncResult v) -> ()
+
+  pure native replaceIfPresent :: AsyncMap k v -> k -> v -> v -> Handler (AsyncResult Bool) -> ()
+
+  pure native size :: AsyncMap k v -> Handler (AsyncResult Int) -> ()
+
+
+import io.vertx.Core
+
+data Counter = pure native io.vertx.core.shareddata.Counter where
+
+  pure native addAndGet :: Counter -> Long -> Handler (AsyncResult Long) -> ()
+
+  pure native compareAndSet :: Counter -> Long -> Long -> Handler (AsyncResult Bool) -> ()
+
+  pure native decrementAndGet :: Counter -> Handler (AsyncResult Long) -> ()
+
+  pure native get :: Counter -> Handler (AsyncResult Long) -> ()
+
+  pure native getAndAdd :: Counter -> Long -> Handler (AsyncResult Long) -> ()
+
+  pure native getAndIncrement :: Counter -> Handler (AsyncResult Long) -> ()
+
+  pure native incrementAndGet :: Counter -> Handler (AsyncResult Long) -> ()
+
+

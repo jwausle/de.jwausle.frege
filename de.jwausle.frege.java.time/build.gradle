@@ -1,0 +1,122 @@
+plugins {
+	id "application"
+   	id "org.frege-lang" version "0.5"
+	id "java"
+	id "maven"
+}
+
+group = "de.jwausle"; version = "3.23.422-ga05a487"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile "org.frege-lang:frege:3.23.422-ga05a487"
+    compile "de.jwausle:de.jwausle.frege.java.text:3.23.422-ga05a487"
+}
+
+def trgFolder = 'src/main/frege/frege/java'
+def trgFile   = trgFolder + '/Time2.fr'
+def trgFileHeader = 'src/main/resources/frege.java.Time2.header'
+
+// fregeAll clean, re-generate $trgFile and install jar to .m2
+task fregeAll (dependsOn: ['fregeGenAll' , 'compileFrege', 'install', 'copyBuildResult'])
+gradle.projectsEvaluated {
+	compileJava.enabled = false
+    compileFrege.dependsOn(fregeGenAll)
+}
+
+task fregeGenAll (dependsOn: ['fregeGenPatch', 'fregeGen','fregeGenClean'])
+
+
+task fregeGenClean (type:Exec) { 
+    commandLine 'bash', '-e', '-c', """
+       rm -f  $trgFile
+       rm -rf src/gen/incubator/
+       mkdir  src/gen/incubator
+    """
+}
+task fregeGen(type: JavaExec, dependsOn: 'fregeGenClean') { 
+    classpath = files("gradle/lib/frege-native-gen-1.4-SNAPSHOT.jar") + sourceSets.main.compileClasspath
+    mainClassName = "frege.nativegen.Main"
+    main = "frege.nativegen.Main"
+    args "-t", "src/main/resources/types.properties"
+    args "-d", "src/gen/incubator"
+    
+    args '-c', 'java.time.Instant'
+    args '-c', 'java.time.temporal.Temporal'
+    args '-c', 'java.time.ZoneOffset'
+    args '-c', 'java.time.OffsetDateTime'
+    args '-c', 'java.time.ZonedDateTime'
+    args '-c', 'java.time.temporal.TemporalAccessor'
+    args '-c', 'java.time.temporal.TemporalField'
+    args '-c', 'java.time.temporal.TemporalUnit'
+    args '-c', 'java.time.Clock'
+    args '-c', 'java.time.temporal.TemporalAmount'
+    args '-c', 'java.time.temporal.ValueRange'
+    args '-c', 'java.time.temporal.TemporalAdjuster'
+    args '-c', 'java.time.zone.ZoneRules'
+    args '-c', 'java.time.temporal.TemporalQuery'
+    args '-c', 'java.time.Duration'
+    args '-c', 'java.time.ZoneId'
+    args '-c', 'java.time.format.DateTimeFormatter'
+    args '-c', 'java.time.LocalDate'
+    args '-c', 'java.time.LocalDateTime'
+    args '-c', 'java.time.OffsetTime'
+    args '-c', 'java.time.format.ResolverStyle'
+    args '-c', 'java.time.LocalTime'
+    args '-c', 'java.time.DayOfWeek'
+    args '-c', 'java.time.Month'
+    args '-c', 'java.time.format.TextStyle'
+    args '-c', 'java.time.chrono.Chronology'
+    args '-c', 'java.time.chrono.ChronoLocalDate'
+    args '-c', 'java.time.chrono.IsoChronology'
+    args '-c', 'java.time.chrono.Era'
+    //--
+    args '-c', 'java.time.Period'
+    args '-c', 'java.time.chrono.ChronoLocalDateTime'
+    args '-c', 'java.time.format.DecimalStyle'
+    args '-c', 'java.time.format.FormatStyle'
+    
+    args '-c', 'java.time.zone.ZoneOffsetTransition'
+    args '-c', 'java.time.zone.ZoneOffsetTransitionRule'
+    args '-c', 'java.time.chrono.ChronoPeriod'
+    args '-c', 'java.time.temporal.ChronoField'
+    args '-c', 'java.time.chrono.ChronoZonedDateTime'
+    args '-c', 'java.time.chrono.IsoEra'
+    args '-c', 'java.time.zone.ZoneOffsetTransitionRule$TimeDefinition'    
+}
+task fregeGenPatch(type:Exec, dependsOn: 'fregeGen') {
+    commandLine 'bash', '-e', '-c', """
+       mkdir -p build
+       cat src/gen/incubator/java/Time.fr \
+           src/gen/incubator/java/time/Chrono.fr \
+           src/gen/incubator/java/time/Format.fr \
+           src/gen/incubator/java/time/Temporal.fr \
+           src/gen/incubator/java/time/Zone.fr      >  build/Tmp.fr 
+       sed -i .0 's/module .* where//g'                build/Tmp.fr
+       sed -i .1 's/import .*//g'                      build/Tmp.fr
+       sed -i .2 's/derive Cloneable .*//g'            build/Tmp.fr
+       sed -i .3 's/derive Exceptional .*//g'          build/Tmp.fr
+       sed -i .4 's/derive Serializable .*//g'         build/Tmp.fr
+       sed -i .5 's/.*pure native set.*().*//g'        build/Tmp.fr
+       sed -i .6 's/.*pure native set.*().*//g'        build/Tmp.fr
+       sed -i .7 's/pure native .* -> r -> .* -> r//g' build/Tmp.fr
+       mkdir -p src/main/frege/frege/java/
+       cat $trgFileHeader build/Tmp.fr              >  $trgFile
+    """
+}
+
+
+task copyBuildResult(type:Copy, dependsOn: 'jar') {
+	from('build/libs') { include '*.jar'}
+	into 'build-results'
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+	maven { url "https://plugins.gradle.org/m2/" }
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}

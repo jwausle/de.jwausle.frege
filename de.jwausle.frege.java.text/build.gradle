@@ -1,0 +1,80 @@
+plugins {
+	id "application"
+   	id "org.frege-lang" version "0.5"
+	id "java"
+	id "maven"
+}
+
+group = "de.jwausle"; version = "3.23.422-ga05a487"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile "org.frege-lang:frege:3.23.422-ga05a487"
+}
+
+def trgFolder = 'src/main/frege/frege/java'
+def trgFile   = trgFolder + '/Text2.fr'
+def trgFileHeader = 'src/main/resources/frege.java.Text.header'
+
+// fregeAll clean, re-generate $trgFile and install jar to .m2
+task fregeAll (dependsOn: ['fregeGenAll' , 'compileFrege', 'install', 'copyBuildResult'])
+gradle.projectsEvaluated {
+	compileJava.enabled = false
+    compileFrege.dependsOn(fregeGenAll)
+}
+
+task fregeGenAll (dependsOn: ['fregeGenPatch', 'fregeGen','fregeGenClean'])
+
+task fregeGenClean (type:Exec) { 
+    commandLine 'bash', '-e', '-c', """
+       rm -f  src/main/frege/frege/java/Text.fr
+       rm -rf src/gen/incubator/
+       mkdir  src/gen/incubator
+    """
+}
+task fregeGen(type: JavaExec, dependsOn: 'fregeGenClean') { 
+    classpath = files("gradle/lib/frege-native-gen-1.4-SNAPSHOT.jar") + sourceSets.main.compileClasspath
+    mainClassName = "frege.nativegen.Main"
+    main = "frege.nativegen.Main"
+    args "-t", "src/main/resources/types.properties"
+    args "-d", "src/gen/incubator"
+    
+    args '-c', 'java.text.ParsePosition'
+    args '-c', 'java.text.Format'
+    args '-c', 'java.text.FieldPosition'
+    args '-c', 'java.text.AttributedCharacterIterator'
+    args '-c', 'java.text.ParseException'
+    args '-c', 'java.text.Format$Field'
+    args '-c', 'java.text.AttributedCharacterIterator$Attribute'
+}
+task fregeGenPatch(type:Exec, dependsOn: 'fregeGen') {
+    commandLine 'bash', '-e', '-c', """
+       mkdir -p build
+       cat src/gen/incubator/java/Text.fr            >  build/Tmp.fr    
+       sed -i .0 's/module .* where//g'                build/Tmp.fr
+       sed -i .1 's/import .*//g'                      build/Tmp.fr
+       sed -i .2 's/derive Cloneable .*//g'            build/Tmp.fr
+       sed -i .3 's/derive Exceptional .*//g'          build/Tmp.fr
+       sed -i .4 's/derive Serializable .*//g'         build/Tmp.fr
+       sed -i .5 's/.*pure native set.*().*//g'        build/Tmp.fr
+       sed -i .6 's/.*pure native set.*().*//g'        build/Tmp.fr
+       mkdir -p $trgFolder
+       cat $trgFileHeader build/Tmp.fr              >  $trgFile   
+    """
+}
+
+task copyBuildResult(type:Copy, dependsOn: 'jar') {
+	from('build/libs') { include '*.jar'}
+	into 'build-results'
+}
+
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+	maven { url "https://plugins.gradle.org/m2/" }
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}

@@ -1,0 +1,571 @@
+module io.netty.Channel where
+
+
+data EventLoopGroup = pure native io.netty.channel.EventLoopGroup where
+
+  pure native next :: EventLoopGroup -> EventLoop
+
+  pure native register :: EventLoopGroup -> Channel -> ChannelFuture
+                        | EventLoopGroup -> Channel -> ChannelPromise -> ChannelFuture
+
+
+
+data EventLoop = pure native io.netty.channel.EventLoop where
+
+  pure native parent :: EventLoop -> EventLoopGroup
+
+
+import io.netty.Buffer
+import java.Net
+
+data Channel = pure native io.netty.channel.Channel where
+
+  pure native alloc :: Channel -> ByteBufAllocator
+
+  pure native bind :: Channel -> SocketAddress -> ChannelPromise -> ChannelFuture
+                    | Channel -> SocketAddress -> ChannelFuture
+
+  pure native close :: Channel -> ChannelFuture
+                     | Channel -> ChannelPromise -> ChannelFuture
+
+  pure native closeFuture :: Channel -> ChannelFuture
+
+  pure native config :: Channel -> ChannelConfig
+
+  pure native connect :: Channel -> SocketAddress -> ChannelFuture
+                       | Channel -> SocketAddress -> SocketAddress -> ChannelPromise -> ChannelFuture
+                       | Channel -> SocketAddress -> SocketAddress -> ChannelFuture
+                       | Channel -> SocketAddress -> ChannelPromise -> ChannelFuture
+
+  pure native deregister :: Channel -> ChannelPromise -> ChannelFuture
+                          | Channel -> ChannelFuture
+
+  pure native disconnect :: Channel -> ChannelFuture
+                          | Channel -> ChannelPromise -> ChannelFuture
+
+  pure native eventLoop :: Channel -> EventLoop
+
+  pure native flush :: Channel -> Channel
+
+  pure native isActive :: Channel -> Bool
+
+  pure native isOpen :: Channel -> Bool
+
+  pure native isRegistered :: Channel -> Bool
+
+  pure native isWritable :: Channel -> Bool
+
+  pure native localAddress :: Channel -> SocketAddress
+
+  pure native metadata :: Channel -> ChannelMetadata
+
+  pure native newFailedFuture :: Channel -> Throwable -> ChannelFuture
+
+  pure native newProgressivePromise :: Channel -> ChannelProgressivePromise
+
+  pure native newPromise :: Channel -> ChannelPromise
+
+  pure native newSucceededFuture :: Channel -> ChannelFuture
+
+  pure native parent :: Channel -> Channel
+
+  pure native pipeline :: Channel -> ChannelPipeline
+
+  pure native read :: Channel -> Channel
+
+  pure native remoteAddress :: Channel -> SocketAddress
+
+  native unsafe :: Channel -> IO Channel_Unsafe
+
+  pure native voidPromise :: Channel -> ChannelPromise
+
+  pure native write :: Channel -> Object -> ChannelFuture
+                     | Channel -> Object -> ChannelPromise -> ChannelFuture
+
+  pure native writeAndFlush :: Channel -> Object -> ChannelPromise -> ChannelFuture
+                             | Channel -> Object -> ChannelFuture
+
+
+import io.netty.util.Concurrent
+
+data ChannelFuture = pure native io.netty.channel.ChannelFuture where
+
+  pure native addListener :: ChannelFuture -> GenericFutureListener (Future Void) -> ChannelFuture
+
+  native addListeners :: ChannelFuture -> Mutable s (JArray (GenericFutureListener (Future Void))) -> ST s ChannelFuture
+
+  native await :: ChannelFuture -> ST s ChannelFuture throws InterruptedException
+
+  pure native awaitUninterruptibly :: ChannelFuture -> ChannelFuture
+
+  pure native channel :: ChannelFuture -> Channel
+
+  pure native removeListener :: ChannelFuture -> GenericFutureListener (Future Void) -> ChannelFuture
+
+  native removeListeners :: ChannelFuture -> Mutable s (JArray (GenericFutureListener (Future Void))) -> ST s ChannelFuture
+
+  native sync :: ChannelFuture -> ST s ChannelFuture throws InterruptedException
+
+  pure native syncUninterruptibly :: ChannelFuture -> ChannelFuture
+
+
+import io.netty.util.Concurrent
+
+data ChannelPromise = pure native io.netty.channel.ChannelPromise where
+
+  pure native addListener :: ChannelPromise -> GenericFutureListener (Future Void) -> ChannelPromise
+
+  native addListeners :: ChannelPromise -> Mutable s (JArray (GenericFutureListener (Future Void))) -> ST s ChannelPromise
+
+  native await :: ChannelPromise -> ST s ChannelPromise throws InterruptedException
+
+  pure native awaitUninterruptibly :: ChannelPromise -> ChannelPromise
+
+  pure native channel :: ChannelPromise -> Channel
+
+  pure native removeListener :: ChannelPromise -> GenericFutureListener (Future Void) -> ChannelPromise
+
+  native removeListeners :: ChannelPromise -> Mutable s (JArray (GenericFutureListener (Future Void))) -> ST s ChannelPromise
+
+  pure native setFailure :: ChannelPromise -> Throwable -> ChannelPromise
+
+  pure native setSuccess :: ChannelPromise -> Void -> ChannelPromise
+                          | ChannelPromise -> ChannelPromise
+
+  native sync :: ChannelPromise -> ST s ChannelPromise throws InterruptedException
+
+  pure native syncUninterruptibly :: ChannelPromise -> ChannelPromise
+
+  pure native trySuccess :: ChannelPromise -> Bool
+
+
+import io.netty.Buffer
+import java.Util
+
+data ChannelConfig = pure native io.netty.channel.ChannelConfig where
+
+  pure native getAllocator :: ChannelConfig -> ByteBufAllocator
+
+  pure native getConnectTimeoutMillis :: ChannelConfig -> Int
+
+  pure native getMaxMessagesPerRead :: ChannelConfig -> Int
+
+  pure native getMessageSizeEstimator :: ChannelConfig -> MessageSizeEstimator
+
+  pure native getOption :: ChannelConfig -> ChannelOption t -> t
+
+  native getOptions :: ChannelConfig -> STMutable s (Map (ChannelOption Object) Object)
+
+  pure native getRecvByteBufAllocator :: ChannelConfig -> RecvByteBufAllocator
+
+  pure native getWriteBufferHighWaterMark :: ChannelConfig -> Int
+
+  pure native getWriteBufferLowWaterMark :: ChannelConfig -> Int
+
+  pure native getWriteSpinCount :: ChannelConfig -> Int
+
+  pure native isAutoClose :: ChannelConfig -> Bool
+
+  pure native isAutoRead :: ChannelConfig -> Bool
+
+  pure native setAllocator :: ChannelConfig -> ByteBufAllocator -> ChannelConfig
+
+  pure native setAutoClose :: ChannelConfig -> Bool -> ChannelConfig
+
+  pure native setAutoRead :: ChannelConfig -> Bool -> ChannelConfig
+
+  pure native setConnectTimeoutMillis :: ChannelConfig -> Int -> ChannelConfig
+
+  pure native setMaxMessagesPerRead :: ChannelConfig -> Int -> ChannelConfig
+
+  pure native setMessageSizeEstimator :: ChannelConfig -> MessageSizeEstimator -> ChannelConfig
+
+  pure native setOption :: ChannelConfig -> ChannelOption t -> t -> Bool
+
+  native setOptions :: ChannelConfig -> Mutable s (Map (ChannelOption Object) Object) -> ST s Bool
+
+  pure native setRecvByteBufAllocator :: ChannelConfig -> RecvByteBufAllocator -> ChannelConfig
+
+  pure native setWriteBufferHighWaterMark :: ChannelConfig -> Int -> ChannelConfig
+
+  pure native setWriteBufferLowWaterMark :: ChannelConfig -> Int -> ChannelConfig
+
+  pure native setWriteSpinCount :: ChannelConfig -> Int -> ChannelConfig
+
+
+
+data ChannelMetadata = pure native io.netty.channel.ChannelMetadata where
+
+  pure native new :: Bool -> ChannelMetadata
+
+  pure native hasDisconnect :: ChannelMetadata -> Bool
+
+
+import io.netty.util.Concurrent
+
+data ChannelProgressivePromise = pure native io.netty.channel.ChannelProgressivePromise where
+
+  pure native addListener :: ChannelProgressivePromise -> GenericFutureListener (Future Void) -> ChannelProgressivePromise
+
+  native addListeners :: ChannelProgressivePromise -> Mutable s (JArray (GenericFutureListener (Future Void))) -> ST s ChannelProgressivePromise
+
+  native await :: ChannelProgressivePromise -> ST s ChannelProgressivePromise throws InterruptedException
+
+  pure native awaitUninterruptibly :: ChannelProgressivePromise -> ChannelProgressivePromise
+
+  pure native removeListener :: ChannelProgressivePromise -> GenericFutureListener (Future Void) -> ChannelProgressivePromise
+
+  native removeListeners :: ChannelProgressivePromise -> Mutable s (JArray (GenericFutureListener (Future Void))) -> ST s ChannelProgressivePromise
+
+  pure native setFailure :: ChannelProgressivePromise -> Throwable -> ChannelProgressivePromise
+
+  pure native setProgress :: ChannelProgressivePromise -> Long -> Long -> ChannelProgressivePromise
+
+  pure native setSuccess :: ChannelProgressivePromise -> ChannelProgressivePromise
+                          | ChannelProgressivePromise -> Void -> ChannelProgressivePromise
+
+  native sync :: ChannelProgressivePromise -> ST s ChannelProgressivePromise throws InterruptedException
+
+  pure native syncUninterruptibly :: ChannelProgressivePromise -> ChannelProgressivePromise
+
+
+import io.netty.util.Concurrent
+import java.Net
+import java.Util
+
+data ChannelPipeline = pure native io.netty.channel.ChannelPipeline where
+
+  pure native addAfter :: ChannelPipeline -> String -> String -> ChannelHandler -> ChannelPipeline
+                        | ChannelPipeline -> EventExecutorGroup -> String -> String -> ChannelHandler -> ChannelPipeline
+
+  pure native addBefore :: ChannelPipeline -> EventExecutorGroup -> String -> String -> ChannelHandler -> ChannelPipeline
+                         | ChannelPipeline -> String -> String -> ChannelHandler -> ChannelPipeline
+
+  native addFirst :: ChannelPipeline -> EventExecutorGroup -> Mutable s (JArray ChannelHandler) -> ST s ChannelPipeline
+                   | ChannelPipeline -> Mutable s (JArray ChannelHandler) -> ST s ChannelPipeline
+                   | ChannelPipeline -> String -> ChannelHandler -> ST s ChannelPipeline
+                   | ChannelPipeline -> EventExecutorGroup -> String -> ChannelHandler -> ST s ChannelPipeline
+
+  native addLast :: ChannelPipeline -> Mutable s (JArray ChannelHandler) -> ST s ChannelPipeline
+                  | ChannelPipeline -> EventExecutorGroup -> Mutable s (JArray ChannelHandler) -> ST s ChannelPipeline
+                  | ChannelPipeline -> String -> ChannelHandler -> ST s ChannelPipeline
+                  | ChannelPipeline -> EventExecutorGroup -> String -> ChannelHandler -> ST s ChannelPipeline
+
+  pure native bind :: ChannelPipeline -> SocketAddress -> ChannelFuture
+                    | ChannelPipeline -> SocketAddress -> ChannelPromise -> ChannelFuture
+
+  pure native channel :: ChannelPipeline -> Channel
+
+  pure native close :: ChannelPipeline -> ChannelPromise -> ChannelFuture
+                     | ChannelPipeline -> ChannelFuture
+
+  pure native connect :: ChannelPipeline -> SocketAddress -> SocketAddress -> ChannelFuture
+                       | ChannelPipeline -> SocketAddress -> SocketAddress -> ChannelPromise -> ChannelFuture
+                       | ChannelPipeline -> SocketAddress -> ChannelPromise -> ChannelFuture
+                       | ChannelPipeline -> SocketAddress -> ChannelFuture
+
+  pure native context :: ChannelPipeline -> ChannelHandler -> ChannelHandlerContext
+                       | ChannelPipeline -> String -> ChannelHandlerContext
+                       | ChannelPipeline -> Class ChannelHandler -> ChannelHandlerContext
+
+  pure native deregister :: ChannelPipeline -> ChannelPromise -> ChannelFuture
+                          | ChannelPipeline -> ChannelFuture
+
+  pure native disconnect :: ChannelPipeline -> ChannelFuture
+                          | ChannelPipeline -> ChannelPromise -> ChannelFuture
+
+  pure native fireChannelActive :: ChannelPipeline -> ChannelPipeline
+
+  pure native fireChannelInactive :: ChannelPipeline -> ChannelPipeline
+
+  pure native fireChannelRead :: ChannelPipeline -> Object -> ChannelPipeline
+
+  pure native fireChannelReadComplete :: ChannelPipeline -> ChannelPipeline
+
+  pure native fireChannelRegistered :: ChannelPipeline -> ChannelPipeline
+
+  pure native fireChannelUnregistered :: ChannelPipeline -> ChannelPipeline
+
+  pure native fireChannelWritabilityChanged :: ChannelPipeline -> ChannelPipeline
+
+  pure native fireExceptionCaught :: ChannelPipeline -> Throwable -> ChannelPipeline
+
+  pure native fireUserEventTriggered :: ChannelPipeline -> Object -> ChannelPipeline
+
+  pure native first :: ChannelPipeline -> ChannelHandler
+
+  pure native firstContext :: ChannelPipeline -> ChannelHandlerContext
+
+  pure native flush :: ChannelPipeline -> ChannelPipeline
+
+  pure native get :: ChannelPipeline -> String -> ChannelHandler
+                   | ChannelPipeline -> Class t -> t
+
+  pure native last :: ChannelPipeline -> ChannelHandler
+
+  pure native lastContext :: ChannelPipeline -> ChannelHandlerContext
+
+  native names :: ChannelPipeline -> STMutable s (List String)
+
+  pure native read :: ChannelPipeline -> ChannelPipeline
+
+  pure native remove :: ChannelPipeline -> Class t -> t
+                      | ChannelPipeline -> String -> ChannelHandler
+                      | ChannelPipeline -> ChannelHandler -> ChannelPipeline
+
+  pure native removeFirst :: ChannelPipeline -> ChannelHandler
+
+  pure native removeLast :: ChannelPipeline -> ChannelHandler
+
+  pure native replace :: ChannelPipeline -> ChannelHandler -> String -> ChannelHandler -> ChannelPipeline
+                       | ChannelPipeline -> String -> String -> ChannelHandler -> ChannelHandler
+                       | ChannelPipeline -> Class t -> String -> ChannelHandler -> t
+
+  native toMap :: ChannelPipeline -> STMutable s (Map String ChannelHandler)
+
+  pure native write :: ChannelPipeline -> Object -> ChannelPromise -> ChannelFuture
+                     | ChannelPipeline -> Object -> ChannelFuture
+
+  pure native writeAndFlush :: ChannelPipeline -> Object -> ChannelPromise -> ChannelFuture
+                             | ChannelPipeline -> Object -> ChannelFuture
+
+
+import java.Net
+
+data Channel_Unsafe = mutable native io.netty.channel.Channel.Unsafe where
+
+  native beginRead :: Channel_Unsafe -> IO ()
+
+  native bind :: Channel_Unsafe -> SocketAddress -> ChannelPromise -> IO ()
+
+  native close :: Channel_Unsafe -> ChannelPromise -> IO ()
+
+  native closeForcibly :: Channel_Unsafe -> IO ()
+
+  native connect :: Channel_Unsafe -> SocketAddress -> SocketAddress -> ChannelPromise -> IO ()
+
+  native deregister :: Channel_Unsafe -> ChannelPromise -> IO ()
+
+  native disconnect :: Channel_Unsafe -> ChannelPromise -> IO ()
+
+  native flush :: Channel_Unsafe -> IO ()
+
+  native localAddress :: Channel_Unsafe -> IO SocketAddress
+
+  native outboundBuffer :: Channel_Unsafe -> IO ChannelOutboundBuffer
+
+  native register :: Channel_Unsafe -> EventLoop -> ChannelPromise -> IO ()
+
+  native remoteAddress :: Channel_Unsafe -> IO SocketAddress
+
+  native voidPromise :: Channel_Unsafe -> IO ChannelPromise
+
+  native write :: Channel_Unsafe -> Object -> ChannelPromise -> IO ()
+
+
+
+data MessageSizeEstimator = pure native io.netty.channel.MessageSizeEstimator where
+
+  pure native newHandle :: MessageSizeEstimator -> MessageSizeEstimator_Handle
+
+
+
+data ChannelOption t = pure native io.netty.channel.ChannelOption where
+
+  pure native allocator "io.netty.channel.ChannelOption.ALLOCATOR" :: ChannelOption ByteBufAllocator
+  pure native rcvbuf_allocator "io.netty.channel.ChannelOption.RCVBUF_ALLOCATOR" :: ChannelOption RecvByteBufAllocator
+  pure native message_size_estimator "io.netty.channel.ChannelOption.MESSAGE_SIZE_ESTIMATOR" :: ChannelOption MessageSizeEstimator
+  pure native connect_timeout_millis "io.netty.channel.ChannelOption.CONNECT_TIMEOUT_MILLIS" :: ChannelOption Int
+  pure native max_messages_per_read "io.netty.channel.ChannelOption.MAX_MESSAGES_PER_READ" :: ChannelOption Int
+  pure native write_spin_count "io.netty.channel.ChannelOption.WRITE_SPIN_COUNT" :: ChannelOption Int
+  pure native write_buffer_high_water_mark "io.netty.channel.ChannelOption.WRITE_BUFFER_HIGH_WATER_MARK" :: ChannelOption Int
+  pure native write_buffer_low_water_mark "io.netty.channel.ChannelOption.WRITE_BUFFER_LOW_WATER_MARK" :: ChannelOption Int
+  pure native allow_half_closure "io.netty.channel.ChannelOption.ALLOW_HALF_CLOSURE" :: ChannelOption Bool
+  pure native auto_read "io.netty.channel.ChannelOption.AUTO_READ" :: ChannelOption Bool
+  pure native auto_close "io.netty.channel.ChannelOption.AUTO_CLOSE" :: ChannelOption Bool
+  pure native so_broadcast "io.netty.channel.ChannelOption.SO_BROADCAST" :: ChannelOption Bool
+  pure native so_keepalive "io.netty.channel.ChannelOption.SO_KEEPALIVE" :: ChannelOption Bool
+  pure native so_sndbuf "io.netty.channel.ChannelOption.SO_SNDBUF" :: ChannelOption Int
+  pure native so_rcvbuf "io.netty.channel.ChannelOption.SO_RCVBUF" :: ChannelOption Int
+  pure native so_reuseaddr "io.netty.channel.ChannelOption.SO_REUSEADDR" :: ChannelOption Bool
+  pure native so_linger "io.netty.channel.ChannelOption.SO_LINGER" :: ChannelOption Int
+  pure native so_backlog "io.netty.channel.ChannelOption.SO_BACKLOG" :: ChannelOption Int
+  pure native so_timeout "io.netty.channel.ChannelOption.SO_TIMEOUT" :: ChannelOption Int
+  pure native ip_tos "io.netty.channel.ChannelOption.IP_TOS" :: ChannelOption Int
+  pure native ip_multicast_addr "io.netty.channel.ChannelOption.IP_MULTICAST_ADDR" :: ChannelOption InetAddress
+  pure native ip_multicast_if "io.netty.channel.ChannelOption.IP_MULTICAST_IF" :: ChannelOption NetworkInterface
+  pure native ip_multicast_ttl "io.netty.channel.ChannelOption.IP_MULTICAST_TTL" :: ChannelOption Int
+  pure native ip_multicast_loop_disabled "io.netty.channel.ChannelOption.IP_MULTICAST_LOOP_DISABLED" :: ChannelOption Bool
+  pure native tcp_nodelay "io.netty.channel.ChannelOption.TCP_NODELAY" :: ChannelOption Bool
+  pure native aio_read_timeout "io.netty.channel.ChannelOption.AIO_READ_TIMEOUT" :: ChannelOption Long
+  pure native aio_write_timeout "io.netty.channel.ChannelOption.AIO_WRITE_TIMEOUT" :: ChannelOption Long
+  pure native datagram_channel_active_on_registration "io.netty.channel.ChannelOption.DATAGRAM_CHANNEL_ACTIVE_ON_REGISTRATION" :: ChannelOption Bool
+
+  pure native exists "io.netty.channel.ChannelOption.exists" :: String -> Bool
+
+  pure native newInstance "io.netty.channel.ChannelOption.newInstance" :: String -> ChannelOption t
+
+  pure native validate :: ChannelOption t -> t -> ()
+
+  pure native valueOf "io.netty.channel.ChannelOption.valueOf" :: String -> ChannelOption t
+
+
+
+data RecvByteBufAllocator = pure native io.netty.channel.RecvByteBufAllocator where
+
+  pure native newHandle :: RecvByteBufAllocator -> RecvByteBufAllocator_Handle
+
+
+
+data ChannelHandler = pure native io.netty.channel.ChannelHandler where
+
+  native exceptionCaught :: ChannelHandler -> ChannelHandlerContext -> Throwable -> ST s () throws Exception
+
+  native handlerAdded :: ChannelHandler -> ChannelHandlerContext -> ST s () throws Exception
+
+  native handlerRemoved :: ChannelHandler -> ChannelHandlerContext -> ST s () throws Exception
+
+
+import io.netty.Buffer
+import java.Net
+import io.netty.util.Concurrent
+
+data ChannelHandlerContext = pure native io.netty.channel.ChannelHandlerContext where
+
+  pure native alloc :: ChannelHandlerContext -> ByteBufAllocator
+
+  pure native bind :: ChannelHandlerContext -> SocketAddress -> ChannelFuture
+                    | ChannelHandlerContext -> SocketAddress -> ChannelPromise -> ChannelFuture
+
+  pure native channel :: ChannelHandlerContext -> Channel
+
+  pure native close :: ChannelHandlerContext -> ChannelPromise -> ChannelFuture
+                     | ChannelHandlerContext -> ChannelFuture
+
+  pure native connect :: ChannelHandlerContext -> SocketAddress -> ChannelFuture
+                       | ChannelHandlerContext -> SocketAddress -> SocketAddress -> ChannelFuture
+                       | ChannelHandlerContext -> SocketAddress -> SocketAddress -> ChannelPromise -> ChannelFuture
+                       | ChannelHandlerContext -> SocketAddress -> ChannelPromise -> ChannelFuture
+
+  pure native deregister :: ChannelHandlerContext -> ChannelFuture
+                          | ChannelHandlerContext -> ChannelPromise -> ChannelFuture
+
+  pure native disconnect :: ChannelHandlerContext -> ChannelPromise -> ChannelFuture
+                          | ChannelHandlerContext -> ChannelFuture
+
+  pure native executor :: ChannelHandlerContext -> EventExecutor
+
+  pure native fireChannelActive :: ChannelHandlerContext -> ChannelHandlerContext
+
+  pure native fireChannelInactive :: ChannelHandlerContext -> ChannelHandlerContext
+
+  pure native fireChannelRead :: ChannelHandlerContext -> Object -> ChannelHandlerContext
+
+  pure native fireChannelReadComplete :: ChannelHandlerContext -> ChannelHandlerContext
+
+  pure native fireChannelRegistered :: ChannelHandlerContext -> ChannelHandlerContext
+
+  pure native fireChannelUnregistered :: ChannelHandlerContext -> ChannelHandlerContext
+
+  pure native fireChannelWritabilityChanged :: ChannelHandlerContext -> ChannelHandlerContext
+
+  pure native fireExceptionCaught :: ChannelHandlerContext -> Throwable -> ChannelHandlerContext
+
+  pure native fireUserEventTriggered :: ChannelHandlerContext -> Object -> ChannelHandlerContext
+
+  pure native flush :: ChannelHandlerContext -> ChannelHandlerContext
+
+  pure native handler :: ChannelHandlerContext -> ChannelHandler
+
+  pure native isRemoved :: ChannelHandlerContext -> Bool
+
+  pure native name :: ChannelHandlerContext -> String
+
+  pure native newFailedFuture :: ChannelHandlerContext -> Throwable -> ChannelFuture
+
+  pure native newProgressivePromise :: ChannelHandlerContext -> ChannelProgressivePromise
+
+  pure native newPromise :: ChannelHandlerContext -> ChannelPromise
+
+  pure native newSucceededFuture :: ChannelHandlerContext -> ChannelFuture
+
+  pure native pipeline :: ChannelHandlerContext -> ChannelPipeline
+
+  pure native read :: ChannelHandlerContext -> ChannelHandlerContext
+
+  pure native voidPromise :: ChannelHandlerContext -> ChannelPromise
+
+  pure native write :: ChannelHandlerContext -> Object -> ChannelFuture
+                     | ChannelHandlerContext -> Object -> ChannelPromise -> ChannelFuture
+
+  pure native writeAndFlush :: ChannelHandlerContext -> Object -> ChannelFuture
+                             | ChannelHandlerContext -> Object -> ChannelPromise -> ChannelFuture
+
+
+import java.Nio
+
+data ChannelOutboundBuffer = pure native io.netty.channel.ChannelOutboundBuffer where
+
+  pure native addFlush :: ChannelOutboundBuffer -> ()
+
+  pure native addMessage :: ChannelOutboundBuffer -> Object -> Int -> ChannelPromise -> ()
+
+  pure native bytesBeforeUnwritable :: ChannelOutboundBuffer -> Long
+
+  pure native bytesBeforeWritable :: ChannelOutboundBuffer -> Long
+
+  pure native current :: ChannelOutboundBuffer -> Object
+
+  native forEachFlushedMessage :: ChannelOutboundBuffer -> ChannelOutboundBuffer_MessageProcessor -> ST s () throws Exception
+
+  pure native getUserDefinedWritability :: ChannelOutboundBuffer -> Int -> Bool
+
+  pure native isEmpty :: ChannelOutboundBuffer -> Bool
+
+  pure native isWritable :: ChannelOutboundBuffer -> Bool
+
+  pure native nioBufferCount :: ChannelOutboundBuffer -> Int
+
+  pure native nioBufferSize :: ChannelOutboundBuffer -> Long
+
+  native nioBuffers :: ChannelOutboundBuffer -> STMutable s (JArray ByteBuffer)
+
+  pure native progress :: ChannelOutboundBuffer -> Long -> ()
+
+  pure native recycle :: ChannelOutboundBuffer -> ()
+
+  pure native remove :: ChannelOutboundBuffer -> Bool
+                      | ChannelOutboundBuffer -> Throwable -> Bool
+
+  pure native removeBytes :: ChannelOutboundBuffer -> Long -> ()
+
+  pure native setUserDefinedWritability :: ChannelOutboundBuffer -> Int -> Bool -> ()
+
+  pure native size :: ChannelOutboundBuffer -> Int
+
+  pure native totalPendingWriteBytes :: ChannelOutboundBuffer -> Long
+
+
+
+data MessageSizeEstimator_Handle = pure native io.netty.channel.MessageSizeEstimator.Handle where
+
+  pure native size :: MessageSizeEstimator_Handle -> Object -> Int
+
+
+import io.netty.Buffer
+
+data RecvByteBufAllocator_Handle = pure native io.netty.channel.RecvByteBufAllocator.Handle where
+
+  pure native allocate :: RecvByteBufAllocator_Handle -> ByteBufAllocator -> ByteBuf
+
+  pure native guess :: RecvByteBufAllocator_Handle -> Int
+
+  pure native record :: RecvByteBufAllocator_Handle -> Int -> ()
+
+
+
+data ChannelOutboundBuffer_MessageProcessor = pure native io.netty.channel.ChannelOutboundBuffer.MessageProcessor where
+
+  native processMessage :: ChannelOutboundBuffer_MessageProcessor -> Object -> ST s Bool throws Exception
+
+

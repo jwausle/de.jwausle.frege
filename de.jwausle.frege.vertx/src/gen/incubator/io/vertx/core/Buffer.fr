@@ -1,0 +1,122 @@
+module io.vertx.core.Buffer where
+
+import io.vertx.core.Spi
+import io.netty.Buffer
+import java.Nio
+import io.vertx.core.Json
+import java.nio.Charset
+
+data Buffer = pure native io.vertx.core.buffer.Buffer where
+
+  pure native factory "io.vertx.core.buffer.Buffer.factory" :: BufferFactory
+
+  pure native appendBuffer :: Buffer -> Buffer -> Int -> Int -> Buffer
+                            | Buffer -> Buffer -> Buffer
+
+  pure native appendByte :: Buffer -> Byte -> Buffer
+
+  native appendBytes :: Buffer -> Mutable s (JArray Byte) -> Int -> Int -> ST s Buffer
+                      | Buffer -> Mutable s (JArray Byte) -> ST s Buffer
+
+  pure native appendDouble :: Buffer -> Double -> Buffer
+
+  pure native appendFloat :: Buffer -> Float -> Buffer
+
+  pure native appendInt :: Buffer -> Int -> Buffer
+
+  pure native appendLong :: Buffer -> Long -> Buffer
+
+  pure native appendShort :: Buffer -> Short -> Buffer
+
+  pure native appendString :: Buffer -> String -> Buffer
+                            | Buffer -> String -> String -> Buffer
+
+  pure native appendUnsignedByte :: Buffer -> Short -> Buffer
+
+  pure native appendUnsignedInt :: Buffer -> Long -> Buffer
+
+  pure native appendUnsignedShort :: Buffer -> Int -> Buffer
+
+  native buffer "io.vertx.core.buffer.Buffer.buffer" :: () -> ST s Buffer
+                                                      | String -> String -> ST s Buffer
+                                                      | Mutable s (JArray Byte) -> ST s Buffer
+                                                      | String -> ST s Buffer
+                                                      | Int -> ST s Buffer
+                                                      | ByteBuf -> ST s Buffer
+
+  pure native copy :: Buffer -> Buffer
+
+  pure native getBuffer :: Buffer -> Int -> Int -> Buffer
+
+  pure native getByte :: Buffer -> Int -> Byte
+
+  pure native getByteBuf :: Buffer -> ByteBuf
+
+  native getBytes :: Buffer -> Int -> Int -> Mutable s (JArray Byte) -> Int -> ST s Buffer
+                   | Buffer -> Mutable s (JArray Byte) -> ST s Buffer
+                   | Buffer -> Mutable s (JArray Byte) -> Int -> ST s Buffer
+                   | Buffer -> Int -> Int -> Mutable s (JArray Byte) -> ST s Buffer
+                   | Buffer -> STMutable s (JArray Byte)
+                   | Buffer -> Int -> Int -> STMutable s (JArray Byte)
+
+  pure native getDouble :: Buffer -> Int -> Double
+
+  pure native getFloat :: Buffer -> Int -> Float
+
+  pure native getInt :: Buffer -> Int -> Int
+
+  pure native getLong :: Buffer -> Int -> Long
+
+  pure native getShort :: Buffer -> Int -> Short
+
+  pure native getString :: Buffer -> Int -> Int -> String -> String
+                         | Buffer -> Int -> Int -> String
+
+  pure native getUnsignedByte :: Buffer -> Int -> Short
+
+  pure native getUnsignedInt :: Buffer -> Int -> Long
+
+  pure native getUnsignedShort :: Buffer -> Int -> Int
+
+  pure native length :: Buffer -> Int
+
+  pure native setBuffer :: Buffer -> Int -> Buffer -> Int -> Int -> Buffer
+                         | Buffer -> Int -> Buffer -> Buffer
+
+  pure native setByte :: Buffer -> Int -> Byte -> Buffer
+
+  native setBytes :: Buffer -> Int -> ByteBuffer -> ST s Buffer
+                   | Buffer -> Int -> Mutable s (JArray Byte) -> Int -> Int -> ST s Buffer
+                   | Buffer -> Int -> Mutable s (JArray Byte) -> ST s Buffer
+
+  pure native setDouble :: Buffer -> Int -> Double -> Buffer
+
+  pure native setFloat :: Buffer -> Int -> Float -> Buffer
+
+  pure native setInt :: Buffer -> Int -> Int -> Buffer
+
+  pure native setLong :: Buffer -> Int -> Long -> Buffer
+
+  pure native setShort :: Buffer -> Int -> Short -> Buffer
+
+  pure native setString :: Buffer -> Int -> String -> String -> Buffer
+                         | Buffer -> Int -> String -> Buffer
+
+  pure native setUnsignedByte :: Buffer -> Int -> Short -> Buffer
+
+  pure native setUnsignedInt :: Buffer -> Int -> Long -> Buffer
+
+  pure native setUnsignedShort :: Buffer -> Int -> Int -> Buffer
+
+  pure native slice :: Buffer -> Buffer
+                     | Buffer -> Int -> Int -> Buffer
+
+  pure native toJsonArray :: Buffer -> JsonArray
+
+  pure native toJsonObject :: Buffer -> JsonObject
+
+  native toString :: Buffer -> ST s String
+                   | Buffer -> String -> ST s String
+                   | Buffer -> Mutable s Charset -> ST s String
+
+

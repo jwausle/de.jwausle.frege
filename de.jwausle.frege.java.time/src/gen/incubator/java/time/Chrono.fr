@@ -1,0 +1,377 @@
+module java.time.Chrono where
+
+import java.time.Temporal
+import java.Time
+import java.Util
+import java.time.Format
+
+data Chronology = pure native java.time.chrono.Chronology where
+
+  pure native compareTo :: Chronology -> Chronology -> Int
+
+  pure native date :: Chronology -> TemporalAccessor -> ChronoLocalDate
+                    | Chronology -> Era -> Int -> Int -> Int -> ChronoLocalDate
+                    | Chronology -> Int -> Int -> Int -> ChronoLocalDate
+
+  pure native dateEpochDay :: Chronology -> Long -> ChronoLocalDate
+
+  pure native dateNow :: Chronology -> Clock -> ChronoLocalDate
+                       | Chronology -> ZoneId -> ChronoLocalDate
+                       | Chronology -> ChronoLocalDate
+
+  pure native dateYearDay :: Chronology -> Int -> Int -> ChronoLocalDate
+                           | Chronology -> Era -> Int -> Int -> ChronoLocalDate
+
+  pure native equals :: Chronology -> Object -> Bool
+
+  pure native eraOf :: Chronology -> Int -> Era
+
+  native eras :: Chronology -> STMutable s (List Era)
+
+  pure native from "java.time.chrono.Chronology.from" :: TemporalAccessor -> Chronology
+
+  native getAvailableChronologies "java.time.chrono.Chronology.getAvailableChronologies" :: () -> STMutable s (Set Chronology)
+
+  pure native getCalendarType :: Chronology -> String
+
+  pure native getDisplayName :: Chronology -> TextStyle -> Locale -> String
+
+  pure native getId :: Chronology -> String
+
+  pure native hashCode :: Chronology -> Int
+
+  pure native isLeapYear :: Chronology -> Long -> Bool
+
+  pure native localDateTime :: Chronology -> TemporalAccessor -> ChronoLocalDateTime ChronoLocalDate
+
+  pure native jof' "java.time.chrono.Chronology.of" :: String -> Chronology
+
+  pure native ofLocale "java.time.chrono.Chronology.ofLocale" :: Locale -> Chronology
+
+  pure native period :: Chronology -> Int -> Int -> Int -> ChronoPeriod
+
+  pure native prolepticYear :: Chronology -> Era -> Int -> Int
+
+  pure native range :: Chronology -> ChronoField -> ValueRange
+
+  native resolveDate :: Chronology -> Mutable s (Map TemporalField Long) -> ResolverStyle -> ST s ChronoLocalDate
+
+  pure native toString :: Chronology -> String
+
+  pure native zonedDateTime :: Chronology -> TemporalAccessor -> ChronoZonedDateTime ChronoLocalDate
+                             | Chronology -> Instant -> ZoneId -> ChronoZonedDateTime ChronoLocalDate
+
+
+import java.time.Temporal
+import java.Time
+import java.time.Format
+import java.Util
+
+data ChronoLocalDate = pure native java.time.chrono.ChronoLocalDate where
+
+  pure native adjustInto :: ChronoLocalDate -> Temporal -> Temporal
+
+  pure native atTime :: ChronoLocalDate -> LocalTime -> ChronoLocalDateTime Object
+
+  pure native compareTo :: ChronoLocalDate -> ChronoLocalDate -> Int
+
+  pure native equals :: ChronoLocalDate -> Object -> Bool
+
+  pure native format :: ChronoLocalDate -> DateTimeFormatter -> String
+
+  pure native from "java.time.chrono.ChronoLocalDate.from" :: TemporalAccessor -> ChronoLocalDate
+
+  pure native getChronology :: ChronoLocalDate -> Chronology
+
+  pure native getEra :: ChronoLocalDate -> Era
+
+  pure native hashCode :: ChronoLocalDate -> Int
+
+  pure native isAfter :: ChronoLocalDate -> ChronoLocalDate -> Bool
+
+  pure native isBefore :: ChronoLocalDate -> ChronoLocalDate -> Bool
+
+  pure native isEqual :: ChronoLocalDate -> ChronoLocalDate -> Bool
+
+  pure native isLeapYear :: ChronoLocalDate -> Bool
+
+  pure native isSupported :: ChronoLocalDate -> TemporalUnit -> Bool
+                           | ChronoLocalDate -> TemporalField -> Bool
+
+  pure native lengthOfMonth :: ChronoLocalDate -> Int
+
+  pure native lengthOfYear :: ChronoLocalDate -> Int
+
+  pure native minus :: ChronoLocalDate -> TemporalAmount -> ChronoLocalDate
+                     | ChronoLocalDate -> Long -> TemporalUnit -> ChronoLocalDate
+
+  pure native plus :: ChronoLocalDate -> Long -> TemporalUnit -> ChronoLocalDate
+                    | ChronoLocalDate -> TemporalAmount -> ChronoLocalDate
+
+  pure native query :: ChronoLocalDate -> TemporalQuery r -> r
+
+  pure native timeLineOrder "java.time.chrono.ChronoLocalDate.timeLineOrder" :: () -> Comparator ChronoLocalDate
+
+  pure native toEpochDay :: ChronoLocalDate -> Long
+
+  pure native toString :: ChronoLocalDate -> String
+
+  pure native until :: ChronoLocalDate -> ChronoLocalDate -> ChronoPeriod
+                     | ChronoLocalDate -> Temporal -> TemporalUnit -> Long
+
+  pure native with :: ChronoLocalDate -> TemporalAdjuster -> ChronoLocalDate
+                    | ChronoLocalDate -> TemporalField -> Long -> ChronoLocalDate
+
+
+import java.Time
+import java.time.Temporal
+import java.Util
+import java.time.Format
+
+data IsoChronology = pure native java.time.chrono.IsoChronology where
+
+  pure native jinstance' "java.time.chrono.IsoChronology.INSTANCE" :: IsoChronology
+
+  pure native date :: IsoChronology -> Era -> Int -> Int -> Int -> LocalDate
+                    | IsoChronology -> Int -> Int -> Int -> LocalDate
+                    | IsoChronology -> TemporalAccessor -> LocalDate
+
+  pure native dateEpochDay :: IsoChronology -> Long -> LocalDate
+
+  pure native dateNow :: IsoChronology -> Clock -> LocalDate
+                       | IsoChronology -> ZoneId -> LocalDate
+                       | IsoChronology -> LocalDate
+
+  pure native dateYearDay :: IsoChronology -> Era -> Int -> Int -> LocalDate
+                           | IsoChronology -> Int -> Int -> LocalDate
+
+  pure native eraOf :: IsoChronology -> Int -> IsoEra
+
+  native eras :: IsoChronology -> STMutable s (List Era)
+
+  pure native getCalendarType :: IsoChronology -> String
+
+  pure native getId :: IsoChronology -> String
+
+  pure native isLeapYear :: IsoChronology -> Long -> Bool
+
+  pure native localDateTime :: IsoChronology -> TemporalAccessor -> LocalDateTime
+
+  pure native period :: IsoChronology -> Int -> Int -> Int -> Period
+
+  pure native prolepticYear :: IsoChronology -> Era -> Int -> Int
+
+  pure native range :: IsoChronology -> ChronoField -> ValueRange
+
+  native resolveDate :: IsoChronology -> Mutable s (Map TemporalField Long) -> ResolverStyle -> ST s LocalDate
+
+  pure native zonedDateTime :: IsoChronology -> Instant -> ZoneId -> ZonedDateTime
+                             | IsoChronology -> TemporalAccessor -> ZonedDateTime
+
+derive Serializable IsoChronology
+
+import java.time.Temporal
+import java.time.Format
+import java.Util
+
+data Era = pure native java.time.chrono.Era where
+
+  pure native adjustInto :: Era -> Temporal -> Temporal
+
+  pure native get :: Era -> TemporalField -> Int
+
+  pure native getDisplayName :: Era -> TextStyle -> Locale -> String
+
+  pure native getLong :: Era -> TemporalField -> Long
+
+  pure native getValue :: Era -> Int
+
+  pure native isSupported :: Era -> TemporalField -> Bool
+
+  pure native query :: Era -> TemporalQuery r -> r
+
+  pure native range :: Era -> TemporalField -> ValueRange
+
+
+import java.time.Temporal
+import java.Time
+import java.time.Format
+import java.Util
+
+data ChronoLocalDateTime d = pure native java.time.chrono.ChronoLocalDateTime where
+
+  pure native adjustInto :: ChronoLocalDateTime d -> Temporal -> Temporal
+
+  pure native atZone :: ChronoLocalDateTime d -> ZoneId -> ChronoZonedDateTime d
+
+  pure native compareTo :: ChronoLocalDateTime d -> ChronoLocalDateTime Object -> Int
+
+  pure native equals :: ChronoLocalDateTime d -> Object -> Bool
+
+  pure native format :: ChronoLocalDateTime d -> DateTimeFormatter -> String
+
+  pure native from "java.time.chrono.ChronoLocalDateTime.from" :: TemporalAccessor -> ChronoLocalDateTime Object
+
+  pure native getChronology :: ChronoLocalDateTime d -> Chronology
+
+  pure native hashCode :: ChronoLocalDateTime d -> Int
+
+  pure native isAfter :: ChronoLocalDateTime d -> ChronoLocalDateTime Object -> Bool
+
+  pure native isBefore :: ChronoLocalDateTime d -> ChronoLocalDateTime Object -> Bool
+
+  pure native isEqual :: ChronoLocalDateTime d -> ChronoLocalDateTime Object -> Bool
+
+  pure native isSupported :: ChronoLocalDateTime d -> TemporalField -> Bool
+                           | ChronoLocalDateTime d -> TemporalUnit -> Bool
+
+  pure native minus :: ChronoLocalDateTime d -> TemporalAmount -> ChronoLocalDateTime d
+                     | ChronoLocalDateTime d -> Long -> TemporalUnit -> ChronoLocalDateTime d
+
+  pure native plus :: ChronoLocalDateTime d -> TemporalAmount -> ChronoLocalDateTime d
+                    | ChronoLocalDateTime d -> Long -> TemporalUnit -> ChronoLocalDateTime d
+
+  pure native query :: ChronoLocalDateTime d -> TemporalQuery r -> r
+
+  pure native timeLineOrder "java.time.chrono.ChronoLocalDateTime.timeLineOrder" :: () -> Comparator (ChronoLocalDateTime Object)
+
+  pure native toEpochSecond :: ChronoLocalDateTime d -> ZoneOffset -> Long
+
+  pure native toInstant :: ChronoLocalDateTime d -> ZoneOffset -> Instant
+
+  pure native toLocalDate :: ChronoLocalDateTime d -> d
+
+  pure native toLocalTime :: ChronoLocalDateTime d -> LocalTime
+
+  pure native toString :: ChronoLocalDateTime d -> String
+
+  pure native with :: ChronoLocalDateTime d -> TemporalAdjuster -> ChronoLocalDateTime d
+                    | ChronoLocalDateTime d -> TemporalField -> Long -> ChronoLocalDateTime d
+
+
+import java.time.Temporal
+import java.Util
+
+data ChronoPeriod = pure native java.time.chrono.ChronoPeriod where
+
+  pure native addTo :: ChronoPeriod -> Temporal -> Temporal
+
+  pure native between "java.time.chrono.ChronoPeriod.between" :: ChronoLocalDate -> ChronoLocalDate -> ChronoPeriod
+
+  pure native equals :: ChronoPeriod -> Object -> Bool
+
+  pure native get :: ChronoPeriod -> TemporalUnit -> Long
+
+  pure native getChronology :: ChronoPeriod -> Chronology
+
+  native getUnits :: ChronoPeriod -> STMutable s (List TemporalUnit)
+
+  pure native hashCode :: ChronoPeriod -> Int
+
+  pure native isNegative :: ChronoPeriod -> Bool
+
+  pure native isZero :: ChronoPeriod -> Bool
+
+  pure native minus :: ChronoPeriod -> TemporalAmount -> ChronoPeriod
+
+  pure native multipliedBy :: ChronoPeriod -> Int -> ChronoPeriod
+
+  pure native negated :: ChronoPeriod -> ChronoPeriod
+
+  pure native normalized :: ChronoPeriod -> ChronoPeriod
+
+  pure native plus :: ChronoPeriod -> TemporalAmount -> ChronoPeriod
+
+  pure native subtractFrom :: ChronoPeriod -> Temporal -> Temporal
+
+  pure native toString :: ChronoPeriod -> String
+
+
+import java.time.Format
+import java.time.Temporal
+import java.Time
+import java.Util
+
+data ChronoZonedDateTime d = pure native java.time.chrono.ChronoZonedDateTime where
+
+  pure native compareTo :: ChronoZonedDateTime d -> ChronoZonedDateTime Object -> Int
+
+  pure native equals :: ChronoZonedDateTime d -> Object -> Bool
+
+  pure native format :: ChronoZonedDateTime d -> DateTimeFormatter -> String
+
+  pure native from "java.time.chrono.ChronoZonedDateTime.from" :: TemporalAccessor -> ChronoZonedDateTime Object
+
+  pure native get :: ChronoZonedDateTime d -> TemporalField -> Int
+
+  pure native getChronology :: ChronoZonedDateTime d -> Chronology
+
+  pure native getLong :: ChronoZonedDateTime d -> TemporalField -> Long
+
+  pure native getOffset :: ChronoZonedDateTime d -> ZoneOffset
+
+  pure native getZone :: ChronoZonedDateTime d -> ZoneId
+
+  pure native hashCode :: ChronoZonedDateTime d -> Int
+
+  pure native isAfter :: ChronoZonedDateTime d -> ChronoZonedDateTime Object -> Bool
+
+  pure native isBefore :: ChronoZonedDateTime d -> ChronoZonedDateTime Object -> Bool
+
+  pure native isEqual :: ChronoZonedDateTime d -> ChronoZonedDateTime Object -> Bool
+
+  pure native isSupported :: ChronoZonedDateTime d -> TemporalField -> Bool
+                           | ChronoZonedDateTime d -> TemporalUnit -> Bool
+
+  pure native minus :: ChronoZonedDateTime d -> Long -> TemporalUnit -> ChronoZonedDateTime d
+                     | ChronoZonedDateTime d -> TemporalAmount -> ChronoZonedDateTime d
+
+  pure native plus :: ChronoZonedDateTime d -> TemporalAmount -> ChronoZonedDateTime d
+                    | ChronoZonedDateTime d -> Long -> TemporalUnit -> ChronoZonedDateTime d
+
+  pure native query :: ChronoZonedDateTime d -> TemporalQuery r -> r
+
+  pure native range :: ChronoZonedDateTime d -> TemporalField -> ValueRange
+
+  pure native timeLineOrder "java.time.chrono.ChronoZonedDateTime.timeLineOrder" :: () -> Comparator (ChronoZonedDateTime Object)
+
+  pure native toEpochSecond :: ChronoZonedDateTime d -> Long
+
+  pure native toInstant :: ChronoZonedDateTime d -> Instant
+
+  pure native toLocalDate :: ChronoZonedDateTime d -> d
+
+  pure native toLocalDateTime :: ChronoZonedDateTime d -> ChronoLocalDateTime d
+
+  pure native toLocalTime :: ChronoZonedDateTime d -> LocalTime
+
+  pure native toString :: ChronoZonedDateTime d -> String
+
+  pure native with :: ChronoZonedDateTime d -> TemporalField -> Long -> ChronoZonedDateTime d
+                    | ChronoZonedDateTime d -> TemporalAdjuster -> ChronoZonedDateTime d
+
+  pure native withEarlierOffsetAtOverlap :: ChronoZonedDateTime d -> ChronoZonedDateTime d
+
+  pure native withLaterOffsetAtOverlap :: ChronoZonedDateTime d -> ChronoZonedDateTime d
+
+  pure native withZoneSameInstant :: ChronoZonedDateTime d -> ZoneId -> ChronoZonedDateTime d
+
+  pure native withZoneSameLocal :: ChronoZonedDateTime d -> ZoneId -> ChronoZonedDateTime d
+
+
+
+data IsoEra = pure native java.time.chrono.IsoEra where
+
+  pure native bce "java.time.chrono.IsoEra.BCE" :: IsoEra
+  pure native ce "java.time.chrono.IsoEra.CE" :: IsoEra
+
+  pure native getValue :: IsoEra -> Int
+
+  pure native jof' "java.time.chrono.IsoEra.of" :: Int -> IsoEra
+
+  pure native valueOf "java.time.chrono.IsoEra.valueOf" :: String -> IsoEra
+
+  native values "java.time.chrono.IsoEra.values" :: () -> STMutable s (JArray IsoEra)
+
+derive Serializable IsoEra
+

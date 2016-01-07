@@ -1,0 +1,34 @@
+module javax.security.Cert where
+
+import java.Util
+import java.Io
+import java.Security
+import java.Math
+
+data X509Certificate = native javax.security.cert.X509Certificate where
+
+  native checkValidity :: Mutable s X509Certificate -> Mutable s Date -> ST s () throws CertificateExpiredException, CertificateNotYetValidException
+                        | Mutable s X509Certificate -> ST s () throws CertificateExpiredException, CertificateNotYetValidException
+
+  native getInstance "javax.security.cert.X509Certificate.getInstance" :: Mutable s (JArray Byte) -> STMutable s X509Certificate throws CertificateException
+                                                                        | InputStream -> IO X509Certificate throws CertificateException
+
+  native getIssuerDN :: Mutable s X509Certificate -> STMutable s Principal
+
+  native getNotAfter :: Mutable s X509Certificate -> STMutable s Date
+
+  native getNotBefore :: Mutable s X509Certificate -> STMutable s Date
+
+  native getSerialNumber :: Mutable s X509Certificate -> ST s Integer
+
+  native getSigAlgName :: Mutable s X509Certificate -> ST s String
+
+  native getSigAlgOID :: Mutable s X509Certificate -> ST s String
+
+  native getSigAlgParams :: Mutable s X509Certificate -> STMutable s (JArray Byte)
+
+  native getSubjectDN :: Mutable s X509Certificate -> STMutable s Principal
+
+  native getVersion :: Mutable s X509Certificate -> ST s Int
+
+

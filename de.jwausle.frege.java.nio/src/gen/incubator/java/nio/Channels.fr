@@ -1,0 +1,20 @@
+module java.nio.Channels where
+
+import java.Nio
+import java.Io
+
+data GatheringByteChannel = pure native java.nio.channels.GatheringByteChannel where
+
+  native write :: GatheringByteChannel -> Mutable s (JArray ByteBuffer) -> Int -> Int -> ST s Long throws IOException
+                | GatheringByteChannel -> Mutable s (JArray ByteBuffer) -> ST s Long throws IOException
+
+
+import java.Nio
+import java.Io
+
+data ScatteringByteChannel = pure native java.nio.channels.ScatteringByteChannel where
+
+  native read :: ScatteringByteChannel -> Mutable s (JArray ByteBuffer) -> Int -> Int -> ST s Long throws IOException
+               | ScatteringByteChannel -> Mutable s (JArray ByteBuffer) -> ST s Long throws IOException
+
+

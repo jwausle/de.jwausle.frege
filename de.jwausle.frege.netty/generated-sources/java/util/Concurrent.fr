@@ -1,0 +1,86 @@
+module java.util.Concurrent where
+
+
+data TimeUnit = pure native java.util.concurrent.TimeUnit where
+
+  pure native nanoseconds "java.util.concurrent.TimeUnit.NANOSECONDS" :: TimeUnit
+  pure native microseconds "java.util.concurrent.TimeUnit.MICROSECONDS" :: TimeUnit
+  pure native milliseconds "java.util.concurrent.TimeUnit.MILLISECONDS" :: TimeUnit
+  pure native seconds "java.util.concurrent.TimeUnit.SECONDS" :: TimeUnit
+  pure native minutes "java.util.concurrent.TimeUnit.MINUTES" :: TimeUnit
+  pure native hours "java.util.concurrent.TimeUnit.HOURS" :: TimeUnit
+  pure native days "java.util.concurrent.TimeUnit.DAYS" :: TimeUnit
+
+  native convert :: TimeUnit -> Mutable s long -> TimeUnit -> STMutable s long
+
+  native sleep :: TimeUnit -> Mutable s long -> STMutable s void throws InterruptedException
+
+  native timedJoin :: TimeUnit -> Mutable s Thread -> Mutable s long -> STMutable s void throws InterruptedException
+
+  native timedWait :: TimeUnit -> Mutable s Object -> Mutable s long -> STMutable s void throws InterruptedException
+
+  native toDays :: TimeUnit -> Mutable s long -> STMutable s long
+
+  native toHours :: TimeUnit -> Mutable s long -> STMutable s long
+
+  native toMicros :: TimeUnit -> Mutable s long -> STMutable s long
+
+  native toMillis :: TimeUnit -> Mutable s long -> STMutable s long
+
+  native toMinutes :: TimeUnit -> Mutable s long -> STMutable s long
+
+  native toNanos :: TimeUnit -> Mutable s long -> STMutable s long
+
+  native toSeconds :: TimeUnit -> Mutable s long -> STMutable s long
+
+  native valueOf "java.util.concurrent.TimeUnit.valueOf" :: Mutable s String -> ST s TimeUnit
+
+  native values "java.util.concurrent.TimeUnit.values" :: () -> STMutable s (JArray TimeUnit)
+
+derive Serializable TimeUnit
+
+
+data TimeUnit = pure native java.util.concurrent.TimeUnit where
+
+  pure native nanoseconds "java.util.concurrent.TimeUnit.NANOSECONDS" :: TimeUnit
+  pure native microseconds "java.util.concurrent.TimeUnit.MICROSECONDS" :: TimeUnit
+  pure native milliseconds "java.util.concurrent.TimeUnit.MILLISECONDS" :: TimeUnit
+  pure native seconds "java.util.concurrent.TimeUnit.SECONDS" :: TimeUnit
+  pure native minutes "java.util.concurrent.TimeUnit.MINUTES" :: TimeUnit
+  pure native hours "java.util.concurrent.TimeUnit.HOURS" :: TimeUnit
+  pure native days "java.util.concurrent.TimeUnit.DAYS" :: TimeUnit
+
+  pure native convert :: TimeUnit -> Long -> TimeUnit -> Long
+
+  native sleep :: TimeUnit -> Long -> ST s () throws InterruptedException
+
+  native timedJoin :: TimeUnit -> Mutable s Thread -> Long -> ST s () throws InterruptedException
+
+  native timedWait :: TimeUnit -> Object -> Long -> ST s () throws InterruptedException
+
+  pure native toDays :: TimeUnit -> Long -> Long
+
+  pure native toHours :: TimeUnit -> Long -> Long
+
+  pure native toMicros :: TimeUnit -> Long -> Long
+
+  pure native toMillis :: TimeUnit -> Long -> Long
+
+  pure native toMinutes :: TimeUnit -> Long -> Long
+
+  pure native toNanos :: TimeUnit -> Long -> Long
+
+  pure native toSeconds :: TimeUnit -> Long -> Long
+
+  pure native valueOf "java.util.concurrent.TimeUnit.valueOf" :: String -> TimeUnit
+
+  native values "java.util.concurrent.TimeUnit.values" :: () -> STMutable s (JArray TimeUnit)
+
+derive Serializable TimeUnit
+
+
+data Callable v = pure native java.util.concurrent.Callable where
+
+  native call :: Callable v -> ST s v throws Exception
+
+

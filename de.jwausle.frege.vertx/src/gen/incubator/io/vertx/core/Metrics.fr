@@ -1,0 +1,25 @@
+module io.vertx.core.Metrics where
+
+import io.vertx.core.Json
+
+data MetricsOptions = pure native io.vertx.core.metrics.MetricsOptions where
+
+  pure native default_metrics_enabled "io.vertx.core.metrics.MetricsOptions.DEFAULT_METRICS_ENABLED" :: Bool
+
+  pure native new :: JsonObject -> MetricsOptions
+                   | MetricsOptions -> MetricsOptions
+                   | () -> MetricsOptions
+
+  pure native equals :: MetricsOptions -> Object -> Bool
+
+  pure native hashCode :: MetricsOptions -> Int
+
+  pure native isEnabled :: MetricsOptions -> Bool
+
+  pure native setEnabled :: MetricsOptions -> Bool -> MetricsOptions
+
+  pure native toJson :: MetricsOptions -> JsonObject
+
+  pure native toString :: MetricsOptions -> String
+
+

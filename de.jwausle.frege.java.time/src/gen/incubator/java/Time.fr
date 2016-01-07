@@ -1,0 +1,1295 @@
+module java.Time where
+
+import java.time.Temporal
+
+data Instant = pure native java.time.Instant where
+
+  pure native epoch "java.time.Instant.EPOCH" :: Instant
+  pure native min "java.time.Instant.MIN" :: Instant
+  pure native max "java.time.Instant.MAX" :: Instant
+
+  pure native adjustInto :: Instant -> Temporal -> Temporal
+
+  pure native atOffset :: Instant -> ZoneOffset -> OffsetDateTime
+
+  pure native atZone :: Instant -> ZoneId -> ZonedDateTime
+
+  pure native compareTo :: Instant -> Instant -> Int
+
+  pure native equals :: Instant -> Object -> Bool
+
+  pure native from "java.time.Instant.from" :: TemporalAccessor -> Instant
+
+  pure native get :: Instant -> TemporalField -> Int
+
+  pure native getEpochSecond :: Instant -> Long
+
+  pure native getLong :: Instant -> TemporalField -> Long
+
+  pure native getNano :: Instant -> Int
+
+  pure native hashCode :: Instant -> Int
+
+  pure native isAfter :: Instant -> Instant -> Bool
+
+  pure native isBefore :: Instant -> Instant -> Bool
+
+  pure native isSupported :: Instant -> TemporalUnit -> Bool
+                           | Instant -> TemporalField -> Bool
+
+  pure native minus :: Instant -> TemporalAmount -> Instant
+                     | Instant -> Long -> TemporalUnit -> Instant
+
+  pure native minusMillis :: Instant -> Long -> Instant
+
+  pure native minusNanos :: Instant -> Long -> Instant
+
+  pure native minusSeconds :: Instant -> Long -> Instant
+
+  pure native now "java.time.Instant.now" :: () -> Instant
+                                           | Clock -> Instant
+
+  pure native ofEpochMilli "java.time.Instant.ofEpochMilli" :: Long -> Instant
+
+  pure native ofEpochSecond "java.time.Instant.ofEpochSecond" :: Long -> Instant
+                                                               | Long -> Long -> Instant
+
+  pure native parse "java.time.Instant.parse" :: CharSequence -> Instant
+
+  pure native plus :: Instant -> TemporalAmount -> Instant
+                    | Instant -> Long -> TemporalUnit -> Instant
+
+  pure native plusMillis :: Instant -> Long -> Instant
+
+  pure native plusNanos :: Instant -> Long -> Instant
+
+  pure native plusSeconds :: Instant -> Long -> Instant
+
+  pure native query :: Instant -> TemporalQuery r -> r
+
+  pure native range :: Instant -> TemporalField -> ValueRange
+
+  pure native toEpochMilli :: Instant -> Long
+
+  pure native toString :: Instant -> String
+
+  pure native truncatedTo :: Instant -> TemporalUnit -> Instant
+
+  pure native until :: Instant -> Temporal -> TemporalUnit -> Long
+
+  pure native with :: Instant -> TemporalAdjuster -> Instant
+                    | Instant -> TemporalField -> Long -> Instant
+
+derive Serializable Instant
+
+import java.time.Temporal
+import java.time.Zone
+
+data ZoneOffset = pure native java.time.ZoneOffset where
+
+  pure native utc "java.time.ZoneOffset.UTC" :: ZoneOffset
+  pure native min "java.time.ZoneOffset.MIN" :: ZoneOffset
+  pure native max "java.time.ZoneOffset.MAX" :: ZoneOffset
+
+  pure native adjustInto :: ZoneOffset -> Temporal -> Temporal
+
+  pure native compareTo :: ZoneOffset -> ZoneOffset -> Int
+
+  pure native equals :: ZoneOffset -> Object -> Bool
+
+  pure native from "java.time.ZoneOffset.from" :: TemporalAccessor -> ZoneOffset
+
+  pure native get :: ZoneOffset -> TemporalField -> Int
+
+  pure native getId :: ZoneOffset -> String
+
+  pure native getLong :: ZoneOffset -> TemporalField -> Long
+
+  pure native getRules :: ZoneOffset -> ZoneRules
+
+  pure native getTotalSeconds :: ZoneOffset -> Int
+
+  pure native hashCode :: ZoneOffset -> Int
+
+  pure native isSupported :: ZoneOffset -> TemporalField -> Bool
+
+  pure native jof' "java.time.ZoneOffset.of" :: String -> ZoneOffset
+
+  pure native ofHours "java.time.ZoneOffset.ofHours" :: Int -> ZoneOffset
+
+  pure native ofHoursMinutes "java.time.ZoneOffset.ofHoursMinutes" :: Int -> Int -> ZoneOffset
+
+  pure native ofHoursMinutesSeconds "java.time.ZoneOffset.ofHoursMinutesSeconds" :: Int -> Int -> Int -> ZoneOffset
+
+  pure native ofTotalSeconds "java.time.ZoneOffset.ofTotalSeconds" :: Int -> ZoneOffset
+
+  pure native query :: ZoneOffset -> TemporalQuery r -> r
+
+  pure native range :: ZoneOffset -> TemporalField -> ValueRange
+
+  pure native toString :: ZoneOffset -> String
+
+derive Serializable ZoneOffset
+
+import java.time.Temporal
+import java.time.Format
+import java.Util
+
+data OffsetDateTime = pure native java.time.OffsetDateTime where
+
+  pure native min "java.time.OffsetDateTime.MIN" :: OffsetDateTime
+  pure native max "java.time.OffsetDateTime.MAX" :: OffsetDateTime
+
+  pure native adjustInto :: OffsetDateTime -> Temporal -> Temporal
+
+  pure native atZoneSameInstant :: OffsetDateTime -> ZoneId -> ZonedDateTime
+
+  pure native atZoneSimilarLocal :: OffsetDateTime -> ZoneId -> ZonedDateTime
+
+  pure native compareTo :: OffsetDateTime -> OffsetDateTime -> Int
+
+  pure native equals :: OffsetDateTime -> Object -> Bool
+
+  pure native format :: OffsetDateTime -> DateTimeFormatter -> String
+
+  pure native from "java.time.OffsetDateTime.from" :: TemporalAccessor -> OffsetDateTime
+
+  pure native get :: OffsetDateTime -> TemporalField -> Int
+
+  pure native getDayOfMonth :: OffsetDateTime -> Int
+
+  pure native getDayOfWeek :: OffsetDateTime -> DayOfWeek
+
+  pure native getDayOfYear :: OffsetDateTime -> Int
+
+  pure native getHour :: OffsetDateTime -> Int
+
+  pure native getLong :: OffsetDateTime -> TemporalField -> Long
+
+  pure native getMinute :: OffsetDateTime -> Int
+
+  pure native getMonth :: OffsetDateTime -> Month
+
+  pure native getMonthValue :: OffsetDateTime -> Int
+
+  pure native getNano :: OffsetDateTime -> Int
+
+  pure native getOffset :: OffsetDateTime -> ZoneOffset
+
+  pure native getSecond :: OffsetDateTime -> Int
+
+  pure native getYear :: OffsetDateTime -> Int
+
+  pure native hashCode :: OffsetDateTime -> Int
+
+  pure native isAfter :: OffsetDateTime -> OffsetDateTime -> Bool
+
+  pure native isBefore :: OffsetDateTime -> OffsetDateTime -> Bool
+
+  pure native isEqual :: OffsetDateTime -> OffsetDateTime -> Bool
+
+  pure native isSupported :: OffsetDateTime -> TemporalField -> Bool
+                           | OffsetDateTime -> TemporalUnit -> Bool
+
+  pure native minus :: OffsetDateTime -> Long -> TemporalUnit -> OffsetDateTime
+                     | OffsetDateTime -> TemporalAmount -> OffsetDateTime
+
+  pure native minusDays :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native minusHours :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native minusMinutes :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native minusMonths :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native minusNanos :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native minusSeconds :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native minusWeeks :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native minusYears :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native now "java.time.OffsetDateTime.now" :: Clock -> OffsetDateTime
+                                                  | ZoneId -> OffsetDateTime
+                                                  | () -> OffsetDateTime
+
+  pure native jof' "java.time.OffsetDateTime.of" :: LocalDate -> LocalTime -> ZoneOffset -> OffsetDateTime
+                                                  | Int -> Int -> Int -> Int -> Int -> Int -> Int -> ZoneOffset -> OffsetDateTime
+                                                  | LocalDateTime -> ZoneOffset -> OffsetDateTime
+
+  pure native ofInstant "java.time.OffsetDateTime.ofInstant" :: Instant -> ZoneId -> OffsetDateTime
+
+  pure native parse "java.time.OffsetDateTime.parse" :: CharSequence -> OffsetDateTime
+                                                      | CharSequence -> DateTimeFormatter -> OffsetDateTime
+
+  pure native plus :: OffsetDateTime -> Long -> TemporalUnit -> OffsetDateTime
+                    | OffsetDateTime -> TemporalAmount -> OffsetDateTime
+
+  pure native plusDays :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native plusHours :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native plusMinutes :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native plusMonths :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native plusNanos :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native plusSeconds :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native plusWeeks :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native plusYears :: OffsetDateTime -> Long -> OffsetDateTime
+
+  pure native query :: OffsetDateTime -> TemporalQuery r -> r
+
+  pure native range :: OffsetDateTime -> TemporalField -> ValueRange
+
+  pure native timeLineOrder "java.time.OffsetDateTime.timeLineOrder" :: () -> Comparator OffsetDateTime
+
+  pure native toEpochSecond :: OffsetDateTime -> Long
+
+  pure native toInstant :: OffsetDateTime -> Instant
+
+  pure native toLocalDate :: OffsetDateTime -> LocalDate
+
+  pure native toLocalDateTime :: OffsetDateTime -> LocalDateTime
+
+  pure native toLocalTime :: OffsetDateTime -> LocalTime
+
+  pure native toOffsetTime :: OffsetDateTime -> OffsetTime
+
+  pure native toString :: OffsetDateTime -> String
+
+  pure native toZonedDateTime :: OffsetDateTime -> ZonedDateTime
+
+  pure native truncatedTo :: OffsetDateTime -> TemporalUnit -> OffsetDateTime
+
+  pure native until :: OffsetDateTime -> Temporal -> TemporalUnit -> Long
+
+  pure native with :: OffsetDateTime -> TemporalAdjuster -> OffsetDateTime
+                    | OffsetDateTime -> TemporalField -> Long -> OffsetDateTime
+
+  pure native withDayOfMonth :: OffsetDateTime -> Int -> OffsetDateTime
+
+  pure native withDayOfYear :: OffsetDateTime -> Int -> OffsetDateTime
+
+  pure native withHour :: OffsetDateTime -> Int -> OffsetDateTime
+
+  pure native withMinute :: OffsetDateTime -> Int -> OffsetDateTime
+
+  pure native withMonth :: OffsetDateTime -> Int -> OffsetDateTime
+
+  pure native withNano :: OffsetDateTime -> Int -> OffsetDateTime
+
+  pure native withOffsetSameInstant :: OffsetDateTime -> ZoneOffset -> OffsetDateTime
+
+  pure native withOffsetSameLocal :: OffsetDateTime -> ZoneOffset -> OffsetDateTime
+
+  pure native withSecond :: OffsetDateTime -> Int -> OffsetDateTime
+
+  pure native withYear :: OffsetDateTime -> Int -> OffsetDateTime
+
+derive Serializable OffsetDateTime
+
+import java.time.Format
+import java.time.Temporal
+
+data ZonedDateTime = pure native java.time.ZonedDateTime where
+
+  pure native equals :: ZonedDateTime -> Object -> Bool
+
+  pure native format :: ZonedDateTime -> DateTimeFormatter -> String
+
+  pure native from "java.time.ZonedDateTime.from" :: TemporalAccessor -> ZonedDateTime
+
+  pure native get :: ZonedDateTime -> TemporalField -> Int
+
+  pure native getDayOfMonth :: ZonedDateTime -> Int
+
+  pure native getDayOfWeek :: ZonedDateTime -> DayOfWeek
+
+  pure native getDayOfYear :: ZonedDateTime -> Int
+
+  pure native getHour :: ZonedDateTime -> Int
+
+  pure native getLong :: ZonedDateTime -> TemporalField -> Long
+
+  pure native getMinute :: ZonedDateTime -> Int
+
+  pure native getMonth :: ZonedDateTime -> Month
+
+  pure native getMonthValue :: ZonedDateTime -> Int
+
+  pure native getNano :: ZonedDateTime -> Int
+
+  pure native getOffset :: ZonedDateTime -> ZoneOffset
+
+  pure native getSecond :: ZonedDateTime -> Int
+
+  pure native getYear :: ZonedDateTime -> Int
+
+  pure native getZone :: ZonedDateTime -> ZoneId
+
+  pure native hashCode :: ZonedDateTime -> Int
+
+  pure native isSupported :: ZonedDateTime -> TemporalUnit -> Bool
+                           | ZonedDateTime -> TemporalField -> Bool
+
+  pure native minus :: ZonedDateTime -> Long -> TemporalUnit -> ZonedDateTime
+                     | ZonedDateTime -> TemporalAmount -> ZonedDateTime
+
+  pure native minusDays :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native minusHours :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native minusMinutes :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native minusMonths :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native minusNanos :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native minusSeconds :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native minusWeeks :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native minusYears :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native now "java.time.ZonedDateTime.now" :: ZoneId -> ZonedDateTime
+                                                 | () -> ZonedDateTime
+                                                 | Clock -> ZonedDateTime
+
+  pure native jof' "java.time.ZonedDateTime.of" :: LocalDate -> LocalTime -> ZoneId -> ZonedDateTime
+                                                 | LocalDateTime -> ZoneId -> ZonedDateTime
+                                                 | Int -> Int -> Int -> Int -> Int -> Int -> Int -> ZoneId -> ZonedDateTime
+
+  pure native ofInstant "java.time.ZonedDateTime.ofInstant" :: Instant -> ZoneId -> ZonedDateTime
+                                                             | LocalDateTime -> ZoneOffset -> ZoneId -> ZonedDateTime
+
+  pure native ofLocal "java.time.ZonedDateTime.ofLocal" :: LocalDateTime -> ZoneId -> ZoneOffset -> ZonedDateTime
+
+  pure native ofStrict "java.time.ZonedDateTime.ofStrict" :: LocalDateTime -> ZoneOffset -> ZoneId -> ZonedDateTime
+
+  pure native parse "java.time.ZonedDateTime.parse" :: CharSequence -> DateTimeFormatter -> ZonedDateTime
+                                                     | CharSequence -> ZonedDateTime
+
+  pure native plus :: ZonedDateTime -> TemporalAmount -> ZonedDateTime
+                    | ZonedDateTime -> Long -> TemporalUnit -> ZonedDateTime
+
+  pure native plusDays :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native plusHours :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native plusMinutes :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native plusMonths :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native plusNanos :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native plusSeconds :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native plusWeeks :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native plusYears :: ZonedDateTime -> Long -> ZonedDateTime
+
+  pure native query :: ZonedDateTime -> TemporalQuery r -> r
+
+  pure native range :: ZonedDateTime -> TemporalField -> ValueRange
+
+  pure native toLocalDate :: ZonedDateTime -> LocalDate
+
+  pure native toLocalDateTime :: ZonedDateTime -> LocalDateTime
+
+  pure native toLocalTime :: ZonedDateTime -> LocalTime
+
+  pure native toOffsetDateTime :: ZonedDateTime -> OffsetDateTime
+
+  pure native toString :: ZonedDateTime -> String
+
+  pure native truncatedTo :: ZonedDateTime -> TemporalUnit -> ZonedDateTime
+
+  pure native until :: ZonedDateTime -> Temporal -> TemporalUnit -> Long
+
+  pure native with :: ZonedDateTime -> TemporalField -> Long -> ZonedDateTime
+                    | ZonedDateTime -> TemporalAdjuster -> ZonedDateTime
+
+  pure native withDayOfMonth :: ZonedDateTime -> Int -> ZonedDateTime
+
+  pure native withDayOfYear :: ZonedDateTime -> Int -> ZonedDateTime
+
+  pure native withEarlierOffsetAtOverlap :: ZonedDateTime -> ZonedDateTime
+
+  pure native withFixedOffsetZone :: ZonedDateTime -> ZonedDateTime
+
+  pure native withHour :: ZonedDateTime -> Int -> ZonedDateTime
+
+  pure native withLaterOffsetAtOverlap :: ZonedDateTime -> ZonedDateTime
+
+  pure native withMinute :: ZonedDateTime -> Int -> ZonedDateTime
+
+  pure native withMonth :: ZonedDateTime -> Int -> ZonedDateTime
+
+  pure native withNano :: ZonedDateTime -> Int -> ZonedDateTime
+
+  pure native withSecond :: ZonedDateTime -> Int -> ZonedDateTime
+
+  pure native withYear :: ZonedDateTime -> Int -> ZonedDateTime
+
+  pure native withZoneSameInstant :: ZonedDateTime -> ZoneId -> ZonedDateTime
+
+  pure native withZoneSameLocal :: ZonedDateTime -> ZoneId -> ZonedDateTime
+
+derive Serializable ZonedDateTime
+
+
+data Clock = pure native java.time.Clock where
+
+  pure native equals :: Clock -> Object -> Bool
+
+  pure native fixed "java.time.Clock.fixed" :: Instant -> ZoneId -> Clock
+
+  pure native getZone :: Clock -> ZoneId
+
+  pure native hashCode :: Clock -> Int
+
+  pure native instant :: Clock -> Instant
+
+  pure native millis :: Clock -> Long
+
+  pure native offset "java.time.Clock.offset" :: Clock -> Duration -> Clock
+
+  pure native system "java.time.Clock.system" :: ZoneId -> Clock
+
+  pure native systemDefaultZone "java.time.Clock.systemDefaultZone" :: () -> Clock
+
+  pure native systemUTC "java.time.Clock.systemUTC" :: () -> Clock
+
+  pure native tick "java.time.Clock.tick" :: Clock -> Duration -> Clock
+
+  pure native tickMinutes "java.time.Clock.tickMinutes" :: ZoneId -> Clock
+
+  pure native tickSeconds "java.time.Clock.tickSeconds" :: ZoneId -> Clock
+
+  pure native withZone :: Clock -> ZoneId -> Clock
+
+
+import java.time.Temporal
+import java.Util
+
+data Duration = pure native java.time.Duration where
+
+  pure native zero "java.time.Duration.ZERO" :: Duration
+
+  pure native abs :: Duration -> Duration
+
+  pure native addTo :: Duration -> Temporal -> Temporal
+
+  pure native between "java.time.Duration.between" :: Temporal -> Temporal -> Duration
+
+  pure native compareTo :: Duration -> Duration -> Int
+
+  pure native dividedBy :: Duration -> Long -> Duration
+
+  pure native equals :: Duration -> Object -> Bool
+
+  pure native from "java.time.Duration.from" :: TemporalAmount -> Duration
+
+  pure native get :: Duration -> TemporalUnit -> Long
+
+  pure native getNano :: Duration -> Int
+
+  pure native getSeconds :: Duration -> Long
+
+  native getUnits :: Duration -> STMutable s (List TemporalUnit)
+
+  pure native hashCode :: Duration -> Int
+
+  pure native isNegative :: Duration -> Bool
+
+  pure native isZero :: Duration -> Bool
+
+  pure native minus :: Duration -> Long -> TemporalUnit -> Duration
+                     | Duration -> Duration -> Duration
+
+  pure native minusDays :: Duration -> Long -> Duration
+
+  pure native minusHours :: Duration -> Long -> Duration
+
+  pure native minusMillis :: Duration -> Long -> Duration
+
+  pure native minusMinutes :: Duration -> Long -> Duration
+
+  pure native minusNanos :: Duration -> Long -> Duration
+
+  pure native minusSeconds :: Duration -> Long -> Duration
+
+  pure native multipliedBy :: Duration -> Long -> Duration
+
+  pure native negated :: Duration -> Duration
+
+  pure native jof' "java.time.Duration.of" :: Long -> TemporalUnit -> Duration
+
+  pure native ofDays "java.time.Duration.ofDays" :: Long -> Duration
+
+  pure native ofHours "java.time.Duration.ofHours" :: Long -> Duration
+
+  pure native ofMillis "java.time.Duration.ofMillis" :: Long -> Duration
+
+  pure native ofMinutes "java.time.Duration.ofMinutes" :: Long -> Duration
+
+  pure native ofNanos "java.time.Duration.ofNanos" :: Long -> Duration
+
+  pure native ofSeconds "java.time.Duration.ofSeconds" :: Long -> Duration
+                                                        | Long -> Long -> Duration
+
+  pure native parse "java.time.Duration.parse" :: CharSequence -> Duration
+
+  pure native plus :: Duration -> Long -> TemporalUnit -> Duration
+                    | Duration -> Duration -> Duration
+
+  pure native plusDays :: Duration -> Long -> Duration
+
+  pure native plusHours :: Duration -> Long -> Duration
+
+  pure native plusMillis :: Duration -> Long -> Duration
+
+  pure native plusMinutes :: Duration -> Long -> Duration
+
+  pure native plusNanos :: Duration -> Long -> Duration
+
+  pure native plusSeconds :: Duration -> Long -> Duration
+
+  pure native subtractFrom :: Duration -> Temporal -> Temporal
+
+  pure native toDays :: Duration -> Long
+
+  pure native toHours :: Duration -> Long
+
+  pure native toMillis :: Duration -> Long
+
+  pure native toMinutes :: Duration -> Long
+
+  pure native toNanos :: Duration -> Long
+
+  pure native toString :: Duration -> String
+
+  pure native withNanos :: Duration -> Int -> Duration
+
+  pure native withSeconds :: Duration -> Long -> Duration
+
+derive Serializable Duration
+
+import java.Util
+import java.time.Temporal
+import java.time.Format
+import java.time.Zone
+
+data ZoneId = pure native java.time.ZoneId where
+
+  native short_ids "java.time.ZoneId.SHORT_IDS" :: STMutable s (Map String String)
+
+  pure native equals :: ZoneId -> Object -> Bool
+
+  pure native from "java.time.ZoneId.from" :: TemporalAccessor -> ZoneId
+
+  native getAvailableZoneIds "java.time.ZoneId.getAvailableZoneIds" :: () -> STMutable s (Set String)
+
+  pure native getDisplayName :: ZoneId -> TextStyle -> Locale -> String
+
+  pure native getId :: ZoneId -> String
+
+  pure native getRules :: ZoneId -> ZoneRules
+
+  pure native hashCode :: ZoneId -> Int
+
+  pure native normalized :: ZoneId -> ZoneId
+
+  native jof' "java.time.ZoneId.of" :: String -> ST s ZoneId
+                                     | String -> Mutable s (Map String String) -> ST s ZoneId
+
+  pure native ofOffset "java.time.ZoneId.ofOffset" :: String -> ZoneOffset -> ZoneId
+
+  pure native systemDefault "java.time.ZoneId.systemDefault" :: () -> ZoneId
+
+  pure native toString :: ZoneId -> String
+
+derive Serializable ZoneId
+
+import java.time.Temporal
+import java.time.Chrono
+import java.time.Format
+
+data LocalDate = pure native java.time.LocalDate where
+
+  pure native min "java.time.LocalDate.MIN" :: LocalDate
+  pure native max "java.time.LocalDate.MAX" :: LocalDate
+
+  pure native adjustInto :: LocalDate -> Temporal -> Temporal
+
+  pure native atStartOfDay :: LocalDate -> LocalDateTime
+                            | LocalDate -> ZoneId -> ZonedDateTime
+
+  pure native atTime :: LocalDate -> LocalTime -> LocalDateTime
+                      | LocalDate -> Int -> Int -> Int -> Int -> LocalDateTime
+                      | LocalDate -> OffsetTime -> OffsetDateTime
+                      | LocalDate -> Int -> Int -> LocalDateTime
+                      | LocalDate -> Int -> Int -> Int -> LocalDateTime
+
+  pure native compareTo :: LocalDate -> ChronoLocalDate -> Int
+
+  pure native equals :: LocalDate -> Object -> Bool
+
+  pure native format :: LocalDate -> DateTimeFormatter -> String
+
+  pure native from "java.time.LocalDate.from" :: TemporalAccessor -> LocalDate
+
+  pure native get :: LocalDate -> TemporalField -> Int
+
+  pure native getChronology :: LocalDate -> IsoChronology
+
+  pure native getDayOfMonth :: LocalDate -> Int
+
+  pure native getDayOfWeek :: LocalDate -> DayOfWeek
+
+  pure native getDayOfYear :: LocalDate -> Int
+
+  pure native getEra :: LocalDate -> Era
+
+  pure native getLong :: LocalDate -> TemporalField -> Long
+
+  pure native getMonth :: LocalDate -> Month
+
+  pure native getMonthValue :: LocalDate -> Int
+
+  pure native getYear :: LocalDate -> Int
+
+  pure native hashCode :: LocalDate -> Int
+
+  pure native isAfter :: LocalDate -> ChronoLocalDate -> Bool
+
+  pure native isBefore :: LocalDate -> ChronoLocalDate -> Bool
+
+  pure native isEqual :: LocalDate -> ChronoLocalDate -> Bool
+
+  pure native isLeapYear :: LocalDate -> Bool
+
+  pure native isSupported :: LocalDate -> TemporalUnit -> Bool
+                           | LocalDate -> TemporalField -> Bool
+
+  pure native lengthOfMonth :: LocalDate -> Int
+
+  pure native lengthOfYear :: LocalDate -> Int
+
+  pure native minus :: LocalDate -> TemporalAmount -> LocalDate
+                     | LocalDate -> Long -> TemporalUnit -> LocalDate
+
+  pure native minusDays :: LocalDate -> Long -> LocalDate
+
+  pure native minusMonths :: LocalDate -> Long -> LocalDate
+
+  pure native minusWeeks :: LocalDate -> Long -> LocalDate
+
+  pure native minusYears :: LocalDate -> Long -> LocalDate
+
+  pure native now "java.time.LocalDate.now" :: () -> LocalDate
+                                             | Clock -> LocalDate
+                                             | ZoneId -> LocalDate
+
+  pure native jof' "java.time.LocalDate.of" :: Int -> Int -> Int -> LocalDate
+                                             | Int -> Month -> Int -> LocalDate
+
+  pure native ofEpochDay "java.time.LocalDate.ofEpochDay" :: Long -> LocalDate
+
+  pure native ofYearDay "java.time.LocalDate.ofYearDay" :: Int -> Int -> LocalDate
+
+  pure native parse "java.time.LocalDate.parse" :: CharSequence -> LocalDate
+                                                 | CharSequence -> DateTimeFormatter -> LocalDate
+
+  pure native plus :: LocalDate -> Long -> TemporalUnit -> LocalDate
+                    | LocalDate -> TemporalAmount -> LocalDate
+
+  pure native plusDays :: LocalDate -> Long -> LocalDate
+
+  pure native plusMonths :: LocalDate -> Long -> LocalDate
+
+  pure native plusWeeks :: LocalDate -> Long -> LocalDate
+
+  pure native plusYears :: LocalDate -> Long -> LocalDate
+
+  pure native query :: LocalDate -> TemporalQuery r -> r
+
+  pure native range :: LocalDate -> TemporalField -> ValueRange
+
+  pure native toEpochDay :: LocalDate -> Long
+
+  pure native toString :: LocalDate -> String
+
+  pure native until :: LocalDate -> ChronoLocalDate -> Period
+                     | LocalDate -> Temporal -> TemporalUnit -> Long
+
+  pure native with :: LocalDate -> TemporalField -> Long -> LocalDate
+                    | LocalDate -> TemporalAdjuster -> LocalDate
+
+  pure native withDayOfMonth :: LocalDate -> Int -> LocalDate
+
+  pure native withDayOfYear :: LocalDate -> Int -> LocalDate
+
+  pure native withMonth :: LocalDate -> Int -> LocalDate
+
+  pure native withYear :: LocalDate -> Int -> LocalDate
+
+derive Serializable LocalDate
+
+import java.time.Temporal
+import java.time.Chrono
+import java.time.Format
+
+data LocalDateTime = pure native java.time.LocalDateTime where
+
+  pure native min "java.time.LocalDateTime.MIN" :: LocalDateTime
+  pure native max "java.time.LocalDateTime.MAX" :: LocalDateTime
+
+  pure native adjustInto :: LocalDateTime -> Temporal -> Temporal
+
+  pure native atOffset :: LocalDateTime -> ZoneOffset -> OffsetDateTime
+
+  pure native atZone :: LocalDateTime -> ZoneId -> ZonedDateTime
+
+  pure native compareTo :: LocalDateTime -> ChronoLocalDateTime Object -> Int
+
+  pure native equals :: LocalDateTime -> Object -> Bool
+
+  pure native format :: LocalDateTime -> DateTimeFormatter -> String
+
+  pure native from "java.time.LocalDateTime.from" :: TemporalAccessor -> LocalDateTime
+
+  pure native get :: LocalDateTime -> TemporalField -> Int
+
+  pure native getDayOfMonth :: LocalDateTime -> Int
+
+  pure native getDayOfWeek :: LocalDateTime -> DayOfWeek
+
+  pure native getDayOfYear :: LocalDateTime -> Int
+
+  pure native getHour :: LocalDateTime -> Int
+
+  pure native getLong :: LocalDateTime -> TemporalField -> Long
+
+  pure native getMinute :: LocalDateTime -> Int
+
+  pure native getMonth :: LocalDateTime -> Month
+
+  pure native getMonthValue :: LocalDateTime -> Int
+
+  pure native getNano :: LocalDateTime -> Int
+
+  pure native getSecond :: LocalDateTime -> Int
+
+  pure native getYear :: LocalDateTime -> Int
+
+  pure native hashCode :: LocalDateTime -> Int
+
+  pure native isAfter :: LocalDateTime -> ChronoLocalDateTime Object -> Bool
+
+  pure native isBefore :: LocalDateTime -> ChronoLocalDateTime Object -> Bool
+
+  pure native isEqual :: LocalDateTime -> ChronoLocalDateTime Object -> Bool
+
+  pure native isSupported :: LocalDateTime -> TemporalField -> Bool
+                           | LocalDateTime -> TemporalUnit -> Bool
+
+  pure native minus :: LocalDateTime -> Long -> TemporalUnit -> LocalDateTime
+                     | LocalDateTime -> TemporalAmount -> LocalDateTime
+
+  pure native minusDays :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native minusHours :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native minusMinutes :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native minusMonths :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native minusNanos :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native minusSeconds :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native minusWeeks :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native minusYears :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native now "java.time.LocalDateTime.now" :: () -> LocalDateTime
+                                                 | Clock -> LocalDateTime
+                                                 | ZoneId -> LocalDateTime
+
+  pure native jof' "java.time.LocalDateTime.of" :: LocalDate -> LocalTime -> LocalDateTime
+                                                 | Int -> Int -> Int -> Int -> Int -> Int -> LocalDateTime
+                                                 | Int -> Int -> Int -> Int -> Int -> LocalDateTime
+                                                 | Int -> Month -> Int -> Int -> Int -> Int -> Int -> LocalDateTime
+                                                 | Int -> Month -> Int -> Int -> Int -> Int -> LocalDateTime
+                                                 | Int -> Int -> Int -> Int -> Int -> Int -> Int -> LocalDateTime
+                                                 | Int -> Month -> Int -> Int -> Int -> LocalDateTime
+
+  pure native ofEpochSecond "java.time.LocalDateTime.ofEpochSecond" :: Long -> Int -> ZoneOffset -> LocalDateTime
+
+  pure native ofInstant "java.time.LocalDateTime.ofInstant" :: Instant -> ZoneId -> LocalDateTime
+
+  pure native parse "java.time.LocalDateTime.parse" :: CharSequence -> LocalDateTime
+                                                     | CharSequence -> DateTimeFormatter -> LocalDateTime
+
+  pure native plus :: LocalDateTime -> Long -> TemporalUnit -> LocalDateTime
+                    | LocalDateTime -> TemporalAmount -> LocalDateTime
+
+  pure native plusDays :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native plusHours :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native plusMinutes :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native plusMonths :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native plusNanos :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native plusSeconds :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native plusWeeks :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native plusYears :: LocalDateTime -> Long -> LocalDateTime
+
+  pure native query :: LocalDateTime -> TemporalQuery r -> r
+
+  pure native range :: LocalDateTime -> TemporalField -> ValueRange
+
+  pure native toLocalDate :: LocalDateTime -> LocalDate
+
+  pure native toLocalTime :: LocalDateTime -> LocalTime
+
+  pure native toString :: LocalDateTime -> String
+
+  pure native truncatedTo :: LocalDateTime -> TemporalUnit -> LocalDateTime
+
+  pure native until :: LocalDateTime -> Temporal -> TemporalUnit -> Long
+
+  pure native with :: LocalDateTime -> TemporalAdjuster -> LocalDateTime
+                    | LocalDateTime -> TemporalField -> Long -> LocalDateTime
+
+  pure native withDayOfMonth :: LocalDateTime -> Int -> LocalDateTime
+
+  pure native withDayOfYear :: LocalDateTime -> Int -> LocalDateTime
+
+  pure native withHour :: LocalDateTime -> Int -> LocalDateTime
+
+  pure native withMinute :: LocalDateTime -> Int -> LocalDateTime
+
+  pure native withMonth :: LocalDateTime -> Int -> LocalDateTime
+
+  pure native withNano :: LocalDateTime -> Int -> LocalDateTime
+
+  pure native withSecond :: LocalDateTime -> Int -> LocalDateTime
+
+  pure native withYear :: LocalDateTime -> Int -> LocalDateTime
+
+derive Serializable LocalDateTime
+
+import java.time.Temporal
+import java.time.Format
+
+data OffsetTime = pure native java.time.OffsetTime where
+
+  pure native min "java.time.OffsetTime.MIN" :: OffsetTime
+  pure native max "java.time.OffsetTime.MAX" :: OffsetTime
+
+  pure native adjustInto :: OffsetTime -> Temporal -> Temporal
+
+  pure native atDate :: OffsetTime -> LocalDate -> OffsetDateTime
+
+  pure native compareTo :: OffsetTime -> OffsetTime -> Int
+
+  pure native equals :: OffsetTime -> Object -> Bool
+
+  pure native format :: OffsetTime -> DateTimeFormatter -> String
+
+  pure native from "java.time.OffsetTime.from" :: TemporalAccessor -> OffsetTime
+
+  pure native get :: OffsetTime -> TemporalField -> Int
+
+  pure native getHour :: OffsetTime -> Int
+
+  pure native getLong :: OffsetTime -> TemporalField -> Long
+
+  pure native getMinute :: OffsetTime -> Int
+
+  pure native getNano :: OffsetTime -> Int
+
+  pure native getOffset :: OffsetTime -> ZoneOffset
+
+  pure native getSecond :: OffsetTime -> Int
+
+  pure native hashCode :: OffsetTime -> Int
+
+  pure native isAfter :: OffsetTime -> OffsetTime -> Bool
+
+  pure native isBefore :: OffsetTime -> OffsetTime -> Bool
+
+  pure native isEqual :: OffsetTime -> OffsetTime -> Bool
+
+  pure native isSupported :: OffsetTime -> TemporalField -> Bool
+                           | OffsetTime -> TemporalUnit -> Bool
+
+  pure native minus :: OffsetTime -> TemporalAmount -> OffsetTime
+                     | OffsetTime -> Long -> TemporalUnit -> OffsetTime
+
+  pure native minusHours :: OffsetTime -> Long -> OffsetTime
+
+  pure native minusMinutes :: OffsetTime -> Long -> OffsetTime
+
+  pure native minusNanos :: OffsetTime -> Long -> OffsetTime
+
+  pure native minusSeconds :: OffsetTime -> Long -> OffsetTime
+
+  pure native now "java.time.OffsetTime.now" :: () -> OffsetTime
+                                              | Clock -> OffsetTime
+                                              | ZoneId -> OffsetTime
+
+  pure native jof' "java.time.OffsetTime.of" :: Int -> Int -> Int -> Int -> ZoneOffset -> OffsetTime
+                                              | LocalTime -> ZoneOffset -> OffsetTime
+
+  pure native ofInstant "java.time.OffsetTime.ofInstant" :: Instant -> ZoneId -> OffsetTime
+
+  pure native parse "java.time.OffsetTime.parse" :: CharSequence -> DateTimeFormatter -> OffsetTime
+                                                  | CharSequence -> OffsetTime
+
+  pure native plus :: OffsetTime -> Long -> TemporalUnit -> OffsetTime
+                    | OffsetTime -> TemporalAmount -> OffsetTime
+
+  pure native plusHours :: OffsetTime -> Long -> OffsetTime
+
+  pure native plusMinutes :: OffsetTime -> Long -> OffsetTime
+
+  pure native plusNanos :: OffsetTime -> Long -> OffsetTime
+
+  pure native plusSeconds :: OffsetTime -> Long -> OffsetTime
+
+  pure native query :: OffsetTime -> TemporalQuery r -> r
+
+  pure native range :: OffsetTime -> TemporalField -> ValueRange
+
+  pure native toLocalTime :: OffsetTime -> LocalTime
+
+  pure native toString :: OffsetTime -> String
+
+  pure native truncatedTo :: OffsetTime -> TemporalUnit -> OffsetTime
+
+  pure native until :: OffsetTime -> Temporal -> TemporalUnit -> Long
+
+  pure native with :: OffsetTime -> TemporalField -> Long -> OffsetTime
+                    | OffsetTime -> TemporalAdjuster -> OffsetTime
+
+  pure native withHour :: OffsetTime -> Int -> OffsetTime
+
+  pure native withMinute :: OffsetTime -> Int -> OffsetTime
+
+  pure native withNano :: OffsetTime -> Int -> OffsetTime
+
+  pure native withOffsetSameInstant :: OffsetTime -> ZoneOffset -> OffsetTime
+
+  pure native withOffsetSameLocal :: OffsetTime -> ZoneOffset -> OffsetTime
+
+  pure native withSecond :: OffsetTime -> Int -> OffsetTime
+
+derive Serializable OffsetTime
+
+import java.time.Temporal
+import java.time.Format
+
+data LocalTime = pure native java.time.LocalTime where
+
+  pure native min "java.time.LocalTime.MIN" :: LocalTime
+  pure native max "java.time.LocalTime.MAX" :: LocalTime
+  pure native midnight "java.time.LocalTime.MIDNIGHT" :: LocalTime
+  pure native noon "java.time.LocalTime.NOON" :: LocalTime
+
+  pure native adjustInto :: LocalTime -> Temporal -> Temporal
+
+  pure native atDate :: LocalTime -> LocalDate -> LocalDateTime
+
+  pure native atOffset :: LocalTime -> ZoneOffset -> OffsetTime
+
+  pure native compareTo :: LocalTime -> LocalTime -> Int
+
+  pure native equals :: LocalTime -> Object -> Bool
+
+  pure native format :: LocalTime -> DateTimeFormatter -> String
+
+  pure native from "java.time.LocalTime.from" :: TemporalAccessor -> LocalTime
+
+  pure native get :: LocalTime -> TemporalField -> Int
+
+  pure native getHour :: LocalTime -> Int
+
+  pure native getLong :: LocalTime -> TemporalField -> Long
+
+  pure native getMinute :: LocalTime -> Int
+
+  pure native getNano :: LocalTime -> Int
+
+  pure native getSecond :: LocalTime -> Int
+
+  pure native hashCode :: LocalTime -> Int
+
+  pure native isAfter :: LocalTime -> LocalTime -> Bool
+
+  pure native isBefore :: LocalTime -> LocalTime -> Bool
+
+  pure native isSupported :: LocalTime -> TemporalUnit -> Bool
+                           | LocalTime -> TemporalField -> Bool
+
+  pure native minus :: LocalTime -> TemporalAmount -> LocalTime
+                     | LocalTime -> Long -> TemporalUnit -> LocalTime
+
+  pure native minusHours :: LocalTime -> Long -> LocalTime
+
+  pure native minusMinutes :: LocalTime -> Long -> LocalTime
+
+  pure native minusNanos :: LocalTime -> Long -> LocalTime
+
+  pure native minusSeconds :: LocalTime -> Long -> LocalTime
+
+  pure native now "java.time.LocalTime.now" :: () -> LocalTime
+                                             | Clock -> LocalTime
+                                             | ZoneId -> LocalTime
+
+  pure native jof' "java.time.LocalTime.of" :: Int -> Int -> Int -> Int -> LocalTime
+                                             | Int -> Int -> Int -> LocalTime
+                                             | Int -> Int -> LocalTime
+
+  pure native ofNanoOfDay "java.time.LocalTime.ofNanoOfDay" :: Long -> LocalTime
+
+  pure native ofSecondOfDay "java.time.LocalTime.ofSecondOfDay" :: Long -> LocalTime
+
+  pure native parse "java.time.LocalTime.parse" :: CharSequence -> DateTimeFormatter -> LocalTime
+                                                 | CharSequence -> LocalTime
+
+  pure native plus :: LocalTime -> Long -> TemporalUnit -> LocalTime
+                    | LocalTime -> TemporalAmount -> LocalTime
+
+  pure native plusHours :: LocalTime -> Long -> LocalTime
+
+  pure native plusMinutes :: LocalTime -> Long -> LocalTime
+
+  pure native plusNanos :: LocalTime -> Long -> LocalTime
+
+  pure native plusSeconds :: LocalTime -> Long -> LocalTime
+
+  pure native query :: LocalTime -> TemporalQuery r -> r
+
+  pure native range :: LocalTime -> TemporalField -> ValueRange
+
+  pure native toNanoOfDay :: LocalTime -> Long
+
+  pure native toSecondOfDay :: LocalTime -> Int
+
+  pure native toString :: LocalTime -> String
+
+  pure native truncatedTo :: LocalTime -> TemporalUnit -> LocalTime
+
+  pure native until :: LocalTime -> Temporal -> TemporalUnit -> Long
+
+  pure native with :: LocalTime -> TemporalField -> Long -> LocalTime
+                    | LocalTime -> TemporalAdjuster -> LocalTime
+
+  pure native withHour :: LocalTime -> Int -> LocalTime
+
+  pure native withMinute :: LocalTime -> Int -> LocalTime
+
+  pure native withNano :: LocalTime -> Int -> LocalTime
+
+  pure native withSecond :: LocalTime -> Int -> LocalTime
+
+derive Serializable LocalTime
+
+import java.time.Temporal
+import java.time.Format
+import java.Util
+
+data DayOfWeek = pure native java.time.DayOfWeek where
+
+  pure native monday "java.time.DayOfWeek.MONDAY" :: DayOfWeek
+  pure native tuesday "java.time.DayOfWeek.TUESDAY" :: DayOfWeek
+  pure native wednesday "java.time.DayOfWeek.WEDNESDAY" :: DayOfWeek
+  pure native thursday "java.time.DayOfWeek.THURSDAY" :: DayOfWeek
+  pure native friday "java.time.DayOfWeek.FRIDAY" :: DayOfWeek
+  pure native saturday "java.time.DayOfWeek.SATURDAY" :: DayOfWeek
+  pure native sunday "java.time.DayOfWeek.SUNDAY" :: DayOfWeek
+
+  pure native adjustInto :: DayOfWeek -> Temporal -> Temporal
+
+  pure native from "java.time.DayOfWeek.from" :: TemporalAccessor -> DayOfWeek
+
+  pure native get :: DayOfWeek -> TemporalField -> Int
+
+  pure native getDisplayName :: DayOfWeek -> TextStyle -> Locale -> String
+
+  pure native getLong :: DayOfWeek -> TemporalField -> Long
+
+  pure native getValue :: DayOfWeek -> Int
+
+  pure native isSupported :: DayOfWeek -> TemporalField -> Bool
+
+  pure native minus :: DayOfWeek -> Long -> DayOfWeek
+
+  pure native jof' "java.time.DayOfWeek.of" :: Int -> DayOfWeek
+
+  pure native plus :: DayOfWeek -> Long -> DayOfWeek
+
+  pure native query :: DayOfWeek -> TemporalQuery r -> r
+
+  pure native range :: DayOfWeek -> TemporalField -> ValueRange
+
+  pure native valueOf "java.time.DayOfWeek.valueOf" :: String -> DayOfWeek
+
+  native values "java.time.DayOfWeek.values" :: () -> STMutable s (JArray DayOfWeek)
+
+derive Serializable DayOfWeek
+
+import java.time.Temporal
+import java.time.Format
+import java.Util
+
+data Month = pure native java.time.Month where
+
+  pure native january "java.time.Month.JANUARY" :: Month
+  pure native february "java.time.Month.FEBRUARY" :: Month
+  pure native march "java.time.Month.MARCH" :: Month
+  pure native april "java.time.Month.APRIL" :: Month
+  pure native may "java.time.Month.MAY" :: Month
+  pure native june "java.time.Month.JUNE" :: Month
+  pure native july "java.time.Month.JULY" :: Month
+  pure native august "java.time.Month.AUGUST" :: Month
+  pure native september "java.time.Month.SEPTEMBER" :: Month
+  pure native october "java.time.Month.OCTOBER" :: Month
+  pure native november "java.time.Month.NOVEMBER" :: Month
+  pure native december "java.time.Month.DECEMBER" :: Month
+
+  pure native adjustInto :: Month -> Temporal -> Temporal
+
+  pure native firstDayOfYear :: Month -> Bool -> Int
+
+  pure native firstMonthOfQuarter :: Month -> Month
+
+  pure native from "java.time.Month.from" :: TemporalAccessor -> Month
+
+  pure native get :: Month -> TemporalField -> Int
+
+  pure native getDisplayName :: Month -> TextStyle -> Locale -> String
+
+  pure native getLong :: Month -> TemporalField -> Long
+
+  pure native getValue :: Month -> Int
+
+  pure native isSupported :: Month -> TemporalField -> Bool
+
+  pure native length :: Month -> Bool -> Int
+
+  pure native maxLength :: Month -> Int
+
+  pure native minLength :: Month -> Int
+
+  pure native minus :: Month -> Long -> Month
+
+  pure native jof' "java.time.Month.of" :: Int -> Month
+
+  pure native plus :: Month -> Long -> Month
+
+  pure native query :: Month -> TemporalQuery r -> r
+
+  pure native range :: Month -> TemporalField -> ValueRange
+
+  pure native valueOf "java.time.Month.valueOf" :: String -> Month
+
+  native values "java.time.Month.values" :: () -> STMutable s (JArray Month)
+
+derive Serializable Month
+
+import java.time.Temporal
+import java.time.Chrono
+import java.Util
+
+data Period = pure native java.time.Period where
+
+  pure native zero "java.time.Period.ZERO" :: Period
+
+  pure native addTo :: Period -> Temporal -> Temporal
+
+  pure native between "java.time.Period.between" :: LocalDate -> LocalDate -> Period
+
+  pure native equals :: Period -> Object -> Bool
+
+  pure native from "java.time.Period.from" :: TemporalAmount -> Period
+
+  pure native get :: Period -> TemporalUnit -> Long
+
+  pure native getChronology :: Period -> IsoChronology
+
+  pure native getDays :: Period -> Int
+
+  pure native getMonths :: Period -> Int
+
+  native getUnits :: Period -> STMutable s (List TemporalUnit)
+
+  pure native getYears :: Period -> Int
+
+  pure native hashCode :: Period -> Int
+
+  pure native isNegative :: Period -> Bool
+
+  pure native isZero :: Period -> Bool
+
+  pure native minus :: Period -> TemporalAmount -> Period
+
+  pure native minusDays :: Period -> Long -> Period
+
+  pure native minusMonths :: Period -> Long -> Period
+
+  pure native minusYears :: Period -> Long -> Period
+
+  pure native multipliedBy :: Period -> Int -> Period
+
+  pure native negated :: Period -> Period
+
+  pure native normalized :: Period -> Period
+
+  pure native jof' "java.time.Period.of" :: Int -> Int -> Int -> Period
+
+  pure native ofDays "java.time.Period.ofDays" :: Int -> Period
+
+  pure native ofMonths "java.time.Period.ofMonths" :: Int -> Period
+
+  pure native ofWeeks "java.time.Period.ofWeeks" :: Int -> Period
+
+  pure native ofYears "java.time.Period.ofYears" :: Int -> Period
+
+  pure native parse "java.time.Period.parse" :: CharSequence -> Period
+
+  pure native plus :: Period -> TemporalAmount -> Period
+
+  pure native plusDays :: Period -> Long -> Period
+
+  pure native plusMonths :: Period -> Long -> Period
+
+  pure native plusYears :: Period -> Long -> Period
+
+  pure native subtractFrom :: Period -> Temporal -> Temporal
+
+  pure native toString :: Period -> String
+
+  pure native toTotalMonths :: Period -> Long
+
+  pure native withDays :: Period -> Int -> Period
+
+  pure native withMonths :: Period -> Int -> Period
+
+  pure native withYears :: Period -> Int -> Period
+
+derive Serializable Period
+

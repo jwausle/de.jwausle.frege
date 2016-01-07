@@ -1,0 +1,242 @@
+module io.vertx.core.File where
+
+import io.vertx.Core
+import java.Util
+import io.vertx.core.Buffer
+
+data FileSystem = pure native io.vertx.core.file.FileSystem where
+
+  pure native chmod :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native chmodBlocking :: FileSystem -> String -> String -> FileSystem
+
+  pure native chmodRecursive :: FileSystem -> String -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native chmodRecursiveBlocking :: FileSystem -> String -> String -> String -> FileSystem
+
+  pure native chown :: FileSystem -> String -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native chownBlocking :: FileSystem -> String -> String -> String -> FileSystem
+
+  pure native copy :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native copyBlocking :: FileSystem -> String -> String -> FileSystem
+
+  pure native copyRecursive :: FileSystem -> String -> String -> Bool -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native copyRecursiveBlocking :: FileSystem -> String -> String -> Bool -> FileSystem
+
+  pure native createFile :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+                          | FileSystem -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native createFileBlocking :: FileSystem -> String -> FileSystem
+                                  | FileSystem -> String -> String -> FileSystem
+
+  pure native delete :: FileSystem -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native deleteBlocking :: FileSystem -> String -> FileSystem
+
+  pure native deleteRecursive :: FileSystem -> String -> Bool -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native deleteRecursiveBlocking :: FileSystem -> String -> Bool -> FileSystem
+
+  pure native exists :: FileSystem -> String -> Handler (AsyncResult Bool) -> FileSystem
+
+  pure native existsBlocking :: FileSystem -> String -> Bool
+
+  pure native fsProps :: FileSystem -> String -> Handler (AsyncResult FileSystemProps) -> FileSystem
+
+  pure native fsPropsBlocking :: FileSystem -> String -> FileSystemProps
+
+  pure native link :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native linkBlocking :: FileSystem -> String -> String -> FileSystem
+
+  pure native lprops :: FileSystem -> String -> Handler (AsyncResult FileProps) -> FileSystem
+
+  pure native lpropsBlocking :: FileSystem -> String -> FileProps
+
+  pure native mkdir :: FileSystem -> String -> Handler (AsyncResult Void) -> FileSystem
+                     | FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native mkdirBlocking :: FileSystem -> String -> FileSystem
+                             | FileSystem -> String -> String -> FileSystem
+
+  pure native mkdirs :: FileSystem -> String -> Handler (AsyncResult Void) -> FileSystem
+                      | FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native mkdirsBlocking :: FileSystem -> String -> FileSystem
+                              | FileSystem -> String -> String -> FileSystem
+
+  pure native move :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native moveBlocking :: FileSystem -> String -> String -> FileSystem
+
+  pure native open :: FileSystem -> String -> OpenOptions -> Handler (AsyncResult AsyncFile) -> FileSystem
+
+  pure native openBlocking :: FileSystem -> String -> OpenOptions -> AsyncFile
+
+  pure native props :: FileSystem -> String -> Handler (AsyncResult FileProps) -> FileSystem
+
+  pure native propsBlocking :: FileSystem -> String -> FileProps
+
+  pure native readDir :: FileSystem -> String -> Handler (AsyncResult (List String)) -> FileSystem
+                       | FileSystem -> String -> String -> Handler (AsyncResult (List String)) -> FileSystem
+
+  native readDirBlocking :: FileSystem -> String -> String -> STMutable s (List String)
+                          | FileSystem -> String -> STMutable s (List String)
+
+  pure native readFile :: FileSystem -> String -> Handler (AsyncResult Buffer) -> FileSystem
+
+  pure native readFileBlocking :: FileSystem -> String -> Buffer
+
+  pure native readSymlink :: FileSystem -> String -> Handler (AsyncResult String) -> FileSystem
+
+  pure native readSymlinkBlocking :: FileSystem -> String -> String
+
+  pure native symlink :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native symlinkBlocking :: FileSystem -> String -> String -> FileSystem
+
+  pure native truncate :: FileSystem -> String -> Long -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native truncateBlocking :: FileSystem -> String -> Long -> FileSystem
+
+  pure native unlink :: FileSystem -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native unlinkBlocking :: FileSystem -> String -> FileSystem
+
+  pure native writeFile :: FileSystem -> String -> Buffer -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native writeFileBlocking :: FileSystem -> String -> Buffer -> FileSystem
+
+
+
+data FileSystemProps = pure native io.vertx.core.file.FileSystemProps where
+
+  pure native totalSpace :: FileSystemProps -> Long
+
+  pure native unallocatedSpace :: FileSystemProps -> Long
+
+  pure native usableSpace :: FileSystemProps -> Long
+
+
+
+data FileProps = pure native io.vertx.core.file.FileProps where
+
+  pure native creationTime :: FileProps -> Long
+
+  pure native isDirectory :: FileProps -> Bool
+
+  pure native isOther :: FileProps -> Bool
+
+  pure native isRegularFile :: FileProps -> Bool
+
+  pure native isSymbolicLink :: FileProps -> Bool
+
+  pure native lastAccessTime :: FileProps -> Long
+
+  pure native lastModifiedTime :: FileProps -> Long
+
+  pure native size :: FileProps -> Long
+
+
+import io.vertx.core.Json
+
+data OpenOptions = pure native io.vertx.core.file.OpenOptions where
+
+  pure native default_perms "io.vertx.core.file.OpenOptions.DEFAULT_PERMS" :: String
+  pure native default_read "io.vertx.core.file.OpenOptions.DEFAULT_READ" :: Bool
+  pure native default_write "io.vertx.core.file.OpenOptions.DEFAULT_WRITE" :: Bool
+  pure native default_create "io.vertx.core.file.OpenOptions.DEFAULT_CREATE" :: Bool
+  pure native default_createnew "io.vertx.core.file.OpenOptions.DEFAULT_CREATENEW" :: Bool
+  pure native default_dsync "io.vertx.core.file.OpenOptions.DEFAULT_DSYNC" :: Bool
+  pure native default_sync "io.vertx.core.file.OpenOptions.DEFAULT_SYNC" :: Bool
+  pure native default_deleteonclose "io.vertx.core.file.OpenOptions.DEFAULT_DELETEONCLOSE" :: Bool
+  pure native default_truncateexisting "io.vertx.core.file.OpenOptions.DEFAULT_TRUNCATEEXISTING" :: Bool
+  pure native default_sparse "io.vertx.core.file.OpenOptions.DEFAULT_SPARSE" :: Bool
+
+  pure native new :: JsonObject -> OpenOptions
+                   | OpenOptions -> OpenOptions
+                   | () -> OpenOptions
+
+  pure native getPerms :: OpenOptions -> String
+
+  pure native isCreate :: OpenOptions -> Bool
+
+  pure native isCreateNew :: OpenOptions -> Bool
+
+  pure native isDeleteOnClose :: OpenOptions -> Bool
+
+  pure native isDsync :: OpenOptions -> Bool
+
+  pure native isRead :: OpenOptions -> Bool
+
+  pure native isSparse :: OpenOptions -> Bool
+
+  pure native isSync :: OpenOptions -> Bool
+
+  pure native isTruncateExisting :: OpenOptions -> Bool
+
+  pure native isWrite :: OpenOptions -> Bool
+
+  pure native setCreate :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setCreateNew :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setDeleteOnClose :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setDsync :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setPerms :: OpenOptions -> String -> OpenOptions
+
+  pure native setRead :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setSparse :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setSync :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setTruncateExisting :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setWrite :: OpenOptions -> Bool -> OpenOptions
+
+
+import io.vertx.Core
+import io.vertx.core.Buffer
+
+data AsyncFile = pure native io.vertx.core.file.AsyncFile where
+
+  pure native close :: AsyncFile -> Handler (AsyncResult Void) -> ()
+                     | AsyncFile -> ()
+
+  pure native drainHandler :: AsyncFile -> Handler Void -> AsyncFile
+
+  pure native end :: AsyncFile -> ()
+
+  pure native endHandler :: AsyncFile -> Handler Void -> AsyncFile
+
+  pure native exceptionHandler :: AsyncFile -> Handler Throwable -> AsyncFile
+
+  pure native flush :: AsyncFile -> AsyncFile
+                     | AsyncFile -> Handler (AsyncResult Void) -> AsyncFile
+
+  pure native handler :: AsyncFile -> Handler Buffer -> AsyncFile
+
+  pure native pause :: AsyncFile -> AsyncFile
+
+  pure native read :: AsyncFile -> Buffer -> Int -> Long -> Int -> Handler (AsyncResult Buffer) -> AsyncFile
+
+  pure native resume :: AsyncFile -> AsyncFile
+
+  pure native setReadBufferSize :: AsyncFile -> Int -> AsyncFile
+
+  pure native setReadPos :: AsyncFile -> Long -> AsyncFile
+
+  pure native setWritePos :: AsyncFile -> Long -> AsyncFile
+
+  pure native setWriteQueueMaxSize :: AsyncFile -> Int -> AsyncFile
+
+  pure native write :: AsyncFile -> Buffer -> AsyncFile
+                     | AsyncFile -> Buffer -> Long -> Handler (AsyncResult Void) -> AsyncFile
+
+

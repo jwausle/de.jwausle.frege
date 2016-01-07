@@ -1,0 +1,190 @@
+plugins {
+	id "application"
+   	id "org.frege-lang" version "0.5"
+	id "com.github.johnrengelman.shadow" version "1.2.2"
+	id "maven"
+}
+
+group = "de.jwausle"; version = "3.23.422-ga05a487"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile "org.frege-lang:frege:3.23.422-ga05a487"
+    compile "io.vertx:vertx-core:3.2.0"
+    compile "log4j:log4j:1.2.17"
+    compile "org.slf4j:slf4j-api:1.7.13"
+    compile files("lib/javax-ssl-1_1.jar")
+    compile "de.jwausle:de.jwausle.frege.java.net:3.23.422-ga05a487"
+    compile "de.jwausle:de.jwausle.frege.java.text:3.23.422-ga05a487"
+    compile "de.jwausle:de.jwausle.frege.java.nio:3.23.422-ga05a487"
+    compile "de.jwausle:de.jwausle.frege.java.time:3.23.422-ga05a487"
+    compile "de.jwausle:de.jwausle.frege.netty:3.23.422-ga05a487"
+}
+
+def trgFolder     = 'src/main/frege/frege/io'
+def trgFile       = trgFolder + '/Vertx.fr'
+def trgFileHeader = 'src/main/resources/frege.io.Vertx.header'
+
+// fregeAll clean, re-generate $trgFile and install jar to .m2
+task fregeAll (dependsOn: ['fregeGenAll' , 'compileFrege', 'install', 'copyBuildResult'])
+gradle.projectsEvaluated {
+	compileJava.enabled = false
+    compileFrege.dependsOn(fregeGenAll)
+}
+
+// fregeGenAll clean and re-genertate $trgFile
+task fregeGenAll (dependsOn: ['fregeGenPatch', 'fregeGen','fregeGenClean'])
+
+task fregeGenClean (type:Exec) { 
+    commandLine 'bash', '-e', '-c', """
+       rm -f  $trgFile
+       rm -rf src/gen/incubator/
+       mkdir  src/gen/incubator
+    """
+}
+
+
+task fregeGen(type: JavaExec, dependsOn: 'fregeGenClean') { 
+    classpath = files("gradle/lib/frege-native-gen-1.4-SNAPSHOT.jar") + sourceSets.main.compileClasspath
+    mainClassName = "frege.nativegen.Main"
+    main = "frege.nativegen.Main"
+    args "-t", "src/main/resources/types.properties"
+    args "-d", "src/gen/incubator"
+    args '-c', "io.vertx.core.VertxOptions"
+    args '-c', "io.vertx.core.Vertx"
+    args '-c', "io.vertx.core.Handler"
+    args '-c', "io.vertx.core.spi.VertxFactory"
+    args '-c', "io.vertx.core.datagram.DatagramSocketOptions"
+    args '-c', "io.vertx.core.datagram.DatagramSocket"
+    args '-c', "io.vertx.core.dns.DnsClient"
+    args '-c', "io.vertx.core.http.HttpClientOptions"
+    args '-c', "io.vertx.core.http.HttpClient"
+    args '-c', 'io.vertx.core.json.JsonObject'
+    args '-c', 'io.vertx.core.spi.cluster.ClusterManager'
+    args '-c', 'io.vertx.core.metrics.MetricsOptions'
+    args '-c', 'io.vertx.core.AsyncResult'
+    args '-c', 'io.vertx.core.http.HttpVersion'
+    args '-c', 'io.vertx.core.net.JksOptions'
+    args '-c', 'io.vertx.core.net.PemKeyCertOptions'
+    args '-c', 'io.vertx.core.net.PemTrustOptions'
+    args '-c', 'io.vertx.core.net.PfxOptions'
+    args '-c', 'io.vertx.core.Context'
+    args '-c', 'io.vertx.core.http.HttpServer'
+    args '-c', 'io.vertx.core.http.HttpServerOptions'
+    args '-c', 'io.vertx.core.net.NetClient'
+    args '-c', 'io.vertx.core.net.NetClientOptions'
+    args '-c', 'io.vertx.core.DeploymentOptions'
+    args '-c', 'io.vertx.core.Verticle'
+    args '-c', 'io.vertx.core.file.FileSystem'
+    args '-c', 'io.vertx.core.TimeoutStream'
+    args '-c', 'io.vertx.core.spi.VerticleFactory'
+    args '-c', 'io.vertx.core.shareddata.SharedData'
+    args '-c', 'io.vertx.core.http.HttpClientRequest'
+    args '-c', 'io.vertx.core.http.HttpClientResponse'
+    args '-c', 'io.vertx.core.http.WebsocketVersion'
+    args '-c', 'io.vertx.core.http.WebSocket'
+    args '-c', 'io.vertx.core.http.WebSocketStream'
+    args '-c', 'io.vertx.core.MultiMap'
+    args '-c', 'io.vertx.core.json.JsonArray'
+    args '-c', 'io.vertx.core.buffer.Buffer'
+    args '-c', 'io.vertx.core.net.NetServerOptions'
+    args '-c', 'io.vertx.core.net.NetServer'
+    args '-c', 'io.vertx.core.Closeable'
+    args '-c', 'io.vertx.core.net.SocketAddress'
+    args '-c', 'io.vertx.core.datagram.PacketWritestream'
+    args '-c', 'io.vertx.core.eventbus.EventBus'
+    args '-c', 'io.vertx.core.Future'
+    args '-c', 'io.vertx.core.spi.BufferFactory'
+    args '-c', 'io.vertx.core.file.FileSystemProps'
+    args '-c', 'io.vertx.core.file.FileProps'
+    args '-c', 'io.vertx.core.file.OpenOptions'
+    args '-c', 'io.vertx.core.file.AsyncFile'
+    args '-c', 'io.vertx.core.http.HttpServerRequestStream'
+    args '-c', 'io.vertx.core.net.NetSocket'
+    args '-c', 'io.vertx.core.http.WebSocketFrame'
+    args '-c', 'io.vertx.core.shareddata.LocalMap'
+    args '-c', 'io.vertx.core.shareddata.Lock'
+    args '-c', 'io.vertx.core.spi.cluster.NodeListener'
+    //--
+    args '-c', 'io.vertx.core.spi.FutureFactory'
+    //--
+    args '-c', 'io.vertx.core.dns.MxRecord'
+    args '-c', 'io.vertx.core.dns.SrvRecord'
+    args '-c', 'io.vertx.core.http.HttpMethod'
+    //--
+    args '-c', 'io.vertx.core.http.HttpServerRequest'
+    args '-c', 'io.vertx.core.http.ServerWebSocket'
+    args '-c', 'io.vertx.core.http.ServerWebSocketStream'
+    //--
+    args '-c', 'io.vertx.core.http.ClientAuth'
+    args '-c', 'io.vertx.core.spi.WebSocketFrameFactory'
+    args '-c', 'io.vertx.core.http.HttpServerFileUpload'
+    args '-c', 'io.vertx.core.http.HttpServerResponse'
+    args '-c', 'io.vertx.core.shareddata.AsyncMap'
+    args '-c', 'io.vertx.core.spi.cluster.AsyncMultiMap'
+    args '-c', 'io.vertx.core.shareddata.Counter'
+    args '-c', 'io.vertx.core.net.NetSocketStream'
+    //--
+    args '-c', 'io.vertx.core.spi.cluster.ChoosableIterable'
+    args '-c', 'io.vertx.core.eventbus.Message'
+    args '-c', 'io.vertx.core.eventbus.MessageConsumer'
+    args '-c', 'io.vertx.core.eventbus.DeliveryOptions'
+    //--
+    args '-c', 'io.vertx.core.eventbus.MessageProducer'
+    args '-c', 'io.vertx.core.eventbus.MessageCodec'
+    args '-c', 'io.vertx.core.eventbus.SendContext'
+    //--
+    args '-c', 'io.vertx.core.streams.ReadStream'
+    
+}
+
+task fregeGenPatch(type:Exec, dependsOn: 'fregeGen') {
+    commandLine 'bash', '-e', '-c', """
+       mkdir -p build
+       cat src/gen/incubator/io/vertx/Core.fr \
+       	   src/gen/incubator/io/vertx/core/Spi.fr \
+       	   src/gen/incubator/io/vertx/core/Dns.fr \
+       	   src/gen/incubator/io/vertx/core/Datagram.fr \
+       	   src/gen/incubator/io/vertx/core/Http.fr \
+       	   src/gen/incubator/io/vertx/core/Json.fr \
+       	   src/gen/incubator/io/vertx/core/spi/Cluster.fr \
+       	   src/gen/incubator/io/vertx/core/Metrics.fr \
+       	   src/gen/incubator/io/vertx/core/Net.fr \
+       	   src/gen/incubator/io/vertx/core/File.fr \
+       	   src/gen/incubator/io/vertx/core/Shareddata.fr \
+       	   src/gen/incubator/io/vertx/core/Buffer.fr \
+       	   src/gen/incubator/io/vertx/core/Streams.fr \
+       	   src/gen/incubator/io/vertx/core/Eventbus.fr > build/Tmp.fr 
+       sed -i .0 's/module .* where//g'                  build/Tmp.fr
+       sed -i .1 's/import .*//g'                        build/Tmp.fr
+       sed -i .2 's/derive Cloneable .*//g'              build/Tmp.fr
+       sed -i .3 's/derive Exceptional .*//g'            build/Tmp.fr
+       sed -i .4 's/derive Serializable .*//g'           build/Tmp.fr
+       sed -i .5 's/.*pure native set.*().*//g'          build/Tmp.fr
+       sed -i .6 's/pure native .* -> r -> .* -> r//g'   build/Tmp.fr
+       # specials 
+       sed -i .7 's/pure native \\(.* :: .* \\)-> ()/native \\1-> ST s ()/g' build/Tmp.fr
+       sed -i .8 's/\\([ ]*\\|.*\\)-> ()/\\1-> ST s ()/g' build/Tmp.fr
+       sed -i .9 's/Mutable s List/Mutable s (List t)/g'               build/Tmp.fr
+       sed -i .10 's/Class -> /Class a -> /g'                          build/Tmp.fr
+       sed -i .11 's/\\(.*ClassLoader.*\\)/--\\1/g'                    build/Tmp.fr
+       sed -i .12 's/MessageCodec ->/MessageCodec s r ->/g'            build/Tmp.fr    
+       mkdir -p $trgFolder
+       cat $trgFileHeader build/Tmp.fr                >  $trgFile   
+    """
+}
+
+task copyBuildResult(type:Copy, dependsOn: 'jar') {
+	from('build/libs') { include '*.jar'}
+	into 'build-results'
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+	maven { url "https://plugins.gradle.org/m2/" }
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}

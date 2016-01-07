@@ -1,0 +1,52 @@
+module frege.io.Netty where
+
+import frege.java.Util 
+import frege.java.Lang
+import frege.java.IO
+import frege.java.Text2
+import frege.java.Net2
+import frege.java.Net2
+import frege.java.Nio2
+
+data Void = pure native java.lang.Void
+
+
+data TimeUnit = pure native java.util.concurrent.TimeUnit where
+
+  pure native nanoseconds "java.util.concurrent.TimeUnit.NANOSECONDS" :: TimeUnit
+  pure native microseconds "java.util.concurrent.TimeUnit.MICROSECONDS" :: TimeUnit
+  pure native milliseconds "java.util.concurrent.TimeUnit.MILLISECONDS" :: TimeUnit
+  pure native seconds "java.util.concurrent.TimeUnit.SECONDS" :: TimeUnit
+  pure native minutes "java.util.concurrent.TimeUnit.MINUTES" :: TimeUnit
+  pure native hours "java.util.concurrent.TimeUnit.HOURS" :: TimeUnit
+  pure native days "java.util.concurrent.TimeUnit.DAYS" :: TimeUnit
+
+  pure native convert :: TimeUnit -> Long -> TimeUnit -> Long
+
+  native sleep :: TimeUnit -> Long -> ST s () throws InterruptedException
+
+  --native timedJoin :: TimeUnit -> Mutable s Thread -> Long -> ST s () throws InterruptedException
+
+  native timedWait :: TimeUnit -> Object -> Long -> ST s () throws InterruptedException
+
+  pure native toDays :: TimeUnit -> Long -> Long
+
+  pure native toHours :: TimeUnit -> Long -> Long
+
+  pure native toMicros :: TimeUnit -> Long -> Long
+
+  pure native toMillis :: TimeUnit -> Long -> Long
+
+  pure native toMinutes :: TimeUnit -> Long -> Long
+
+  pure native toNanos :: TimeUnit -> Long -> Long
+
+  pure native toSeconds :: TimeUnit -> Long -> Long
+
+  pure native valueOf "java.util.concurrent.TimeUnit.valueOf" :: String -> TimeUnit
+
+  native values "java.util.concurrent.TimeUnit.values" :: () -> STMutable s (JArray TimeUnit)
+
+data Callable v = pure native java.util.concurrent.Callable where
+
+  native call :: Callable v -> ST s v throws Exception

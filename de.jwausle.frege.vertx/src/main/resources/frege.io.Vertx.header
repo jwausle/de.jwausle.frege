@@ -1,0 +1,22 @@
+module frege.io.Vertx where
+
+import frege.java.Util 
+import frege.java.Lang
+import frege.java.IO
+
+import frege.java.Text2
+import frege.java.Time2
+import frege.java.Net2
+import frege.java.Net2
+import frege.java.Nio2
+import frege.io.Netty
+
+data Void = pure native java.lang.Void
+
+data X509Certificate = pure native javax.security.cert.X509Certificate
+
+data SSLPeerUnverifiedException = pure native javax.net.ssl.SSLPeerUnverifiedException
+
+data Stream a = native java.util.stream.Stream
+
+data Enum = pure native java.lang.Enum

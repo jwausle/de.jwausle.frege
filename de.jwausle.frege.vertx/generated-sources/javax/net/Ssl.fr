@@ -1,0 +1,10 @@
+module javax.net.Ssl where
+
+
+data SSLPeerUnverifiedException = native javax.net.ssl.SSLPeerUnverifiedException where
+
+  native new :: String -> STMutable s SSLPeerUnverifiedException
+
+derive Exceptional SSLPeerUnverifiedException
+derive Serializable SSLPeerUnverifiedException
+

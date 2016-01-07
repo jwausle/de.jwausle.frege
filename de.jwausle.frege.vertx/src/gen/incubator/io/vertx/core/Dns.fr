@@ -1,0 +1,57 @@
+module io.vertx.core.Dns where
+
+import io.vertx.Core
+
+data DnsClient = pure native io.vertx.core.dns.DnsClient where
+
+  pure native lookup :: DnsClient -> String -> Handler (AsyncResult String) -> DnsClient
+
+  pure native lookup4 :: DnsClient -> String -> Handler (AsyncResult String) -> DnsClient
+
+  pure native lookup6 :: DnsClient -> String -> Handler (AsyncResult String) -> DnsClient
+
+  pure native resolveA :: DnsClient -> String -> Handler (AsyncResult (List String)) -> DnsClient
+
+  pure native resolveAAAA :: DnsClient -> String -> Handler (AsyncResult (List String)) -> DnsClient
+
+  pure native resolveCNAME :: DnsClient -> String -> Handler (AsyncResult (List String)) -> DnsClient
+
+  pure native resolveMX :: DnsClient -> String -> Handler (AsyncResult (List MxRecord)) -> DnsClient
+
+  pure native resolveNS :: DnsClient -> String -> Handler (AsyncResult (List String)) -> DnsClient
+
+  pure native resolvePTR :: DnsClient -> String -> Handler (AsyncResult String) -> DnsClient
+
+  pure native resolveSRV :: DnsClient -> String -> Handler (AsyncResult (List SrvRecord)) -> DnsClient
+
+  pure native resolveTXT :: DnsClient -> String -> Handler (AsyncResult (List String)) -> DnsClient
+
+  pure native reverseLookup :: DnsClient -> String -> Handler (AsyncResult String) -> DnsClient
+
+
+
+data MxRecord = pure native io.vertx.core.dns.MxRecord where
+
+  pure native name :: MxRecord -> String
+
+  pure native priority :: MxRecord -> Int
+
+
+
+data SrvRecord = pure native io.vertx.core.dns.SrvRecord where
+
+  pure native name :: SrvRecord -> String
+
+  pure native port :: SrvRecord -> Int
+
+  pure native priority :: SrvRecord -> Int
+
+  pure native protocol :: SrvRecord -> String
+
+  pure native service :: SrvRecord -> String
+
+  pure native target :: SrvRecord -> String
+
+  pure native weight :: SrvRecord -> Int
+
+

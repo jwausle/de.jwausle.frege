@@ -1,0 +1,17 @@
+module io.vertx.core.Streams where
+
+import io.vertx.Core
+
+data ReadStream t = pure native io.vertx.core.streams.ReadStream where
+
+  pure native endHandler :: ReadStream t -> Handler Void -> ReadStream t
+
+  pure native exceptionHandler :: ReadStream t -> Handler Throwable -> ReadStream t
+
+  pure native handler :: ReadStream t -> Handler t -> ReadStream t
+
+  pure native pause :: ReadStream t -> ReadStream t
+
+  pure native resume :: ReadStream t -> ReadStream t
+
+

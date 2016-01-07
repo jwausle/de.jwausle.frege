@@ -1,0 +1,74 @@
+module io.vertx.core.Spi where
+
+import io.vertx.Core
+
+data VertxFactory = pure native io.vertx.core.spi.VertxFactory where
+
+  pure native clusteredVertx :: VertxFactory -> VertxOptions -> Handler (AsyncResult Vertx) -> ()
+
+  pure native context :: VertxFactory -> Context
+
+  pure native vertx :: VertxFactory -> Vertx
+                     | VertxFactory -> VertxOptions -> Vertx
+
+
+import io.vertx.Core
+
+data VerticleFactory = pure native io.vertx.core.spi.VerticleFactory where
+
+  pure native blockingCreate :: VerticleFactory -> Bool
+
+  pure native close :: VerticleFactory -> ()
+
+  native createVerticle :: VerticleFactory -> String -> ClassLoader -> ST s Verticle throws Exception
+
+  pure native init :: VerticleFactory -> Vertx -> ()
+
+  pure native order :: VerticleFactory -> Int
+
+  pure native prefix :: VerticleFactory -> String
+
+  pure native removePrefix "io.vertx.core.spi.VerticleFactory.removePrefix" :: String -> String
+
+  pure native requiresResolve :: VerticleFactory -> Bool
+
+  pure native resolve :: VerticleFactory -> String -> DeploymentOptions -> ClassLoader -> Future String -> ()
+
+
+import io.netty.Buffer
+import io.vertx.core.Buffer
+
+data BufferFactory = pure native io.vertx.core.spi.BufferFactory where
+
+  native buffer :: BufferFactory -> ByteBuf -> ST s Buffer
+                 | BufferFactory -> Mutable s (JArray Byte) -> ST s Buffer
+                 | BufferFactory -> String -> String -> ST s Buffer
+                 | BufferFactory -> String -> ST s Buffer
+                 | BufferFactory -> ST s Buffer
+                 | BufferFactory -> Int -> ST s Buffer
+
+
+import io.vertx.Core
+
+data FutureFactory = pure native io.vertx.core.spi.FutureFactory where
+
+  pure native completedFuture :: FutureFactory -> String -> Bool -> Future t
+                               | FutureFactory -> Throwable -> Future t
+                               | FutureFactory -> t -> Future t
+                               | FutureFactory -> Future t
+
+  pure native future :: FutureFactory -> Future t
+
+
+import io.vertx.core.Buffer
+import io.vertx.core.Http
+
+data WebSocketFrameFactory = pure native io.vertx.core.spi.WebSocketFrameFactory where
+
+  pure native binaryFrame :: WebSocketFrameFactory -> Buffer -> Bool -> WebSocketFrame
+
+  pure native continuationFrame :: WebSocketFrameFactory -> Buffer -> Bool -> WebSocketFrame
+
+  pure native textFrame :: WebSocketFrameFactory -> String -> Bool -> WebSocketFrame
+
+

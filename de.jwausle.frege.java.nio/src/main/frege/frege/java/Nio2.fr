@@ -1,0 +1,591 @@
+module frege.java.Nio2 where
+
+import frege.java.Util
+
+
+
+
+
+data GatheringByteChannel = pure native java.nio.channels.GatheringByteChannel where
+
+  native write :: GatheringByteChannel -> Mutable s (JArray ByteBuffer) -> Int -> Int -> ST s Long throws IOException
+                | GatheringByteChannel -> Mutable s (JArray ByteBuffer) -> ST s Long throws IOException
+
+
+
+
+
+data ScatteringByteChannel = pure native java.nio.channels.ScatteringByteChannel where
+
+  native read :: ScatteringByteChannel -> Mutable s (JArray ByteBuffer) -> Int -> Int -> ST s Long throws IOException
+               | ScatteringByteChannel -> Mutable s (JArray ByteBuffer) -> ST s Long throws IOException
+
+
+
+
+
+
+
+data Charset = native java.nio.charset.Charset where
+
+  native aliases :: Mutable s Charset -> STMutable s (Set String)
+
+  native availableCharsets "java.nio.charset.Charset.availableCharsets" :: () -> STMutable s (SortedMap String Charset)
+
+  native canEncode :: Mutable s Charset -> ST s Bool
+
+  native compareTo :: Mutable s Charset -> Mutable s Charset -> ST s Int
+
+  native contains :: Mutable s Charset -> Mutable s Charset -> ST s Bool
+
+  native decode :: Mutable s Charset -> ByteBuffer -> ST s CharBuffer
+
+  native defaultCharset "java.nio.charset.Charset.defaultCharset" :: () -> STMutable s Charset
+
+  native displayName :: Mutable s Charset -> Locale -> ST s String
+                      | Mutable s Charset -> ST s String
+
+  native encode :: Mutable s Charset -> CharBuffer -> ST s ByteBuffer
+                 | Mutable s Charset -> String -> ST s ByteBuffer
+
+  native equals :: Mutable s Charset -> Object -> ST s Bool
+
+  native forName "java.nio.charset.Charset.forName" :: String -> STMutable s Charset
+
+  native hashCode :: Mutable s Charset -> ST s Int
+
+  native isRegistered :: Mutable s Charset -> ST s Bool
+
+  pure native isSupported "java.nio.charset.Charset.isSupported" :: String -> Bool
+
+  native name :: Mutable s Charset -> ST s String
+
+  native newDecoder :: Mutable s Charset -> ST s CharsetDecoder
+
+  native newEncoder :: Mutable s Charset -> ST s CharsetEncoder
+
+  native toString :: Mutable s Charset -> ST s String
+
+
+
+
+data CharsetDecoder = pure native java.nio.charset.CharsetDecoder where
+
+  pure native averageCharsPerByte :: CharsetDecoder -> Float
+
+  native charset :: CharsetDecoder -> STMutable s Charset
+
+  native decode :: CharsetDecoder -> ByteBuffer -> CharBuffer -> Bool -> ST s CoderResult
+                 | CharsetDecoder -> ByteBuffer -> ST s CharBuffer throws CharacterCodingException
+
+  native detectedCharset :: CharsetDecoder -> STMutable s Charset
+
+  pure native flush :: CharsetDecoder -> CharBuffer -> CoderResult
+
+  pure native isAutoDetecting :: CharsetDecoder -> Bool
+
+  pure native isCharsetDetected :: CharsetDecoder -> Bool
+
+  pure native malformedInputAction :: CharsetDecoder -> CodingErrorAction
+
+  pure native maxCharsPerByte :: CharsetDecoder -> Float
+
+  pure native onMalformedInput :: CharsetDecoder -> CodingErrorAction -> CharsetDecoder
+
+  pure native onUnmappableCharacter :: CharsetDecoder -> CodingErrorAction -> CharsetDecoder
+
+  pure native replaceWith :: CharsetDecoder -> String -> CharsetDecoder
+
+  pure native replacement :: CharsetDecoder -> String
+
+  pure native reset :: CharsetDecoder -> CharsetDecoder
+
+  pure native unmappableCharacterAction :: CharsetDecoder -> CodingErrorAction
+
+
+
+
+data CharsetEncoder = pure native java.nio.charset.CharsetEncoder where
+
+  pure native averageBytesPerChar :: CharsetEncoder -> Float
+
+  pure native canEncode :: CharsetEncoder -> Char -> Bool
+                         | CharsetEncoder -> CharSequence -> Bool
+
+  native charset :: CharsetEncoder -> STMutable s Charset
+
+  native encode :: CharsetEncoder -> CharBuffer -> ST s ByteBuffer throws CharacterCodingException
+                 | CharsetEncoder -> CharBuffer -> ByteBuffer -> Bool -> ST s CoderResult
+
+  pure native flush :: CharsetEncoder -> ByteBuffer -> CoderResult
+
+  native isLegalReplacement :: CharsetEncoder -> Mutable s (JArray Byte) -> ST s Bool
+
+  pure native malformedInputAction :: CharsetEncoder -> CodingErrorAction
+
+  pure native maxBytesPerChar :: CharsetEncoder -> Float
+
+  pure native onMalformedInput :: CharsetEncoder -> CodingErrorAction -> CharsetEncoder
+
+  pure native onUnmappableCharacter :: CharsetEncoder -> CodingErrorAction -> CharsetEncoder
+
+  native replaceWith :: CharsetEncoder -> Mutable s (JArray Byte) -> ST s CharsetEncoder
+
+  native replacement :: CharsetEncoder -> STMutable s (JArray Byte)
+
+  pure native reset :: CharsetEncoder -> CharsetEncoder
+
+  pure native unmappableCharacterAction :: CharsetEncoder -> CodingErrorAction
+
+
+
+data CoderResult = pure native java.nio.charset.CoderResult where
+
+  pure native underflow "java.nio.charset.CoderResult.UNDERFLOW" :: CoderResult
+  pure native overflow "java.nio.charset.CoderResult.OVERFLOW" :: CoderResult
+
+  pure native isError :: CoderResult -> Bool
+
+  pure native isMalformed :: CoderResult -> Bool
+
+  pure native isOverflow :: CoderResult -> Bool
+
+  pure native isUnderflow :: CoderResult -> Bool
+
+  pure native isUnmappable :: CoderResult -> Bool
+
+  pure native length :: CoderResult -> Int
+
+  pure native malformedForLength "java.nio.charset.CoderResult.malformedForLength" :: Int -> CoderResult
+
+  native throwException :: CoderResult -> ST s () throws CharacterCodingException
+
+  pure native toString :: CoderResult -> String
+
+  pure native unmappableForLength "java.nio.charset.CoderResult.unmappableForLength" :: Int -> CoderResult
+
+
+
+data CharacterCodingException = pure native java.nio.charset.CharacterCodingException where
+
+  pure native new :: () -> CharacterCodingException
+
+
+
+
+
+data CodingErrorAction = pure native java.nio.charset.CodingErrorAction where
+
+  pure native ignore "java.nio.charset.CodingErrorAction.IGNORE" :: CodingErrorAction
+  pure native replace "java.nio.charset.CodingErrorAction.REPLACE" :: CodingErrorAction
+  pure native report "java.nio.charset.CodingErrorAction.REPORT" :: CodingErrorAction
+
+  pure native toString :: CodingErrorAction -> String
+
+
+
+
+
+data ByteBuffer = pure native java.nio.ByteBuffer where
+
+  pure native allocate "java.nio.ByteBuffer.allocate" :: Int -> ByteBuffer
+
+  pure native allocateDirect "java.nio.ByteBuffer.allocateDirect" :: Int -> ByteBuffer
+
+  native array :: ByteBuffer -> STMutable s (JArray Byte)
+
+  pure native arrayOffset :: ByteBuffer -> Int
+
+  pure native asCharBuffer :: ByteBuffer -> CharBuffer
+
+  pure native asDoubleBuffer :: ByteBuffer -> DoubleBuffer
+
+  pure native asFloatBuffer :: ByteBuffer -> FloatBuffer
+
+  pure native asIntBuffer :: ByteBuffer -> IntBuffer
+
+  pure native asLongBuffer :: ByteBuffer -> LongBuffer
+
+  pure native asReadOnlyBuffer :: ByteBuffer -> ByteBuffer
+
+  pure native asShortBuffer :: ByteBuffer -> ShortBuffer
+
+  pure native compact :: ByteBuffer -> ByteBuffer
+
+  pure native compareTo :: ByteBuffer -> ByteBuffer -> Int
+
+  pure native duplicate :: ByteBuffer -> ByteBuffer
+
+  pure native equals :: ByteBuffer -> Object -> Bool
+
+  native get :: ByteBuffer -> Int -> ST s Byte
+              | ByteBuffer -> Mutable s (JArray Byte) -> Int -> Int -> ST s ByteBuffer
+              | ByteBuffer -> ST s Byte
+              | ByteBuffer -> Mutable s (JArray Byte) -> ST s ByteBuffer
+
+  pure native getChar :: ByteBuffer -> Int -> Char
+                       | ByteBuffer -> Char
+
+  pure native getDouble :: ByteBuffer -> Int -> Double
+                         | ByteBuffer -> Double
+
+  pure native getFloat :: ByteBuffer -> Float
+                        | ByteBuffer -> Int -> Float
+
+  pure native getInt :: ByteBuffer -> Int
+                      | ByteBuffer -> Int -> Int
+
+  pure native getLong :: ByteBuffer -> Int -> Long
+                       | ByteBuffer -> Long
+
+  pure native getShort :: ByteBuffer -> Short
+                        | ByteBuffer -> Int -> Short
+
+  pure native hasArray :: ByteBuffer -> Bool
+
+  pure native hashCode :: ByteBuffer -> Int
+
+  pure native isDirect :: ByteBuffer -> Bool
+
+  pure native order :: ByteBuffer -> ByteOrder -> ByteBuffer
+                     | ByteBuffer -> ByteOrder
+
+  native put :: ByteBuffer -> Mutable s (JArray Byte) -> Int -> Int -> ST s ByteBuffer
+              | ByteBuffer -> Byte -> ST s ByteBuffer
+              | ByteBuffer -> ByteBuffer -> ST s ByteBuffer
+              | ByteBuffer -> Int -> Byte -> ST s ByteBuffer
+              | ByteBuffer -> Mutable s (JArray Byte) -> ST s ByteBuffer
+
+  pure native putChar :: ByteBuffer -> Int -> Char -> ByteBuffer
+                       | ByteBuffer -> Char -> ByteBuffer
+
+  pure native putDouble :: ByteBuffer -> Int -> Double -> ByteBuffer
+                         | ByteBuffer -> Double -> ByteBuffer
+
+  pure native putFloat :: ByteBuffer -> Float -> ByteBuffer
+                        | ByteBuffer -> Int -> Float -> ByteBuffer
+
+  pure native putInt :: ByteBuffer -> Int -> ByteBuffer
+                      | ByteBuffer -> Int -> Int -> ByteBuffer
+
+  pure native putLong :: ByteBuffer -> Int -> Long -> ByteBuffer
+                       | ByteBuffer -> Long -> ByteBuffer
+
+  pure native putShort :: ByteBuffer -> Int -> Short -> ByteBuffer
+                        | ByteBuffer -> Short -> ByteBuffer
+
+  pure native slice :: ByteBuffer -> ByteBuffer
+
+  pure native toString :: ByteBuffer -> String
+
+  native wrap "java.nio.ByteBuffer.wrap" :: Mutable s (JArray Byte) -> ST s ByteBuffer
+                                          | Mutable s (JArray Byte) -> Int -> Int -> ST s ByteBuffer
+
+
+
+
+
+data CharBuffer = pure native java.nio.CharBuffer where
+
+  pure native allocate "java.nio.CharBuffer.allocate" :: Int -> CharBuffer
+
+  pure native append :: CharBuffer -> CharSequence -> Int -> Int -> CharBuffer
+                      | CharBuffer -> Char -> CharBuffer
+                      | CharBuffer -> CharSequence -> CharBuffer
+
+  native array :: CharBuffer -> STMutable s (JArray Char)
+
+  pure native arrayOffset :: CharBuffer -> Int
+
+  pure native asReadOnlyBuffer :: CharBuffer -> CharBuffer
+
+  pure native charAt :: CharBuffer -> Int -> Char
+
+  
+
+  pure native compact :: CharBuffer -> CharBuffer
+
+  pure native compareTo :: CharBuffer -> CharBuffer -> Int
+
+  pure native duplicate :: CharBuffer -> CharBuffer
+
+  pure native equals :: CharBuffer -> Object -> Bool
+
+  native get :: CharBuffer -> Mutable s (JArray Char) -> Int -> Int -> ST s CharBuffer
+              | CharBuffer -> Int -> ST s Char
+              | CharBuffer -> Mutable s (JArray Char) -> ST s CharBuffer
+              | CharBuffer -> ST s Char
+
+  pure native hasArray :: CharBuffer -> Bool
+
+  pure native hashCode :: CharBuffer -> Int
+
+  pure native isDirect :: CharBuffer -> Bool
+
+  pure native length :: CharBuffer -> Int
+
+  pure native order :: CharBuffer -> ByteOrder
+
+  native put :: CharBuffer -> Int -> Char -> ST s CharBuffer
+              | CharBuffer -> Char -> ST s CharBuffer
+              | CharBuffer -> String -> ST s CharBuffer
+              | CharBuffer -> String -> Int -> Int -> ST s CharBuffer
+              | CharBuffer -> Mutable s (JArray Char) -> ST s CharBuffer
+              | CharBuffer -> Mutable s (JArray Char) -> Int -> Int -> ST s CharBuffer
+              | CharBuffer -> CharBuffer -> ST s CharBuffer
+
+  native read :: CharBuffer -> CharBuffer -> ST s Int throws IOException
+
+  pure native slice :: CharBuffer -> CharBuffer
+
+  pure native subSequence :: CharBuffer -> Int -> Int -> CharBuffer
+
+  pure native toString :: CharBuffer -> String
+
+  native wrap "java.nio.CharBuffer.wrap" :: Mutable s (JArray Char) -> ST s CharBuffer
+                                          | Mutable s (JArray Char) -> Int -> Int -> ST s CharBuffer
+                                          | CharSequence -> Int -> Int -> ST s CharBuffer
+                                          | CharSequence -> ST s CharBuffer
+
+
+
+data FloatBuffer = pure native java.nio.FloatBuffer where
+
+  pure native allocate "java.nio.FloatBuffer.allocate" :: Int -> FloatBuffer
+
+  native array :: FloatBuffer -> STMutable s (JArray Float)
+
+  pure native arrayOffset :: FloatBuffer -> Int
+
+  pure native asReadOnlyBuffer :: FloatBuffer -> FloatBuffer
+
+  pure native compact :: FloatBuffer -> FloatBuffer
+
+  pure native compareTo :: FloatBuffer -> FloatBuffer -> Int
+
+  pure native duplicate :: FloatBuffer -> FloatBuffer
+
+  pure native equals :: FloatBuffer -> Object -> Bool
+
+  native get :: FloatBuffer -> Mutable s (JArray Float) -> Int -> Int -> ST s FloatBuffer
+              | FloatBuffer -> Mutable s (JArray Float) -> ST s FloatBuffer
+              | FloatBuffer -> ST s Float
+              | FloatBuffer -> Int -> ST s Float
+
+  pure native hasArray :: FloatBuffer -> Bool
+
+  pure native hashCode :: FloatBuffer -> Int
+
+  pure native isDirect :: FloatBuffer -> Bool
+
+  pure native order :: FloatBuffer -> ByteOrder
+
+  native put :: FloatBuffer -> Mutable s (JArray Float) -> ST s FloatBuffer
+              | FloatBuffer -> Mutable s (JArray Float) -> Int -> Int -> ST s FloatBuffer
+              | FloatBuffer -> Int -> Float -> ST s FloatBuffer
+              | FloatBuffer -> FloatBuffer -> ST s FloatBuffer
+              | FloatBuffer -> Float -> ST s FloatBuffer
+
+  pure native slice :: FloatBuffer -> FloatBuffer
+
+  pure native toString :: FloatBuffer -> String
+
+  native wrap "java.nio.FloatBuffer.wrap" :: Mutable s (JArray Float) -> Int -> Int -> ST s FloatBuffer
+                                           | Mutable s (JArray Float) -> ST s FloatBuffer
+
+
+
+data IntBuffer = pure native java.nio.IntBuffer where
+
+  pure native allocate "java.nio.IntBuffer.allocate" :: Int -> IntBuffer
+
+  native array :: IntBuffer -> STMutable s (JArray Int)
+
+  pure native arrayOffset :: IntBuffer -> Int
+
+  pure native asReadOnlyBuffer :: IntBuffer -> IntBuffer
+
+  pure native compact :: IntBuffer -> IntBuffer
+
+  pure native compareTo :: IntBuffer -> IntBuffer -> Int
+
+  pure native duplicate :: IntBuffer -> IntBuffer
+
+  pure native equals :: IntBuffer -> Object -> Bool
+
+  native get :: IntBuffer -> Mutable s (JArray Int) -> Int -> Int -> ST s IntBuffer
+              | IntBuffer -> Mutable s (JArray Int) -> ST s IntBuffer
+              | IntBuffer -> ST s Int
+              | IntBuffer -> Int -> ST s Int
+
+  pure native hasArray :: IntBuffer -> Bool
+
+  pure native hashCode :: IntBuffer -> Int
+
+  pure native isDirect :: IntBuffer -> Bool
+
+  pure native order :: IntBuffer -> ByteOrder
+
+  native put :: IntBuffer -> Mutable s (JArray Int) -> ST s IntBuffer
+              | IntBuffer -> Mutable s (JArray Int) -> Int -> Int -> ST s IntBuffer
+              | IntBuffer -> Int -> Int -> ST s IntBuffer
+              | IntBuffer -> IntBuffer -> ST s IntBuffer
+              | IntBuffer -> Int -> ST s IntBuffer
+
+  pure native slice :: IntBuffer -> IntBuffer
+
+  pure native toString :: IntBuffer -> String
+
+  native wrap "java.nio.IntBuffer.wrap" :: Mutable s (JArray Int) -> Int -> Int -> ST s IntBuffer
+                                         | Mutable s (JArray Int) -> ST s IntBuffer
+
+
+
+data LongBuffer = pure native java.nio.LongBuffer where
+
+  pure native allocate "java.nio.LongBuffer.allocate" :: Int -> LongBuffer
+
+  native array :: LongBuffer -> STMutable s (JArray Long)
+
+  pure native arrayOffset :: LongBuffer -> Int
+
+  pure native asReadOnlyBuffer :: LongBuffer -> LongBuffer
+
+  pure native compact :: LongBuffer -> LongBuffer
+
+  pure native compareTo :: LongBuffer -> LongBuffer -> Int
+
+  pure native duplicate :: LongBuffer -> LongBuffer
+
+  pure native equals :: LongBuffer -> Object -> Bool
+
+  native get :: LongBuffer -> Mutable s (JArray Long) -> Int -> Int -> ST s LongBuffer
+              | LongBuffer -> Mutable s (JArray Long) -> ST s LongBuffer
+              | LongBuffer -> ST s Long
+              | LongBuffer -> Int -> ST s Long
+
+  pure native hasArray :: LongBuffer -> Bool
+
+  pure native hashCode :: LongBuffer -> Int
+
+  pure native isDirect :: LongBuffer -> Bool
+
+  pure native order :: LongBuffer -> ByteOrder
+
+  native put :: LongBuffer -> Mutable s (JArray Long) -> ST s LongBuffer
+              | LongBuffer -> Mutable s (JArray Long) -> Int -> Int -> ST s LongBuffer
+              | LongBuffer -> Int -> Long -> ST s LongBuffer
+              | LongBuffer -> LongBuffer -> ST s LongBuffer
+              | LongBuffer -> Long -> ST s LongBuffer
+
+  pure native slice :: LongBuffer -> LongBuffer
+
+  pure native toString :: LongBuffer -> String
+
+  native wrap "java.nio.LongBuffer.wrap" :: Mutable s (JArray Long) -> Int -> Int -> ST s LongBuffer
+                                          | Mutable s (JArray Long) -> ST s LongBuffer
+
+
+
+data ShortBuffer = pure native java.nio.ShortBuffer where
+
+  pure native allocate "java.nio.ShortBuffer.allocate" :: Int -> ShortBuffer
+
+  native array :: ShortBuffer -> STMutable s (JArray Short)
+
+  pure native arrayOffset :: ShortBuffer -> Int
+
+  pure native asReadOnlyBuffer :: ShortBuffer -> ShortBuffer
+
+  pure native compact :: ShortBuffer -> ShortBuffer
+
+  pure native compareTo :: ShortBuffer -> ShortBuffer -> Int
+
+  pure native duplicate :: ShortBuffer -> ShortBuffer
+
+  pure native equals :: ShortBuffer -> Object -> Bool
+
+  native get :: ShortBuffer -> Mutable s (JArray Short) -> Int -> Int -> ST s ShortBuffer
+              | ShortBuffer -> Mutable s (JArray Short) -> ST s ShortBuffer
+              | ShortBuffer -> ST s Short
+              | ShortBuffer -> Int -> ST s Short
+
+  pure native hasArray :: ShortBuffer -> Bool
+
+  pure native hashCode :: ShortBuffer -> Int
+
+  pure native isDirect :: ShortBuffer -> Bool
+
+  pure native order :: ShortBuffer -> ByteOrder
+
+  native put :: ShortBuffer -> Mutable s (JArray Short) -> ST s ShortBuffer
+              | ShortBuffer -> Mutable s (JArray Short) -> Int -> Int -> ST s ShortBuffer
+              | ShortBuffer -> Int -> Short -> ST s ShortBuffer
+              | ShortBuffer -> ShortBuffer -> ST s ShortBuffer
+              | ShortBuffer -> Short -> ST s ShortBuffer
+
+  pure native slice :: ShortBuffer -> ShortBuffer
+
+  pure native toString :: ShortBuffer -> String
+
+  native wrap "java.nio.ShortBuffer.wrap" :: Mutable s (JArray Short) -> Int -> Int -> ST s ShortBuffer
+                                           | Mutable s (JArray Short) -> ST s ShortBuffer
+
+
+
+data ByteOrder = pure native java.nio.ByteOrder where
+
+  pure native big_endian "java.nio.ByteOrder.BIG_ENDIAN" :: ByteOrder
+  pure native little_endian "java.nio.ByteOrder.LITTLE_ENDIAN" :: ByteOrder
+
+  pure native nativeOrder "java.nio.ByteOrder.nativeOrder" :: () -> ByteOrder
+
+  pure native toString :: ByteOrder -> String
+
+
+
+data DoubleBuffer = pure native java.nio.DoubleBuffer where
+
+  pure native allocate "java.nio.DoubleBuffer.allocate" :: Int -> DoubleBuffer
+
+  native array :: DoubleBuffer -> STMutable s (JArray Double)
+
+  pure native arrayOffset :: DoubleBuffer -> Int
+
+  pure native asReadOnlyBuffer :: DoubleBuffer -> DoubleBuffer
+
+  pure native compact :: DoubleBuffer -> DoubleBuffer
+
+  pure native compareTo :: DoubleBuffer -> DoubleBuffer -> Int
+
+  pure native duplicate :: DoubleBuffer -> DoubleBuffer
+
+  pure native equals :: DoubleBuffer -> Object -> Bool
+
+  native get :: DoubleBuffer -> Mutable s (JArray Double) -> Int -> Int -> ST s DoubleBuffer
+              | DoubleBuffer -> Mutable s (JArray Double) -> ST s DoubleBuffer
+              | DoubleBuffer -> ST s Double
+              | DoubleBuffer -> Int -> ST s Double
+
+  pure native hasArray :: DoubleBuffer -> Bool
+
+  pure native hashCode :: DoubleBuffer -> Int
+
+  pure native isDirect :: DoubleBuffer -> Bool
+
+  pure native order :: DoubleBuffer -> ByteOrder
+
+  native put :: DoubleBuffer -> Mutable s (JArray Double) -> ST s DoubleBuffer
+              | DoubleBuffer -> Mutable s (JArray Double) -> Int -> Int -> ST s DoubleBuffer
+              | DoubleBuffer -> Int -> Double -> ST s DoubleBuffer
+              | DoubleBuffer -> DoubleBuffer -> ST s DoubleBuffer
+              | DoubleBuffer -> Double -> ST s DoubleBuffer
+
+  pure native slice :: DoubleBuffer -> DoubleBuffer
+
+  pure native toString :: DoubleBuffer -> String
+
+  native wrap "java.nio.DoubleBuffer.wrap" :: Mutable s (JArray Double) -> Int -> Int -> ST s DoubleBuffer
+                                            | Mutable s (JArray Double) -> ST s DoubleBuffer
+
+

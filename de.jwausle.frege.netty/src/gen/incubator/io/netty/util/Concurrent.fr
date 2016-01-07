@@ -1,0 +1,154 @@
+module io.netty.util.Concurrent where
+
+
+data GenericFutureListener f = pure native io.netty.util.concurrent.GenericFutureListener where
+
+  native operationComplete :: GenericFutureListener f -> f -> ST s () throws Exception
+
+
+import java.util.Concurrent
+
+data Future v = pure native io.netty.util.concurrent.Future where
+
+  pure native addListener :: Future v -> GenericFutureListener (Future v) -> Future v
+
+  native addListeners :: Future v -> Mutable s (JArray (GenericFutureListener (Future v))) -> ST s (Future v)
+
+  native await :: Future v -> Long -> TimeUnit -> ST s Bool throws InterruptedException
+                | Future v -> ST s (Future v) throws InterruptedException
+                | Future v -> Long -> ST s Bool throws InterruptedException
+
+  pure native awaitUninterruptibly :: Future v -> Long -> TimeUnit -> Bool
+                                    | Future v -> Long -> Bool
+                                    | Future v -> Future v
+
+  pure native cancel :: Future v -> Bool -> Bool
+
+  pure native cause :: Future v -> Throwable
+
+  pure native getNow :: Future v -> v
+
+  pure native isCancellable :: Future v -> Bool
+
+  pure native isSuccess :: Future v -> Bool
+
+  pure native removeListener :: Future v -> GenericFutureListener (Future v) -> Future v
+
+  native removeListeners :: Future v -> Mutable s (JArray (GenericFutureListener (Future v))) -> ST s (Future v)
+
+  native sync :: Future v -> ST s (Future v) throws InterruptedException
+
+  pure native syncUninterruptibly :: Future v -> Future v
+
+
+import java.Util
+import java.util.Concurrent
+
+data EventExecutorGroup = pure native io.netty.util.concurrent.EventExecutorGroup where
+
+  pure native isShuttingDown :: EventExecutorGroup -> Bool
+
+  native iterator :: EventExecutorGroup -> STMutable s (Iterator EventExecutor)
+
+  pure native next :: EventExecutorGroup -> EventExecutor
+
+  native schedule :: EventExecutorGroup -> Mutable s Runnable -> Long -> TimeUnit -> ST s (ScheduledFuture Object)
+                   | EventExecutorGroup -> Callable v -> Long -> TimeUnit -> ST s (ScheduledFuture v)
+
+  native scheduleAtFixedRate :: EventExecutorGroup -> Mutable s Runnable -> Long -> Long -> TimeUnit -> ST s (ScheduledFuture Object)
+
+  native scheduleWithFixedDelay :: EventExecutorGroup -> Mutable s Runnable -> Long -> Long -> TimeUnit -> ST s (ScheduledFuture Object)
+
+  pure native shutdown :: EventExecutorGroup -> ()
+
+  pure native shutdownGracefully :: EventExecutorGroup -> Future Object
+                                  | EventExecutorGroup -> Long -> Long -> TimeUnit -> Future Object
+
+  native shutdownNow :: EventExecutorGroup -> STMutable s (List Runnable)
+
+  native submit :: EventExecutorGroup -> Callable t -> ST s (Future t)
+                 | EventExecutorGroup -> Mutable s Runnable -> t -> ST s (Future t)
+                 | EventExecutorGroup -> Mutable s Runnable -> ST s (Future Object)
+
+  pure native terminationFuture :: EventExecutorGroup -> Future Object
+
+
+
+data EventExecutor = pure native io.netty.util.concurrent.EventExecutor where
+
+  native inEventLoop :: EventExecutor -> Thread -> IO Bool
+                      | EventExecutor -> ST s Bool
+
+  pure native newFailedFuture :: EventExecutor -> Throwable -> Future v
+
+  pure native newProgressivePromise :: EventExecutor -> ProgressivePromise v
+
+  pure native newPromise :: EventExecutor -> Promise v
+
+  pure native newSucceededFuture :: EventExecutor -> v -> Future v
+
+  pure native next :: EventExecutor -> EventExecutor
+
+  pure native parent :: EventExecutor -> EventExecutorGroup
+
+
+
+data ScheduledFuture v = pure native io.netty.util.concurrent.ScheduledFuture
+
+data ProgressivePromise v = pure native io.netty.util.concurrent.ProgressivePromise where
+
+  pure native addListener :: ProgressivePromise v -> GenericFutureListener (Future v) -> ProgressivePromise v
+
+  native addListeners :: ProgressivePromise v -> Mutable s (JArray (GenericFutureListener (Future v))) -> ST s (ProgressivePromise v)
+
+  native await :: ProgressivePromise v -> ST s (ProgressivePromise v) throws InterruptedException
+
+  pure native awaitUninterruptibly :: ProgressivePromise v -> ProgressivePromise v
+
+  pure native removeListener :: ProgressivePromise v -> GenericFutureListener (Future v) -> ProgressivePromise v
+
+  native removeListeners :: ProgressivePromise v -> Mutable s (JArray (GenericFutureListener (Future v))) -> ST s (ProgressivePromise v)
+
+  pure native setFailure :: ProgressivePromise v -> Throwable -> ProgressivePromise v
+
+  pure native setProgress :: ProgressivePromise v -> Long -> Long -> ProgressivePromise v
+
+  pure native setSuccess :: ProgressivePromise v -> v -> ProgressivePromise v
+
+  native sync :: ProgressivePromise v -> ST s (ProgressivePromise v) throws InterruptedException
+
+  pure native syncUninterruptibly :: ProgressivePromise v -> ProgressivePromise v
+
+  pure native tryProgress :: ProgressivePromise v -> Long -> Long -> Bool
+
+
+
+data Promise v = pure native io.netty.util.concurrent.Promise where
+
+  pure native addListener :: Promise v -> GenericFutureListener (Future v) -> Promise v
+
+  native addListeners :: Promise v -> Mutable s (JArray (GenericFutureListener (Future v))) -> ST s (Promise v)
+
+  native await :: Promise v -> ST s (Promise v) throws InterruptedException
+
+  pure native awaitUninterruptibly :: Promise v -> Promise v
+
+  pure native removeListener :: Promise v -> GenericFutureListener (Future v) -> Promise v
+
+  native removeListeners :: Promise v -> Mutable s (JArray (GenericFutureListener (Future v))) -> ST s (Promise v)
+
+  pure native setFailure :: Promise v -> Throwable -> Promise v
+
+  pure native setSuccess :: Promise v -> v -> Promise v
+
+  pure native setUncancellable :: Promise v -> Bool
+
+  native sync :: Promise v -> ST s (Promise v) throws InterruptedException
+
+  pure native syncUninterruptibly :: Promise v -> Promise v
+
+  pure native tryFailure :: Promise v -> Throwable -> Bool
+
+  pure native trySuccess :: Promise v -> v -> Bool
+
+

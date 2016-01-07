@@ -1,0 +1,423 @@
+module io.vertx.Core where
+
+import io.vertx.core.Json
+import io.vertx.core.spi.Cluster
+import io.vertx.core.Metrics
+
+data VertxOptions = pure native io.vertx.core.VertxOptions where
+
+  pure native default_event_loop_pool_size "io.vertx.core.VertxOptions.DEFAULT_EVENT_LOOP_POOL_SIZE" :: Int
+  pure native default_worker_pool_size "io.vertx.core.VertxOptions.DEFAULT_WORKER_POOL_SIZE" :: Int
+  pure native default_internal_blocking_pool_size "io.vertx.core.VertxOptions.DEFAULT_INTERNAL_BLOCKING_POOL_SIZE" :: Int
+  pure native default_clustered "io.vertx.core.VertxOptions.DEFAULT_CLUSTERED" :: Bool
+  pure native default_cluster_host "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_HOST" :: String
+  pure native default_cluster_port "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_PORT" :: Int
+  pure native default_cluster_public_host "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_PUBLIC_HOST" :: String
+  pure native default_cluster_public_port "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_PUBLIC_PORT" :: Int
+  pure native default_cluster_ping_interval "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_PING_INTERVAL" :: Long
+  pure native default_cluster_ping_reply_interval "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_PING_REPLY_INTERVAL" :: Long
+  pure native default_blocked_thread_check_interval "io.vertx.core.VertxOptions.DEFAULT_BLOCKED_THREAD_CHECK_INTERVAL" :: Long
+  pure native default_max_event_loop_execute_time "io.vertx.core.VertxOptions.DEFAULT_MAX_EVENT_LOOP_EXECUTE_TIME" :: Long
+  pure native default_max_worker_execute_time "io.vertx.core.VertxOptions.DEFAULT_MAX_WORKER_EXECUTE_TIME" :: Long
+  pure native default_quorum_size "io.vertx.core.VertxOptions.DEFAULT_QUORUM_SIZE" :: Int
+  pure native default_ha_group "io.vertx.core.VertxOptions.DEFAULT_HA_GROUP" :: String
+  pure native default_ha_enabled "io.vertx.core.VertxOptions.DEFAULT_HA_ENABLED" :: Bool
+
+  pure native new :: JsonObject -> VertxOptions
+                   | VertxOptions -> VertxOptions
+                   | () -> VertxOptions
+
+  pure native equals :: VertxOptions -> Object -> Bool
+
+  pure native getBlockedThreadCheckInterval :: VertxOptions -> Long
+
+  pure native getClusterHost :: VertxOptions -> String
+
+  pure native getClusterManager :: VertxOptions -> ClusterManager
+
+  pure native getClusterPingInterval :: VertxOptions -> Long
+
+  pure native getClusterPingReplyInterval :: VertxOptions -> Long
+
+  pure native getClusterPort :: VertxOptions -> Int
+
+  pure native getClusterPublicHost :: VertxOptions -> String
+
+  pure native getClusterPublicPort :: VertxOptions -> Int
+
+  pure native getEventLoopPoolSize :: VertxOptions -> Int
+
+  pure native getHAGroup :: VertxOptions -> String
+
+  pure native getInternalBlockingPoolSize :: VertxOptions -> Int
+
+  pure native getMaxEventLoopExecuteTime :: VertxOptions -> Long
+
+  pure native getMaxWorkerExecuteTime :: VertxOptions -> Long
+
+  pure native getMetricsOptions :: VertxOptions -> MetricsOptions
+
+  pure native getQuorumSize :: VertxOptions -> Int
+
+  pure native getWarningExceptionTime :: VertxOptions -> Long
+
+  pure native getWorkerPoolSize :: VertxOptions -> Int
+
+  pure native hashCode :: VertxOptions -> Int
+
+  pure native isClustered :: VertxOptions -> Bool
+
+  pure native isHAEnabled :: VertxOptions -> Bool
+
+  pure native setBlockedThreadCheckInterval :: VertxOptions -> Long -> VertxOptions
+
+  pure native setClusterHost :: VertxOptions -> String -> VertxOptions
+
+  pure native setClusterManager :: VertxOptions -> ClusterManager -> VertxOptions
+
+  pure native setClusterPingInterval :: VertxOptions -> Long -> VertxOptions
+
+  pure native setClusterPingReplyInterval :: VertxOptions -> Long -> VertxOptions
+
+  pure native setClusterPort :: VertxOptions -> Int -> VertxOptions
+
+  pure native setClusterPublicHost :: VertxOptions -> String -> VertxOptions
+
+  pure native setClusterPublicPort :: VertxOptions -> Int -> VertxOptions
+
+  pure native setClustered :: VertxOptions -> Bool -> VertxOptions
+
+  pure native setEventLoopPoolSize :: VertxOptions -> Int -> VertxOptions
+
+  pure native setHAEnabled :: VertxOptions -> Bool -> VertxOptions
+
+  pure native setHAGroup :: VertxOptions -> String -> VertxOptions
+
+  pure native setInternalBlockingPoolSize :: VertxOptions -> Int -> VertxOptions
+
+  pure native setMaxEventLoopExecuteTime :: VertxOptions -> Long -> VertxOptions
+
+  pure native setMaxWorkerExecuteTime :: VertxOptions -> Long -> VertxOptions
+
+  pure native setMetricsOptions :: VertxOptions -> MetricsOptions -> VertxOptions
+
+  pure native setQuorumSize :: VertxOptions -> Int -> VertxOptions
+
+  pure native setWarningExceptionTime :: VertxOptions -> Long -> VertxOptions
+
+  pure native setWorkerPoolSize :: VertxOptions -> Int -> VertxOptions
+
+  pure native toString :: VertxOptions -> String
+
+
+import io.vertx.core.Spi
+import io.vertx.core.Datagram
+import io.vertx.core.Dns
+import io.vertx.core.Http
+import io.vertx.core.Net
+import java.Util
+import io.vertx.core.Eventbus
+import io.vertx.core.File
+import io.netty.Channel
+import io.vertx.core.Shareddata
+
+data Vertx = pure native io.vertx.core.Vertx where
+
+  pure native factory "io.vertx.core.Vertx.factory" :: VertxFactory
+
+  pure native cancelTimer :: Vertx -> Long -> Bool
+
+  pure native close :: Vertx -> ()
+                     | Vertx -> Handler (AsyncResult Void) -> ()
+
+  pure native clusteredVertx "io.vertx.core.Vertx.clusteredVertx" :: VertxOptions -> Handler (AsyncResult Vertx) -> ()
+
+  pure native createDatagramSocket :: Vertx -> DatagramSocketOptions -> DatagramSocket
+                                    | Vertx -> DatagramSocket
+
+  pure native createDnsClient :: Vertx -> Int -> String -> DnsClient
+
+  pure native createHttpClient :: Vertx -> HttpClientOptions -> HttpClient
+                                | Vertx -> HttpClient
+
+  pure native createHttpServer :: Vertx -> HttpServerOptions -> HttpServer
+                                | Vertx -> HttpServer
+
+  pure native createNetClient :: Vertx -> NetClientOptions -> NetClient
+                               | Vertx -> NetClient
+
+  pure native createNetServer :: Vertx -> NetServerOptions -> NetServer
+                               | Vertx -> NetServer
+
+  pure native currentContext "io.vertx.core.Vertx.currentContext" :: () -> Context
+
+  pure native deployVerticle :: Vertx -> String -> Handler (AsyncResult String) -> ()
+                              | Vertx -> String -> DeploymentOptions -> ()
+                              | Vertx -> String -> DeploymentOptions -> Handler (AsyncResult String) -> ()
+                              | Vertx -> Verticle -> Handler (AsyncResult String) -> ()
+                              | Vertx -> Verticle -> DeploymentOptions -> ()
+                              | Vertx -> Verticle -> ()
+                              | Vertx -> Verticle -> DeploymentOptions -> Handler (AsyncResult String) -> ()
+                              | Vertx -> String -> ()
+
+  native deploymentIDs :: Vertx -> STMutable s (Set String)
+
+  pure native eventBus :: Vertx -> EventBus
+
+  pure native executeBlocking :: Vertx -> Handler (Future t) -> Bool -> Handler (AsyncResult t) -> ()
+                               | Vertx -> Handler (Future t) -> Handler (AsyncResult t) -> ()
+
+  pure native fileSystem :: Vertx -> FileSystem
+
+  pure native getOrCreateContext :: Vertx -> Context
+
+  pure native isClustered :: Vertx -> Bool
+
+  pure native nettyEventLoopGroup :: Vertx -> EventLoopGroup
+
+  pure native periodicStream :: Vertx -> Long -> TimeoutStream
+
+  pure native registerVerticleFactory :: Vertx -> VerticleFactory -> ()
+
+  pure native runOnContext :: Vertx -> Handler Void -> ()
+
+  pure native setPeriodic :: Vertx -> Long -> Handler Long -> Long
+
+  pure native setTimer :: Vertx -> Long -> Handler Long -> Long
+
+  pure native sharedData :: Vertx -> SharedData
+
+  pure native timerStream :: Vertx -> Long -> TimeoutStream
+
+  pure native undeploy :: Vertx -> String -> Handler (AsyncResult Void) -> ()
+                        | Vertx -> String -> ()
+
+  pure native unregisterVerticleFactory :: Vertx -> VerticleFactory -> ()
+
+  native verticleFactories :: Vertx -> STMutable s (Set VerticleFactory)
+
+  pure native vertx "io.vertx.core.Vertx.vertx" :: () -> Vertx
+                                                 | VertxOptions -> Vertx
+
+
+
+data Handler e = pure native io.vertx.core.Handler where
+
+  pure native handle :: Handler e -> e -> ()
+
+
+
+data AsyncResult t = pure native io.vertx.core.AsyncResult where
+
+  pure native cause :: AsyncResult t -> Throwable
+
+  pure native failed :: AsyncResult t -> Bool
+
+  pure native result :: AsyncResult t -> t
+
+  pure native succeeded :: AsyncResult t -> Bool
+
+
+import io.vertx.core.Json
+import java.Util
+
+data Context = pure native io.vertx.core.Context where
+
+  pure native addCloseHook :: Context -> Closeable -> ()
+
+  pure native config :: Context -> JsonObject
+
+  pure native deploymentID :: Context -> String
+
+  pure native executeBlocking :: Context -> Handler (Future t) -> Bool -> Handler (AsyncResult t) -> ()
+                               | Context -> Handler (Future t) -> Handler (AsyncResult t) -> ()
+
+  pure native get :: Context -> String -> t
+
+  pure native getInstanceCount :: Context -> Int
+
+  pure native isEventLoopContext :: Context -> Bool
+
+  pure native isMultiThreadedWorkerContext :: Context -> Bool
+
+  pure native isOnEventLoopThread "io.vertx.core.Context.isOnEventLoopThread" :: () -> Bool
+
+  pure native isOnVertxThread "io.vertx.core.Context.isOnVertxThread" :: () -> Bool
+
+  pure native isOnWorkerThread "io.vertx.core.Context.isOnWorkerThread" :: () -> Bool
+
+  pure native isWorkerContext :: Context -> Bool
+
+  pure native owner :: Context -> Vertx
+
+  native processArgs :: Context -> STMutable s (List String)
+
+  pure native put :: Context -> String -> Object -> ()
+
+  pure native remove :: Context -> String -> Bool
+
+  pure native removeCloseHook :: Context -> Closeable -> ()
+
+  pure native runOnContext :: Context -> Handler Void -> ()
+
+
+import io.vertx.core.Json
+import java.Util
+
+data DeploymentOptions = pure native io.vertx.core.DeploymentOptions where
+
+  pure native default_worker "io.vertx.core.DeploymentOptions.DEFAULT_WORKER" :: Bool
+  pure native default_multi_threaded "io.vertx.core.DeploymentOptions.DEFAULT_MULTI_THREADED" :: Bool
+  pure native default_isolation_group "io.vertx.core.DeploymentOptions.DEFAULT_ISOLATION_GROUP" :: String
+  pure native default_ha "io.vertx.core.DeploymentOptions.DEFAULT_HA" :: Bool
+  pure native default_instances "io.vertx.core.DeploymentOptions.DEFAULT_INSTANCES" :: Int
+
+  pure native new :: JsonObject -> DeploymentOptions
+                   | DeploymentOptions -> DeploymentOptions
+                   | () -> DeploymentOptions
+
+  pure native equals :: DeploymentOptions -> Object -> Bool
+
+  pure native fromJson :: DeploymentOptions -> JsonObject -> ()
+
+  pure native getConfig :: DeploymentOptions -> JsonObject
+
+  native getExtraClasspath :: DeploymentOptions -> STMutable s (List String)
+
+  pure native getInstances :: DeploymentOptions -> Int
+
+  native getIsolatedClasses :: DeploymentOptions -> STMutable s (List String)
+
+  pure native getIsolationGroup :: DeploymentOptions -> String
+
+  pure native hashCode :: DeploymentOptions -> Int
+
+  pure native isHa :: DeploymentOptions -> Bool
+
+  pure native isMultiThreaded :: DeploymentOptions -> Bool
+
+  pure native isWorker :: DeploymentOptions -> Bool
+
+  pure native setConfig :: DeploymentOptions -> JsonObject -> DeploymentOptions
+
+  native setExtraClasspath :: DeploymentOptions -> Mutable s (List String) -> ST s DeploymentOptions
+
+  pure native setHa :: DeploymentOptions -> Bool -> DeploymentOptions
+
+  pure native setInstances :: DeploymentOptions -> Int -> DeploymentOptions
+
+  native setIsolatedClasses :: DeploymentOptions -> Mutable s (List String) -> ST s DeploymentOptions
+
+  pure native setIsolationGroup :: DeploymentOptions -> String -> DeploymentOptions
+
+  pure native setMultiThreaded :: DeploymentOptions -> Bool -> DeploymentOptions
+
+  pure native setWorker :: DeploymentOptions -> Bool -> DeploymentOptions
+
+  pure native toJson :: DeploymentOptions -> JsonObject
+
+
+
+data Verticle = pure native io.vertx.core.Verticle where
+
+  pure native getVertx :: Verticle -> Vertx
+
+  pure native init :: Verticle -> Vertx -> Context -> ()
+
+  native start :: Verticle -> Future Void -> ST s () throws Exception
+
+  native stop :: Verticle -> Future Void -> ST s () throws Exception
+
+
+
+data TimeoutStream = pure native io.vertx.core.TimeoutStream where
+
+  pure native cancel :: TimeoutStream -> ()
+
+  pure native endHandler :: TimeoutStream -> Handler Void -> TimeoutStream
+
+  pure native exceptionHandler :: TimeoutStream -> Handler Throwable -> TimeoutStream
+
+  pure native handler :: TimeoutStream -> Handler Long -> TimeoutStream
+
+  pure native pause :: TimeoutStream -> TimeoutStream
+
+  pure native resume :: TimeoutStream -> TimeoutStream
+
+
+import java.Util
+
+data MultiMap = pure native io.vertx.core.MultiMap where
+
+  pure native add :: MultiMap -> CharSequence -> CharSequence -> MultiMap
+                   | MultiMap -> String -> String -> MultiMap
+                   | MultiMap -> String -> Iterable String -> MultiMap
+                   | MultiMap -> CharSequence -> Iterable CharSequence -> MultiMap
+
+  native addAll :: MultiMap -> Mutable s (Map String String) -> ST s MultiMap
+                 | MultiMap -> MultiMap -> ST s MultiMap
+
+  pure native caseInsensitiveMultiMap "io.vertx.core.MultiMap.caseInsensitiveMultiMap" :: () -> MultiMap
+
+  pure native clear :: MultiMap -> MultiMap
+
+  pure native contains :: MultiMap -> String -> Bool
+                        | MultiMap -> CharSequence -> Bool
+
+  native entries :: MultiMap -> STMutable s (List (MapEntry String String))
+
+  pure native get :: MultiMap -> CharSequence -> String
+                   | MultiMap -> String -> String
+
+  native getAll :: MultiMap -> String -> STMutable s (List String)
+                 | MultiMap -> CharSequence -> STMutable s (List String)
+
+  pure native isEmpty :: MultiMap -> Bool
+
+  native names :: MultiMap -> STMutable s (Set String)
+
+  pure native remove :: MultiMap -> String -> MultiMap
+                      | MultiMap -> CharSequence -> MultiMap
+
+  pure native set :: MultiMap -> CharSequence -> CharSequence -> MultiMap
+                   | MultiMap -> String -> Iterable String -> MultiMap
+                   | MultiMap -> String -> String -> MultiMap
+                   | MultiMap -> CharSequence -> Iterable CharSequence -> MultiMap
+
+  native setAll :: MultiMap -> MultiMap -> ST s MultiMap
+                 | MultiMap -> Mutable s (Map String String) -> ST s MultiMap
+
+  pure native size :: MultiMap -> Int
+
+
+
+data Closeable = pure native io.vertx.core.Closeable where
+
+  pure native close :: Closeable -> Handler (AsyncResult Void) -> ()
+
+
+import io.vertx.core.Spi
+
+data Future t = pure native io.vertx.core.Future where
+
+  pure native factory "io.vertx.core.Future.factory" :: FutureFactory
+
+  pure native complete :: Future t -> t -> ()
+                        | Future t -> ()
+
+  pure native fail :: Future t -> Throwable -> ()
+                    | Future t -> String -> ()
+
+  pure native failedFuture "io.vertx.core.Future.failedFuture" :: String -> Future t
+                                                                | Throwable -> Future t
+
+  pure native future "io.vertx.core.Future.future" :: () -> Future t
+
+  pure native isComplete :: Future t -> Bool
+
+  pure native setHandler :: Future t -> Handler (AsyncResult t) -> ()
+
+  pure native succeededFuture "io.vertx.core.Future.succeededFuture" :: () -> Future t
+                                                                      | t -> Future t
+
+

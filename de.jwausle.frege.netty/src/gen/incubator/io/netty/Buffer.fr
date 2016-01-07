@@ -1,0 +1,482 @@
+module io.netty.Buffer where
+
+
+data ByteBufAllocator = pure native io.netty.buffer.ByteBufAllocator where
+
+  pure native default "io.netty.buffer.ByteBufAllocator.DEFAULT" :: ByteBufAllocator
+
+  pure native buffer :: ByteBufAllocator -> ByteBuf
+                      | ByteBufAllocator -> Int -> Int -> ByteBuf
+                      | ByteBufAllocator -> Int -> ByteBuf
+
+  pure native compositeBuffer :: ByteBufAllocator -> CompositeByteBuf
+                               | ByteBufAllocator -> Int -> CompositeByteBuf
+
+  pure native compositeDirectBuffer :: ByteBufAllocator -> CompositeByteBuf
+                                     | ByteBufAllocator -> Int -> CompositeByteBuf
+
+  pure native compositeHeapBuffer :: ByteBufAllocator -> CompositeByteBuf
+                                   | ByteBufAllocator -> Int -> CompositeByteBuf
+
+  pure native directBuffer :: ByteBufAllocator -> Int -> ByteBuf
+                            | ByteBufAllocator -> Int -> Int -> ByteBuf
+                            | ByteBufAllocator -> ByteBuf
+
+  pure native heapBuffer :: ByteBufAllocator -> Int -> Int -> ByteBuf
+                          | ByteBufAllocator -> ByteBuf
+                          | ByteBufAllocator -> Int -> ByteBuf
+
+  pure native ioBuffer :: ByteBufAllocator -> Int -> Int -> ByteBuf
+                        | ByteBufAllocator -> Int -> ByteBuf
+                        | ByteBufAllocator -> ByteBuf
+
+  pure native isDirectBufferPooled :: ByteBufAllocator -> Bool
+
+
+import java.Io
+import java.Nio
+import java.nio.Channels
+import java.nio.Charset
+
+data ByteBuf = pure native io.netty.buffer.ByteBuf where
+
+  pure native alloc :: ByteBuf -> ByteBufAllocator
+
+  native array :: ByteBuf -> STMutable s (JArray Byte)
+
+  pure native arrayOffset :: ByteBuf -> Int
+
+  pure native bytesBefore :: ByteBuf -> Int -> Byte -> Int
+                           | ByteBuf -> Int -> Int -> Byte -> Int
+                           | ByteBuf -> Byte -> Int
+
+  pure native capacity :: ByteBuf -> Int -> ByteBuf
+                        | ByteBuf -> Int
+
+  pure native clear :: ByteBuf -> ByteBuf
+
+  pure native compareTo :: ByteBuf -> ByteBuf -> Int
+
+  pure native copy :: ByteBuf -> ByteBuf
+                    | ByteBuf -> Int -> Int -> ByteBuf
+
+  pure native discardReadBytes :: ByteBuf -> ByteBuf
+
+  pure native discardSomeReadBytes :: ByteBuf -> ByteBuf
+
+  pure native duplicate :: ByteBuf -> ByteBuf
+
+  pure native ensureWritable :: ByteBuf -> Int -> ByteBuf
+                              | ByteBuf -> Int -> Bool -> Int
+
+  pure native equals :: ByteBuf -> Object -> Bool
+
+  pure native forEachByte :: ByteBuf -> ByteBufProcessor -> Int
+                           | ByteBuf -> Int -> Int -> ByteBufProcessor -> Int
+
+  pure native forEachByteDesc :: ByteBuf -> ByteBufProcessor -> Int
+                               | ByteBuf -> Int -> Int -> ByteBufProcessor -> Int
+
+  pure native getBoolean :: ByteBuf -> Int -> Bool
+
+  pure native getByte :: ByteBuf -> Int -> Byte
+
+  native getBytes :: ByteBuf -> Int -> OutputStream -> Int -> IO ByteBuf throws IOException
+                   | ByteBuf -> Int -> Mutable s (JArray Byte) -> Int -> Int -> ST s ByteBuf
+                   | ByteBuf -> Int -> ByteBuffer -> ST s ByteBuf
+                   | ByteBuf -> Int -> ByteBuf -> ST s ByteBuf
+                   | ByteBuf -> Int -> ByteBuf -> Int -> ST s ByteBuf
+                   | ByteBuf -> Int -> ByteBuf -> Int -> Int -> ST s ByteBuf
+                   | ByteBuf -> Int -> Mutable s (JArray Byte) -> ST s ByteBuf
+                   | ByteBuf -> Int -> GatheringByteChannel -> Int -> ST s Int throws IOException
+
+  pure native getChar :: ByteBuf -> Int -> Char
+
+  pure native getDouble :: ByteBuf -> Int -> Double
+
+  pure native getFloat :: ByteBuf -> Int -> Float
+
+  pure native getInt :: ByteBuf -> Int -> Int
+
+  pure native getLong :: ByteBuf -> Int -> Long
+
+  pure native getMedium :: ByteBuf -> Int -> Int
+
+  pure native getShort :: ByteBuf -> Int -> Short
+
+  pure native getUnsignedByte :: ByteBuf -> Int -> Short
+
+  pure native getUnsignedInt :: ByteBuf -> Int -> Long
+
+  pure native getUnsignedMedium :: ByteBuf -> Int -> Int
+
+  pure native getUnsignedShort :: ByteBuf -> Int -> Int
+
+  pure native hasArray :: ByteBuf -> Bool
+
+  pure native hasMemoryAddress :: ByteBuf -> Bool
+
+  pure native hashCode :: ByteBuf -> Int
+
+  pure native indexOf :: ByteBuf -> Int -> Int -> Byte -> Int
+
+  pure native internalNioBuffer :: ByteBuf -> Int -> Int -> ByteBuffer
+
+  pure native isDirect :: ByteBuf -> Bool
+
+  pure native isReadable :: ByteBuf -> Int -> Bool
+                          | ByteBuf -> Bool
+
+  pure native isWritable :: ByteBuf -> Bool
+                          | ByteBuf -> Int -> Bool
+
+  pure native markReaderIndex :: ByteBuf -> ByteBuf
+
+  pure native markWriterIndex :: ByteBuf -> ByteBuf
+
+  pure native maxCapacity :: ByteBuf -> Int
+
+  pure native maxWritableBytes :: ByteBuf -> Int
+
+  pure native memoryAddress :: ByteBuf -> Long
+
+  pure native nioBuffer :: ByteBuf -> Int -> Int -> ByteBuffer
+                         | ByteBuf -> ByteBuffer
+
+  pure native nioBufferCount :: ByteBuf -> Int
+
+  native nioBuffers :: ByteBuf -> Int -> Int -> STMutable s (JArray ByteBuffer)
+                     | ByteBuf -> STMutable s (JArray ByteBuffer)
+
+  pure native order :: ByteBuf -> ByteOrder
+                     | ByteBuf -> ByteOrder -> ByteBuf
+
+  pure native readBoolean :: ByteBuf -> Bool
+
+  pure native readByte :: ByteBuf -> Byte
+
+  native readBytes :: ByteBuf -> GatheringByteChannel -> Int -> ST s Int throws IOException
+                    | ByteBuf -> OutputStream -> Int -> IO ByteBuf throws IOException
+                    | ByteBuf -> Mutable s (JArray Byte) -> ST s ByteBuf
+                    | ByteBuf -> ByteBuffer -> ST s ByteBuf
+                    | ByteBuf -> Mutable s (JArray Byte) -> Int -> Int -> ST s ByteBuf
+                    | ByteBuf -> Int -> ST s ByteBuf
+                    | ByteBuf -> ByteBuf -> Int -> Int -> ST s ByteBuf
+                    | ByteBuf -> ByteBuf -> Int -> ST s ByteBuf
+                    | ByteBuf -> ByteBuf -> ST s ByteBuf
+
+  pure native readChar :: ByteBuf -> Char
+
+  pure native readDouble :: ByteBuf -> Double
+
+  pure native readFloat :: ByteBuf -> Float
+
+  pure native readInt :: ByteBuf -> Int
+
+  pure native readLong :: ByteBuf -> Long
+
+  pure native readMedium :: ByteBuf -> Int
+
+  pure native readShort :: ByteBuf -> Short
+
+  pure native readSlice :: ByteBuf -> Int -> ByteBuf
+
+  pure native readUnsignedByte :: ByteBuf -> Short
+
+  pure native readUnsignedInt :: ByteBuf -> Long
+
+  pure native readUnsignedMedium :: ByteBuf -> Int
+
+  pure native readUnsignedShort :: ByteBuf -> Int
+
+  pure native readableBytes :: ByteBuf -> Int
+
+  pure native readerIndex :: ByteBuf -> Int -> ByteBuf
+                           | ByteBuf -> Int
+
+  pure native resetReaderIndex :: ByteBuf -> ByteBuf
+
+  pure native resetWriterIndex :: ByteBuf -> ByteBuf
+
+  pure native retain :: ByteBuf -> ByteBuf
+                      | ByteBuf -> Int -> ByteBuf
+
+  pure native setBoolean :: ByteBuf -> Int -> Bool -> ByteBuf
+
+  pure native setByte :: ByteBuf -> Int -> Int -> ByteBuf
+
+  native setBytes :: ByteBuf -> Int -> ByteBuf -> ST s ByteBuf
+                   | ByteBuf -> Int -> Mutable s (JArray Byte) -> Int -> Int -> ST s ByteBuf
+                   | ByteBuf -> Int -> ByteBuffer -> ST s ByteBuf
+                   | ByteBuf -> Int -> ByteBuf -> Int -> Int -> ST s ByteBuf
+                   | ByteBuf -> Int -> ByteBuf -> Int -> ST s ByteBuf
+                   | ByteBuf -> Int -> ScatteringByteChannel -> Int -> ST s Int throws IOException
+                   | ByteBuf -> Int -> Mutable s (JArray Byte) -> ST s ByteBuf
+                   | ByteBuf -> Int -> InputStream -> Int -> IO Int throws IOException
+
+  pure native setChar :: ByteBuf -> Int -> Int -> ByteBuf
+
+  pure native setDouble :: ByteBuf -> Int -> Double -> ByteBuf
+
+  pure native setFloat :: ByteBuf -> Int -> Float -> ByteBuf
+
+  pure native setIndex :: ByteBuf -> Int -> Int -> ByteBuf
+
+  pure native setInt :: ByteBuf -> Int -> Int -> ByteBuf
+
+  pure native setLong :: ByteBuf -> Int -> Long -> ByteBuf
+
+  pure native setMedium :: ByteBuf -> Int -> Int -> ByteBuf
+
+  pure native setShort :: ByteBuf -> Int -> Int -> ByteBuf
+
+  pure native setZero :: ByteBuf -> Int -> Int -> ByteBuf
+
+  pure native skipBytes :: ByteBuf -> Int -> ByteBuf
+
+  pure native slice :: ByteBuf -> Int -> Int -> ByteBuf
+                     | ByteBuf -> ByteBuf
+
+  native toString :: ByteBuf -> Int -> Int -> Mutable s Charset -> ST s String
+                   | ByteBuf -> Mutable s Charset -> ST s String
+                   | ByteBuf -> ST s String
+
+  pure native unwrap :: ByteBuf -> ByteBuf
+
+  pure native writableBytes :: ByteBuf -> Int
+
+  pure native writeBoolean :: ByteBuf -> Bool -> ByteBuf
+
+  pure native writeByte :: ByteBuf -> Int -> ByteBuf
+
+  native writeBytes :: ByteBuf -> ByteBuf -> ST s ByteBuf
+                     | ByteBuf -> Mutable s (JArray Byte) -> Int -> Int -> ST s ByteBuf
+                     | ByteBuf -> Mutable s (JArray Byte) -> ST s ByteBuf
+                     | ByteBuf -> ByteBuf -> Int -> Int -> ST s ByteBuf
+                     | ByteBuf -> ByteBuf -> Int -> ST s ByteBuf
+                     | ByteBuf -> ScatteringByteChannel -> Int -> ST s Int throws IOException
+                     | ByteBuf -> InputStream -> Int -> IO Int throws IOException
+                     | ByteBuf -> ByteBuffer -> ST s ByteBuf
+
+  pure native writeChar :: ByteBuf -> Int -> ByteBuf
+
+  pure native writeDouble :: ByteBuf -> Double -> ByteBuf
+
+  pure native writeFloat :: ByteBuf -> Float -> ByteBuf
+
+  pure native writeInt :: ByteBuf -> Int -> ByteBuf
+
+  pure native writeLong :: ByteBuf -> Long -> ByteBuf
+
+  pure native writeMedium :: ByteBuf -> Int -> ByteBuf
+
+  pure native writeShort :: ByteBuf -> Int -> ByteBuf
+
+  pure native writeZero :: ByteBuf -> Int -> ByteBuf
+
+  pure native writerIndex :: ByteBuf -> Int
+                           | ByteBuf -> Int -> ByteBuf
+
+
+import java.Util
+import java.Io
+import java.nio.Channels
+import java.Nio
+
+data CompositeByteBuf = pure native io.netty.buffer.CompositeByteBuf where
+
+  native new :: ByteBufAllocator -> Bool -> Int -> Iterable ByteBuf -> ST s CompositeByteBuf
+              | ByteBufAllocator -> Bool -> Int -> Mutable s (JArray ByteBuf) -> ST s CompositeByteBuf
+              | ByteBufAllocator -> Bool -> Int -> ST s CompositeByteBuf
+
+  pure native addComponent :: CompositeByteBuf -> Int -> ByteBuf -> CompositeByteBuf
+                            | CompositeByteBuf -> ByteBuf -> CompositeByteBuf
+
+  native addComponents :: CompositeByteBuf -> Int -> Iterable ByteBuf -> ST s CompositeByteBuf
+                        | CompositeByteBuf -> Iterable ByteBuf -> ST s CompositeByteBuf
+                        | CompositeByteBuf -> Int -> Mutable s (JArray ByteBuf) -> ST s CompositeByteBuf
+                        | CompositeByteBuf -> Mutable s (JArray ByteBuf) -> ST s CompositeByteBuf
+
+  pure native alloc :: CompositeByteBuf -> ByteBufAllocator
+
+  native array :: CompositeByteBuf -> STMutable s (JArray Byte)
+
+  pure native arrayOffset :: CompositeByteBuf -> Int
+
+  pure native capacity :: CompositeByteBuf -> Int
+                        | CompositeByteBuf -> Int -> CompositeByteBuf
+
+  pure native clear :: CompositeByteBuf -> CompositeByteBuf
+
+  pure native component :: CompositeByteBuf -> Int -> ByteBuf
+
+  pure native componentAtOffset :: CompositeByteBuf -> Int -> ByteBuf
+
+  pure native consolidate :: CompositeByteBuf -> Int -> Int -> CompositeByteBuf
+                           | CompositeByteBuf -> CompositeByteBuf
+
+  pure native copy :: CompositeByteBuf -> Int -> Int -> ByteBuf
+
+  native decompose :: CompositeByteBuf -> Int -> Int -> STMutable s (List ByteBuf)
+
+  pure native discardReadBytes :: CompositeByteBuf -> CompositeByteBuf
+
+  pure native discardReadComponents :: CompositeByteBuf -> CompositeByteBuf
+
+  pure native discardSomeReadBytes :: CompositeByteBuf -> CompositeByteBuf
+
+  pure native ensureWritable :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+  pure native getByte :: CompositeByteBuf -> Int -> Byte
+
+  native getBytes :: CompositeByteBuf -> Int -> Mutable s (JArray Byte) -> Int -> Int -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> OutputStream -> Int -> IO CompositeByteBuf throws IOException
+                   | CompositeByteBuf -> Int -> GatheringByteChannel -> Int -> ST s Int throws IOException
+                   | CompositeByteBuf -> Int -> ByteBuf -> Int -> Int -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> Mutable s (JArray Byte) -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> ByteBuffer -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> ByteBuf -> Int -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> ByteBuf -> ST s CompositeByteBuf
+
+  pure native hasArray :: CompositeByteBuf -> Bool
+
+  pure native hasMemoryAddress :: CompositeByteBuf -> Bool
+
+  pure native internalComponent :: CompositeByteBuf -> Int -> ByteBuf
+
+  pure native internalComponentAtOffset :: CompositeByteBuf -> Int -> ByteBuf
+
+  pure native internalNioBuffer :: CompositeByteBuf -> Int -> Int -> ByteBuffer
+
+  pure native isDirect :: CompositeByteBuf -> Bool
+
+  native iterator :: CompositeByteBuf -> STMutable s (Iterator ByteBuf)
+
+  pure native markReaderIndex :: CompositeByteBuf -> CompositeByteBuf
+
+  pure native markWriterIndex :: CompositeByteBuf -> CompositeByteBuf
+
+  pure native maxNumComponents :: CompositeByteBuf -> Int
+
+  pure native memoryAddress :: CompositeByteBuf -> Long
+
+  pure native nioBuffer :: CompositeByteBuf -> Int -> Int -> ByteBuffer
+
+  pure native nioBufferCount :: CompositeByteBuf -> Int
+
+  native nioBuffers :: CompositeByteBuf -> Int -> Int -> STMutable s (JArray ByteBuffer)
+                     | CompositeByteBuf -> STMutable s (JArray ByteBuffer)
+
+  pure native numComponents :: CompositeByteBuf -> Int
+
+  pure native order :: CompositeByteBuf -> ByteOrder
+
+  native readBytes :: CompositeByteBuf -> ByteBuf -> Int -> Int -> ST s CompositeByteBuf
+                    | CompositeByteBuf -> ByteBuf -> ST s CompositeByteBuf
+                    | CompositeByteBuf -> Mutable s (JArray Byte) -> ST s CompositeByteBuf
+                    | CompositeByteBuf -> Mutable s (JArray Byte) -> Int -> Int -> ST s CompositeByteBuf
+                    | CompositeByteBuf -> ByteBuffer -> ST s CompositeByteBuf
+                    | CompositeByteBuf -> OutputStream -> Int -> IO CompositeByteBuf throws IOException
+                    | CompositeByteBuf -> ByteBuf -> Int -> ST s CompositeByteBuf
+
+  pure native readerIndex :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+  pure native removeComponent :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+  pure native removeComponents :: CompositeByteBuf -> Int -> Int -> CompositeByteBuf
+
+  pure native resetReaderIndex :: CompositeByteBuf -> CompositeByteBuf
+
+  pure native resetWriterIndex :: CompositeByteBuf -> CompositeByteBuf
+
+  pure native retain :: CompositeByteBuf -> Int -> CompositeByteBuf
+                      | CompositeByteBuf -> CompositeByteBuf
+
+  pure native setBoolean :: CompositeByteBuf -> Int -> Bool -> CompositeByteBuf
+
+  pure native setByte :: CompositeByteBuf -> Int -> Int -> CompositeByteBuf
+
+  native setBytes :: CompositeByteBuf -> Int -> Mutable s (JArray Byte) -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> ByteBuf -> Int -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> ByteBuf -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> ScatteringByteChannel -> Int -> ST s Int throws IOException
+                   | CompositeByteBuf -> Int -> Mutable s (JArray Byte) -> Int -> Int -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> ByteBuffer -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> ByteBuf -> Int -> Int -> ST s CompositeByteBuf
+                   | CompositeByteBuf -> Int -> InputStream -> Int -> IO Int throws IOException
+
+  pure native setChar :: CompositeByteBuf -> Int -> Int -> CompositeByteBuf
+
+  pure native setDouble :: CompositeByteBuf -> Int -> Double -> CompositeByteBuf
+
+  pure native setFloat :: CompositeByteBuf -> Int -> Float -> CompositeByteBuf
+
+  pure native setIndex :: CompositeByteBuf -> Int -> Int -> CompositeByteBuf
+
+  pure native setInt :: CompositeByteBuf -> Int -> Int -> CompositeByteBuf
+
+  pure native setLong :: CompositeByteBuf -> Int -> Long -> CompositeByteBuf
+
+  pure native setMedium :: CompositeByteBuf -> Int -> Int -> CompositeByteBuf
+
+  pure native setShort :: CompositeByteBuf -> Int -> Int -> CompositeByteBuf
+
+  pure native setZero :: CompositeByteBuf -> Int -> Int -> CompositeByteBuf
+
+  pure native skipBytes :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+  pure native toByteIndex :: CompositeByteBuf -> Int -> Int
+
+  pure native toComponentIndex :: CompositeByteBuf -> Int -> Int
+
+  pure native toString :: CompositeByteBuf -> String
+
+  pure native unwrap :: CompositeByteBuf -> ByteBuf
+
+  pure native writeBoolean :: CompositeByteBuf -> Bool -> CompositeByteBuf
+
+  pure native writeByte :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+  native writeBytes :: CompositeByteBuf -> Mutable s (JArray Byte) -> ST s CompositeByteBuf
+                     | CompositeByteBuf -> Mutable s (JArray Byte) -> Int -> Int -> ST s CompositeByteBuf
+                     | CompositeByteBuf -> ByteBuffer -> ST s CompositeByteBuf
+                     | CompositeByteBuf -> ByteBuf -> Int -> Int -> ST s CompositeByteBuf
+                     | CompositeByteBuf -> ByteBuf -> Int -> ST s CompositeByteBuf
+                     | CompositeByteBuf -> ByteBuf -> ST s CompositeByteBuf
+
+  pure native writeChar :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+  pure native writeDouble :: CompositeByteBuf -> Double -> CompositeByteBuf
+
+  pure native writeFloat :: CompositeByteBuf -> Float -> CompositeByteBuf
+
+  pure native writeInt :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+  pure native writeLong :: CompositeByteBuf -> Long -> CompositeByteBuf
+
+  pure native writeMedium :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+  pure native writeShort :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+  pure native writeZero :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+  pure native writerIndex :: CompositeByteBuf -> Int -> CompositeByteBuf
+
+
+
+data ByteBufProcessor = pure native io.netty.buffer.ByteBufProcessor where
+
+  pure native find_nul "io.netty.buffer.ByteBufProcessor.FIND_NUL" :: ByteBufProcessor
+  pure native find_non_nul "io.netty.buffer.ByteBufProcessor.FIND_NON_NUL" :: ByteBufProcessor
+  pure native find_cr "io.netty.buffer.ByteBufProcessor.FIND_CR" :: ByteBufProcessor
+  pure native find_non_cr "io.netty.buffer.ByteBufProcessor.FIND_NON_CR" :: ByteBufProcessor
+  pure native find_lf "io.netty.buffer.ByteBufProcessor.FIND_LF" :: ByteBufProcessor
+  pure native find_non_lf "io.netty.buffer.ByteBufProcessor.FIND_NON_LF" :: ByteBufProcessor
+  pure native find_crlf "io.netty.buffer.ByteBufProcessor.FIND_CRLF" :: ByteBufProcessor
+  pure native find_non_crlf "io.netty.buffer.ByteBufProcessor.FIND_NON_CRLF" :: ByteBufProcessor
+  pure native find_linear_whitespace "io.netty.buffer.ByteBufProcessor.FIND_LINEAR_WHITESPACE" :: ByteBufProcessor
+  pure native find_non_linear_whitespace "io.netty.buffer.ByteBufProcessor.FIND_NON_LINEAR_WHITESPACE" :: ByteBufProcessor
+
+  native process :: ByteBufProcessor -> Byte -> ST s Bool throws Exception
+
+

@@ -1,0 +1,167 @@
+module java.time.Format where
+
+import java.time.Temporal
+import java.time.Chrono
+import java.Util
+import java.Time
+import java.Text
+
+data DateTimeFormatter = pure native java.time.format.DateTimeFormatter where
+
+  pure native iso_local_date "java.time.format.DateTimeFormatter.ISO_LOCAL_DATE" :: DateTimeFormatter
+  pure native iso_offset_date "java.time.format.DateTimeFormatter.ISO_OFFSET_DATE" :: DateTimeFormatter
+  pure native iso_date "java.time.format.DateTimeFormatter.ISO_DATE" :: DateTimeFormatter
+  pure native iso_local_time "java.time.format.DateTimeFormatter.ISO_LOCAL_TIME" :: DateTimeFormatter
+  pure native iso_offset_time "java.time.format.DateTimeFormatter.ISO_OFFSET_TIME" :: DateTimeFormatter
+  pure native iso_time "java.time.format.DateTimeFormatter.ISO_TIME" :: DateTimeFormatter
+  pure native iso_local_date_time "java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME" :: DateTimeFormatter
+  pure native iso_offset_date_time "java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME" :: DateTimeFormatter
+  pure native iso_zoned_date_time "java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME" :: DateTimeFormatter
+  pure native iso_date_time "java.time.format.DateTimeFormatter.ISO_DATE_TIME" :: DateTimeFormatter
+  pure native iso_ordinal_date "java.time.format.DateTimeFormatter.ISO_ORDINAL_DATE" :: DateTimeFormatter
+  pure native iso_week_date "java.time.format.DateTimeFormatter.ISO_WEEK_DATE" :: DateTimeFormatter
+  pure native iso_instant "java.time.format.DateTimeFormatter.ISO_INSTANT" :: DateTimeFormatter
+  pure native basic_iso_date "java.time.format.DateTimeFormatter.BASIC_ISO_DATE" :: DateTimeFormatter
+  pure native rfc_1123_date_time "java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME" :: DateTimeFormatter
+
+  pure native format :: DateTimeFormatter -> TemporalAccessor -> String
+
+  native formatTo :: DateTimeFormatter -> TemporalAccessor -> Mutable s Appendable -> ST s ()
+
+  pure native getChronology :: DateTimeFormatter -> Chronology
+
+  pure native getDecimalStyle :: DateTimeFormatter -> DecimalStyle
+
+  pure native getLocale :: DateTimeFormatter -> Locale
+
+  native getResolverFields :: DateTimeFormatter -> STMutable s (Set TemporalField)
+
+  pure native getResolverStyle :: DateTimeFormatter -> ResolverStyle
+
+  pure native getZone :: DateTimeFormatter -> ZoneId
+
+  pure native ofLocalizedDate "java.time.format.DateTimeFormatter.ofLocalizedDate" :: FormatStyle -> DateTimeFormatter
+
+  pure native ofLocalizedDateTime "java.time.format.DateTimeFormatter.ofLocalizedDateTime" :: FormatStyle -> DateTimeFormatter
+                                                                                            | FormatStyle -> FormatStyle -> DateTimeFormatter
+
+  pure native ofLocalizedTime "java.time.format.DateTimeFormatter.ofLocalizedTime" :: FormatStyle -> DateTimeFormatter
+
+  pure native ofPattern "java.time.format.DateTimeFormatter.ofPattern" :: String -> DateTimeFormatter
+                                                                        | String -> Locale -> DateTimeFormatter
+
+  pure native parse :: DateTimeFormatter -> CharSequence -> TemporalAccessor
+                     | DateTimeFormatter -> CharSequence -> TemporalQuery t -> t
+                     | DateTimeFormatter -> CharSequence -> ParsePosition -> TemporalAccessor
+
+  native parseBest :: DateTimeFormatter -> CharSequence -> Mutable s (JArray (TemporalQuery Object)) -> ST s TemporalAccessor
+
+  pure native parseUnresolved :: DateTimeFormatter -> CharSequence -> ParsePosition -> TemporalAccessor
+
+  pure native parsedExcessDays "java.time.format.DateTimeFormatter.parsedExcessDays" :: () -> TemporalQuery Period
+
+  pure native parsedLeapSecond "java.time.format.DateTimeFormatter.parsedLeapSecond" :: () -> TemporalQuery Bool
+
+  pure native toFormat :: DateTimeFormatter -> Format
+                        | DateTimeFormatter -> TemporalQuery Object -> Format
+
+  pure native toString :: DateTimeFormatter -> String
+
+  pure native withChronology :: DateTimeFormatter -> Chronology -> DateTimeFormatter
+
+  pure native withDecimalStyle :: DateTimeFormatter -> DecimalStyle -> DateTimeFormatter
+
+  pure native withLocale :: DateTimeFormatter -> Locale -> DateTimeFormatter
+
+  native withResolverFields :: DateTimeFormatter -> Mutable s (Set TemporalField) -> ST s DateTimeFormatter
+                             | DateTimeFormatter -> Mutable s (JArray TemporalField) -> ST s DateTimeFormatter
+
+  pure native withResolverStyle :: DateTimeFormatter -> ResolverStyle -> DateTimeFormatter
+
+  pure native withZone :: DateTimeFormatter -> ZoneId -> DateTimeFormatter
+
+
+
+data ResolverStyle = pure native java.time.format.ResolverStyle where
+
+  pure native strict "java.time.format.ResolverStyle.STRICT" :: ResolverStyle
+  pure native smart "java.time.format.ResolverStyle.SMART" :: ResolverStyle
+  pure native lenient "java.time.format.ResolverStyle.LENIENT" :: ResolverStyle
+
+  pure native valueOf "java.time.format.ResolverStyle.valueOf" :: String -> ResolverStyle
+
+  native values "java.time.format.ResolverStyle.values" :: () -> STMutable s (JArray ResolverStyle)
+
+derive Serializable ResolverStyle
+
+
+data TextStyle = pure native java.time.format.TextStyle where
+
+  pure native full "java.time.format.TextStyle.FULL" :: TextStyle
+  pure native full_standalone "java.time.format.TextStyle.FULL_STANDALONE" :: TextStyle
+  pure native short "java.time.format.TextStyle.SHORT" :: TextStyle
+  pure native short_standalone "java.time.format.TextStyle.SHORT_STANDALONE" :: TextStyle
+  pure native narrow "java.time.format.TextStyle.NARROW" :: TextStyle
+  pure native narrow_standalone "java.time.format.TextStyle.NARROW_STANDALONE" :: TextStyle
+
+  pure native asNormal :: TextStyle -> TextStyle
+
+  pure native asStandalone :: TextStyle -> TextStyle
+
+  pure native isStandalone :: TextStyle -> Bool
+
+  pure native valueOf "java.time.format.TextStyle.valueOf" :: String -> TextStyle
+
+  native values "java.time.format.TextStyle.values" :: () -> STMutable s (JArray TextStyle)
+
+derive Serializable TextStyle
+
+import java.Util
+
+data DecimalStyle = pure native java.time.format.DecimalStyle where
+
+  pure native standard "java.time.format.DecimalStyle.STANDARD" :: DecimalStyle
+
+  pure native equals :: DecimalStyle -> Object -> Bool
+
+  native getAvailableLocales "java.time.format.DecimalStyle.getAvailableLocales" :: () -> STMutable s (Set Locale)
+
+  pure native getDecimalSeparator :: DecimalStyle -> Char
+
+  pure native getNegativeSign :: DecimalStyle -> Char
+
+  pure native getPositiveSign :: DecimalStyle -> Char
+
+  pure native getZeroDigit :: DecimalStyle -> Char
+
+  pure native hashCode :: DecimalStyle -> Int
+
+  pure native jof' "java.time.format.DecimalStyle.of" :: Locale -> DecimalStyle
+
+  pure native ofDefaultLocale "java.time.format.DecimalStyle.ofDefaultLocale" :: () -> DecimalStyle
+
+  pure native toString :: DecimalStyle -> String
+
+  pure native withDecimalSeparator :: DecimalStyle -> Char -> DecimalStyle
+
+  pure native withNegativeSign :: DecimalStyle -> Char -> DecimalStyle
+
+  pure native withPositiveSign :: DecimalStyle -> Char -> DecimalStyle
+
+  pure native withZeroDigit :: DecimalStyle -> Char -> DecimalStyle
+
+
+
+data FormatStyle = pure native java.time.format.FormatStyle where
+
+  pure native full "java.time.format.FormatStyle.FULL" :: FormatStyle
+  pure native long "java.time.format.FormatStyle.LONG" :: FormatStyle
+  pure native medium "java.time.format.FormatStyle.MEDIUM" :: FormatStyle
+  pure native short "java.time.format.FormatStyle.SHORT" :: FormatStyle
+
+  pure native valueOf "java.time.format.FormatStyle.valueOf" :: String -> FormatStyle
+
+  native values "java.time.format.FormatStyle.values" :: () -> STMutable s (JArray FormatStyle)
+
+derive Serializable FormatStyle
+

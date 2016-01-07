@@ -1,0 +1,129 @@
+module java.time.Zone where
+
+import java.Time
+import java.Util
+
+data ZoneRules = pure native java.time.zone.ZoneRules where
+
+  pure native equals :: ZoneRules -> Object -> Bool
+
+  pure native getDaylightSavings :: ZoneRules -> Instant -> Duration
+
+  pure native getOffset :: ZoneRules -> LocalDateTime -> ZoneOffset
+                         | ZoneRules -> Instant -> ZoneOffset
+
+  pure native getStandardOffset :: ZoneRules -> Instant -> ZoneOffset
+
+  pure native getTransition :: ZoneRules -> LocalDateTime -> ZoneOffsetTransition
+
+  native getTransitionRules :: ZoneRules -> STMutable s (List ZoneOffsetTransitionRule)
+
+  native getTransitions :: ZoneRules -> STMutable s (List ZoneOffsetTransition)
+
+  native getValidOffsets :: ZoneRules -> LocalDateTime -> STMutable s (List ZoneOffset)
+
+  pure native hashCode :: ZoneRules -> Int
+
+  pure native isDaylightSavings :: ZoneRules -> Instant -> Bool
+
+  pure native isFixedOffset :: ZoneRules -> Bool
+
+  pure native isValidOffset :: ZoneRules -> LocalDateTime -> ZoneOffset -> Bool
+
+  pure native nextTransition :: ZoneRules -> Instant -> ZoneOffsetTransition
+
+  native jof' "java.time.zone.ZoneRules.of" :: ZoneOffset -> ZoneOffset -> Mutable s (List ZoneOffsetTransition) -> Mutable s (List ZoneOffsetTransition) -> Mutable s (List ZoneOffsetTransitionRule) -> ST s ZoneRules
+                                             | ZoneOffset -> ST s ZoneRules
+
+  pure native previousTransition :: ZoneRules -> Instant -> ZoneOffsetTransition
+
+  pure native toString :: ZoneRules -> String
+
+derive Serializable ZoneRules
+
+import java.Time
+
+data ZoneOffsetTransition = pure native java.time.zone.ZoneOffsetTransition where
+
+  pure native compareTo :: ZoneOffsetTransition -> ZoneOffsetTransition -> Int
+
+  pure native equals :: ZoneOffsetTransition -> Object -> Bool
+
+  pure native getDateTimeAfter :: ZoneOffsetTransition -> LocalDateTime
+
+  pure native getDateTimeBefore :: ZoneOffsetTransition -> LocalDateTime
+
+  pure native getDuration :: ZoneOffsetTransition -> Duration
+
+  pure native getInstant :: ZoneOffsetTransition -> Instant
+
+  pure native getOffsetAfter :: ZoneOffsetTransition -> ZoneOffset
+
+  pure native getOffsetBefore :: ZoneOffsetTransition -> ZoneOffset
+
+  pure native hashCode :: ZoneOffsetTransition -> Int
+
+  pure native isGap :: ZoneOffsetTransition -> Bool
+
+  pure native isOverlap :: ZoneOffsetTransition -> Bool
+
+  pure native isValidOffset :: ZoneOffsetTransition -> ZoneOffset -> Bool
+
+  pure native jof' "java.time.zone.ZoneOffsetTransition.of" :: LocalDateTime -> ZoneOffset -> ZoneOffset -> ZoneOffsetTransition
+
+  pure native toEpochSecond :: ZoneOffsetTransition -> Long
+
+  pure native toString :: ZoneOffsetTransition -> String
+
+derive Serializable ZoneOffsetTransition
+
+import java.Time
+
+data ZoneOffsetTransitionRule = pure native java.time.zone.ZoneOffsetTransitionRule where
+
+  pure native createTransition :: ZoneOffsetTransitionRule -> Int -> ZoneOffsetTransition
+
+  pure native equals :: ZoneOffsetTransitionRule -> Object -> Bool
+
+  pure native getDayOfMonthIndicator :: ZoneOffsetTransitionRule -> Int
+
+  pure native getDayOfWeek :: ZoneOffsetTransitionRule -> DayOfWeek
+
+  pure native getLocalTime :: ZoneOffsetTransitionRule -> LocalTime
+
+  pure native getMonth :: ZoneOffsetTransitionRule -> Month
+
+  pure native getOffsetAfter :: ZoneOffsetTransitionRule -> ZoneOffset
+
+  pure native getOffsetBefore :: ZoneOffsetTransitionRule -> ZoneOffset
+
+  pure native getStandardOffset :: ZoneOffsetTransitionRule -> ZoneOffset
+
+  pure native getTimeDefinition :: ZoneOffsetTransitionRule -> ZoneOffsetTransitionRule_TimeDefinition
+
+  pure native hashCode :: ZoneOffsetTransitionRule -> Int
+
+  pure native isMidnightEndOfDay :: ZoneOffsetTransitionRule -> Bool
+
+  pure native jof' "java.time.zone.ZoneOffsetTransitionRule.of" :: Month -> Int -> DayOfWeek -> LocalTime -> Bool -> ZoneOffsetTransitionRule_TimeDefinition -> ZoneOffset -> ZoneOffset -> ZoneOffset -> ZoneOffsetTransitionRule
+
+  pure native toString :: ZoneOffsetTransitionRule -> String
+
+derive Serializable ZoneOffsetTransitionRule
+
+import java.Time
+
+data ZoneOffsetTransitionRule_TimeDefinition = pure native java.time.zone.ZoneOffsetTransitionRule.TimeDefinition where
+
+  pure native utc "java.time.zone.ZoneOffsetTransitionRule.TimeDefinition.UTC" :: ZoneOffsetTransitionRule_TimeDefinition
+  pure native wall "java.time.zone.ZoneOffsetTransitionRule.TimeDefinition.WALL" :: ZoneOffsetTransitionRule_TimeDefinition
+  pure native standard "java.time.zone.ZoneOffsetTransitionRule.TimeDefinition.STANDARD" :: ZoneOffsetTransitionRule_TimeDefinition
+
+  pure native createDateTime :: ZoneOffsetTransitionRule_TimeDefinition -> LocalDateTime -> ZoneOffset -> ZoneOffset -> LocalDateTime
+
+  pure native valueOf "java.time.zone.ZoneOffsetTransitionRule.TimeDefinition.valueOf" :: String -> ZoneOffsetTransitionRule_TimeDefinition
+
+  native values "java.time.zone.ZoneOffsetTransitionRule.TimeDefinition.values" :: () -> STMutable s (JArray ZoneOffsetTransitionRule_TimeDefinition)
+
+derive Serializable ZoneOffsetTransitionRule_TimeDefinition
+

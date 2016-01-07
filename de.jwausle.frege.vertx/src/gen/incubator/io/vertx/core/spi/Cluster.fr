@@ -1,0 +1,61 @@
+module io.vertx.core.spi.Cluster where
+
+import io.vertx.Core
+import java.Util
+
+data ClusterManager = pure native io.vertx.core.spi.cluster.ClusterManager where
+
+  pure native getAsyncMap :: ClusterManager -> String -> Handler (AsyncResult (AsyncMap k v)) -> ()
+
+  pure native getAsyncMultiMap :: ClusterManager -> String -> Handler (AsyncResult (AsyncMultiMap k v)) -> ()
+
+  pure native getCounter :: ClusterManager -> String -> Handler (AsyncResult Counter) -> ()
+
+  pure native getLockWithTimeout :: ClusterManager -> String -> Long -> Handler (AsyncResult Lock) -> ()
+
+  pure native getNodeID :: ClusterManager -> String
+
+  native getNodes :: ClusterManager -> STMutable s (List String)
+
+  native getSyncMap :: ClusterManager -> String -> STMutable s (Map k v)
+
+  pure native isActive :: ClusterManager -> Bool
+
+  pure native join :: ClusterManager -> Handler (AsyncResult Void) -> ()
+
+  pure native leave :: ClusterManager -> Handler (AsyncResult Void) -> ()
+
+  pure native nodeListener :: ClusterManager -> NodeListener -> ()
+
+  pure native setVertx :: ClusterManager -> Vertx -> ()
+
+
+
+data NodeListener = pure native io.vertx.core.spi.cluster.NodeListener where
+
+  pure native nodeAdded :: NodeListener -> String -> ()
+
+  pure native nodeLeft :: NodeListener -> String -> ()
+
+
+import io.vertx.Core
+
+data AsyncMultiMap k v = pure native io.vertx.core.spi.cluster.AsyncMultiMap where
+
+  pure native add :: AsyncMultiMap k v -> k -> v -> Handler (AsyncResult Void) -> ()
+
+  pure native get :: AsyncMultiMap k v -> k -> Handler (AsyncResult (ChoosableIterable v)) -> ()
+
+  pure native remove :: AsyncMultiMap k v -> k -> v -> Handler (AsyncResult Bool) -> ()
+
+  pure native removeAllForValue :: AsyncMultiMap k v -> v -> Handler (AsyncResult Void) -> ()
+
+
+
+data ChoosableIterable t = pure native io.vertx.core.spi.cluster.ChoosableIterable where
+
+  pure native choose :: ChoosableIterable t -> t
+
+  pure native isEmpty :: ChoosableIterable t -> Bool
+
+

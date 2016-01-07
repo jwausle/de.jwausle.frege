@@ -1,0 +1,162 @@
+module java.nio.Charset where
+
+import java.Util
+import java.Nio
+
+data Charset = native java.nio.charset.Charset where
+
+  native aliases :: Mutable s Charset -> STMutable s (Set String)
+
+  native availableCharsets "java.nio.charset.Charset.availableCharsets" :: () -> STMutable s (SortedMap String Charset)
+
+  native canEncode :: Mutable s Charset -> ST s Bool
+
+  native compareTo :: Mutable s Charset -> Mutable s Charset -> ST s Int
+
+  native contains :: Mutable s Charset -> Mutable s Charset -> ST s Bool
+
+  native decode :: Mutable s Charset -> ByteBuffer -> ST s CharBuffer
+
+  native defaultCharset "java.nio.charset.Charset.defaultCharset" :: () -> STMutable s Charset
+
+  native displayName :: Mutable s Charset -> Locale -> ST s String
+                      | Mutable s Charset -> ST s String
+
+  native encode :: Mutable s Charset -> CharBuffer -> ST s ByteBuffer
+                 | Mutable s Charset -> String -> ST s ByteBuffer
+
+  native equals :: Mutable s Charset -> Object -> ST s Bool
+
+  native forName "java.nio.charset.Charset.forName" :: String -> STMutable s Charset
+
+  native hashCode :: Mutable s Charset -> ST s Int
+
+  native isRegistered :: Mutable s Charset -> ST s Bool
+
+  pure native isSupported "java.nio.charset.Charset.isSupported" :: String -> Bool
+
+  native name :: Mutable s Charset -> ST s String
+
+  native newDecoder :: Mutable s Charset -> ST s CharsetDecoder
+
+  native newEncoder :: Mutable s Charset -> ST s CharsetEncoder
+
+  native toString :: Mutable s Charset -> ST s String
+
+
+import java.Nio
+
+data CharsetDecoder = pure native java.nio.charset.CharsetDecoder where
+
+  pure native averageCharsPerByte :: CharsetDecoder -> Float
+
+  native charset :: CharsetDecoder -> STMutable s Charset
+
+  native decode :: CharsetDecoder -> ByteBuffer -> CharBuffer -> Bool -> ST s CoderResult
+                 | CharsetDecoder -> ByteBuffer -> ST s CharBuffer throws CharacterCodingException
+
+  native detectedCharset :: CharsetDecoder -> STMutable s Charset
+
+  pure native flush :: CharsetDecoder -> CharBuffer -> CoderResult
+
+  pure native isAutoDetecting :: CharsetDecoder -> Bool
+
+  pure native isCharsetDetected :: CharsetDecoder -> Bool
+
+  pure native malformedInputAction :: CharsetDecoder -> CodingErrorAction
+
+  pure native maxCharsPerByte :: CharsetDecoder -> Float
+
+  pure native onMalformedInput :: CharsetDecoder -> CodingErrorAction -> CharsetDecoder
+
+  pure native onUnmappableCharacter :: CharsetDecoder -> CodingErrorAction -> CharsetDecoder
+
+  pure native replaceWith :: CharsetDecoder -> String -> CharsetDecoder
+
+  pure native replacement :: CharsetDecoder -> String
+
+  pure native reset :: CharsetDecoder -> CharsetDecoder
+
+  pure native unmappableCharacterAction :: CharsetDecoder -> CodingErrorAction
+
+
+import java.Nio
+
+data CharsetEncoder = pure native java.nio.charset.CharsetEncoder where
+
+  pure native averageBytesPerChar :: CharsetEncoder -> Float
+
+  pure native canEncode :: CharsetEncoder -> Char -> Bool
+                         | CharsetEncoder -> CharSequence -> Bool
+
+  native charset :: CharsetEncoder -> STMutable s Charset
+
+  native encode :: CharsetEncoder -> CharBuffer -> ST s ByteBuffer throws CharacterCodingException
+                 | CharsetEncoder -> CharBuffer -> ByteBuffer -> Bool -> ST s CoderResult
+
+  pure native flush :: CharsetEncoder -> ByteBuffer -> CoderResult
+
+  native isLegalReplacement :: CharsetEncoder -> Mutable s (JArray Byte) -> ST s Bool
+
+  pure native malformedInputAction :: CharsetEncoder -> CodingErrorAction
+
+  pure native maxBytesPerChar :: CharsetEncoder -> Float
+
+  pure native onMalformedInput :: CharsetEncoder -> CodingErrorAction -> CharsetEncoder
+
+  pure native onUnmappableCharacter :: CharsetEncoder -> CodingErrorAction -> CharsetEncoder
+
+  native replaceWith :: CharsetEncoder -> Mutable s (JArray Byte) -> ST s CharsetEncoder
+
+  native replacement :: CharsetEncoder -> STMutable s (JArray Byte)
+
+  pure native reset :: CharsetEncoder -> CharsetEncoder
+
+  pure native unmappableCharacterAction :: CharsetEncoder -> CodingErrorAction
+
+
+
+data CoderResult = pure native java.nio.charset.CoderResult where
+
+  pure native underflow "java.nio.charset.CoderResult.UNDERFLOW" :: CoderResult
+  pure native overflow "java.nio.charset.CoderResult.OVERFLOW" :: CoderResult
+
+  pure native isError :: CoderResult -> Bool
+
+  pure native isMalformed :: CoderResult -> Bool
+
+  pure native isOverflow :: CoderResult -> Bool
+
+  pure native isUnderflow :: CoderResult -> Bool
+
+  pure native isUnmappable :: CoderResult -> Bool
+
+  pure native length :: CoderResult -> Int
+
+  pure native malformedForLength "java.nio.charset.CoderResult.malformedForLength" :: Int -> CoderResult
+
+  native throwException :: CoderResult -> ST s () throws CharacterCodingException
+
+  pure native toString :: CoderResult -> String
+
+  pure native unmappableForLength "java.nio.charset.CoderResult.unmappableForLength" :: Int -> CoderResult
+
+
+
+data CharacterCodingException = pure native java.nio.charset.CharacterCodingException where
+
+  pure native new :: () -> CharacterCodingException
+
+derive Exceptional CharacterCodingException
+derive Serializable CharacterCodingException
+
+
+data CodingErrorAction = pure native java.nio.charset.CodingErrorAction where
+
+  pure native ignore "java.nio.charset.CodingErrorAction.IGNORE" :: CodingErrorAction
+  pure native replace "java.nio.charset.CodingErrorAction.REPLACE" :: CodingErrorAction
+  pure native report "java.nio.charset.CodingErrorAction.REPORT" :: CodingErrorAction
+
+  pure native toString :: CodingErrorAction -> String
+
+

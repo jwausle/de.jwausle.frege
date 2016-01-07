@@ -1,0 +1,18 @@
+module io.netty.channel.Socket where
+
+import io.netty.Buffer
+import java.Net
+
+data DatagramPacket = pure native io.netty.channel.socket.DatagramPacket where
+
+  pure native new :: ByteBuf -> InetSocketAddress -> DatagramPacket
+                   | ByteBuf -> InetSocketAddress -> InetSocketAddress -> DatagramPacket
+
+  pure native copy :: DatagramPacket -> DatagramPacket
+
+  pure native duplicate :: DatagramPacket -> DatagramPacket
+
+  pure native retain :: DatagramPacket -> DatagramPacket
+                      | DatagramPacket -> Int -> DatagramPacket
+
+

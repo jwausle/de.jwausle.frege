@@ -1,0 +1,167 @@
+module java.Net where
+
+
+data SocketAddress = pure native java.net.SocketAddressderive Serializable SocketAddress
+
+import java.Util
+
+data NetworkInterface = pure native java.net.NetworkInterface where
+
+  pure native equals :: NetworkInterface -> Object -> Bool
+
+  native getByIndex "java.net.NetworkInterface.getByIndex" :: Int -> ST s NetworkInterface throws SocketException
+
+  native getByInetAddress "java.net.NetworkInterface.getByInetAddress" :: InetAddress -> ST s NetworkInterface throws SocketException
+
+  native getByName "java.net.NetworkInterface.getByName" :: String -> ST s NetworkInterface throws SocketException
+
+  pure native getDisplayName :: NetworkInterface -> String
+
+  native getHardwareAddress :: NetworkInterface -> STMutable s (JArray Byte) throws SocketException
+
+  pure native getIndex :: NetworkInterface -> Int
+
+  native getInetAddresses :: NetworkInterface -> STMutable s (Enumeration InetAddress)
+
+  native getInterfaceAddresses :: NetworkInterface -> STMutable s (List InterfaceAddress)
+
+  native getMTU :: NetworkInterface -> ST s Int throws SocketException
+
+  pure native getName :: NetworkInterface -> String
+
+  native getNetworkInterfaces "java.net.NetworkInterface.getNetworkInterfaces" :: () -> STMutable s (Enumeration NetworkInterface) throws SocketException
+
+  pure native getParent :: NetworkInterface -> NetworkInterface
+
+  native getSubInterfaces :: NetworkInterface -> STMutable s (Enumeration NetworkInterface)
+
+  pure native hashCode :: NetworkInterface -> Int
+
+  native isLoopback :: NetworkInterface -> ST s Bool throws SocketException
+
+  native isPointToPoint :: NetworkInterface -> ST s Bool throws SocketException
+
+  native isUp :: NetworkInterface -> ST s Bool throws SocketException
+
+  pure native isVirtual :: NetworkInterface -> Bool
+
+  native supportsMulticast :: NetworkInterface -> ST s Bool throws SocketException
+
+  pure native toString :: NetworkInterface -> String
+
+
+
+data SocketException = native java.net.SocketException where
+
+  native new :: String -> STMutable s SocketException
+              | () -> STMutable s SocketException
+
+derive Exceptional SocketException
+derive Serializable SocketException
+
+
+data InterfaceAddress = native java.net.InterfaceAddress where
+
+  native equals :: Mutable s InterfaceAddress -> Object -> ST s Bool
+
+  native getAddress :: Mutable s InterfaceAddress -> ST s InetAddress
+
+  native getBroadcast :: Mutable s InterfaceAddress -> ST s InetAddress
+
+  native getNetworkPrefixLength :: Mutable s InterfaceAddress -> ST s Short
+
+  native hashCode :: Mutable s InterfaceAddress -> ST s Int
+
+  native toString :: Mutable s InterfaceAddress -> ST s String
+
+
+import java.Io
+
+data InetAddress = pure native java.net.InetAddress where
+
+  pure native equals :: InetAddress -> Object -> Bool
+
+  native getAddress :: InetAddress -> STMutable s (JArray Byte)
+
+  native getAllByName "java.net.InetAddress.getAllByName" :: String -> STMutable s (JArray InetAddress) throws UnknownHostException
+
+  native getByAddress "java.net.InetAddress.getByAddress" :: Mutable s (JArray Byte) -> ST s InetAddress throws UnknownHostException
+                                                           | String -> Mutable s (JArray Byte) -> ST s InetAddress throws UnknownHostException
+
+  native getByName "java.net.InetAddress.getByName" :: String -> ST s InetAddress throws UnknownHostException
+
+  pure native getCanonicalHostName :: InetAddress -> String
+
+  pure native getHostAddress :: InetAddress -> String
+
+  pure native getHostName :: InetAddress -> String
+
+  native getLocalHost "java.net.InetAddress.getLocalHost" :: () -> ST s InetAddress throws UnknownHostException
+
+  pure native getLoopbackAddress "java.net.InetAddress.getLoopbackAddress" :: () -> InetAddress
+
+  pure native hashCode :: InetAddress -> Int
+
+  pure native isAnyLocalAddress :: InetAddress -> Bool
+
+  pure native isLinkLocalAddress :: InetAddress -> Bool
+
+  pure native isLoopbackAddress :: InetAddress -> Bool
+
+  pure native isMCGlobal :: InetAddress -> Bool
+
+  pure native isMCLinkLocal :: InetAddress -> Bool
+
+  pure native isMCNodeLocal :: InetAddress -> Bool
+
+  pure native isMCOrgLocal :: InetAddress -> Bool
+
+  pure native isMCSiteLocal :: InetAddress -> Bool
+
+  pure native isMulticastAddress :: InetAddress -> Bool
+
+  native isReachable :: InetAddress -> Int -> ST s Bool throws IOException
+                      | InetAddress -> NetworkInterface -> Int -> Int -> ST s Bool throws IOException
+
+  pure native isSiteLocalAddress :: InetAddress -> Bool
+
+  pure native toString :: InetAddress -> String
+
+derive Serializable InetAddress
+
+
+data UnknownHostException = native java.net.UnknownHostException where
+
+  native new :: String -> STMutable s UnknownHostException
+              | () -> STMutable s UnknownHostException
+
+derive Exceptional UnknownHostException
+derive Serializable UnknownHostException
+
+
+data InetSocketAddress = pure native java.net.InetSocketAddress where
+
+  pure native new :: String -> Int -> InetSocketAddress
+                   | InetAddress -> Int -> InetSocketAddress
+                   | Int -> InetSocketAddress
+
+  pure native createUnresolved "java.net.InetSocketAddress.createUnresolved" :: String -> Int -> InetSocketAddress
+
+  pure native equals :: InetSocketAddress -> Object -> Bool
+
+  pure native getAddress :: InetSocketAddress -> InetAddress
+
+  pure native getHostName :: InetSocketAddress -> String
+
+  pure native getHostString :: InetSocketAddress -> String
+
+  pure native getPort :: InetSocketAddress -> Int
+
+  pure native hashCode :: InetSocketAddress -> Int
+
+  pure native isUnresolved :: InetSocketAddress -> Bool
+
+  pure native toString :: InetSocketAddress -> String
+
+derive Serializable InetSocketAddress
+

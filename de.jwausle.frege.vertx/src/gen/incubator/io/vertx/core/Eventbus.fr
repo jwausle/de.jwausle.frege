@@ -1,0 +1,171 @@
+module io.vertx.core.Eventbus where
+
+import io.vertx.Core
+
+data EventBus = pure native io.vertx.core.eventbus.EventBus where
+
+  pure native addInterceptor :: EventBus -> Handler SendContext -> EventBus
+
+  pure native close :: EventBus -> Handler (AsyncResult Void) -> ()
+
+  pure native consumer :: EventBus -> String -> MessageConsumer t
+                        | EventBus -> String -> Handler (Message t) -> MessageConsumer t
+
+  pure native localConsumer :: EventBus -> String -> MessageConsumer t
+                             | EventBus -> String -> Handler (Message t) -> MessageConsumer t
+
+  pure native publish :: EventBus -> String -> Object -> DeliveryOptions -> EventBus
+                       | EventBus -> String -> Object -> EventBus
+
+  pure native publisher :: EventBus -> String -> DeliveryOptions -> MessageProducer t
+                         | EventBus -> String -> MessageProducer t
+
+  pure native registerCodec :: EventBus -> MessageCodec -> EventBus
+
+  pure native registerDefaultCodec :: EventBus -> Class t -> MessageCodec t Object -> EventBus
+
+  pure native removeInterceptor :: EventBus -> Handler SendContext -> EventBus
+
+  pure native send :: EventBus -> String -> Object -> DeliveryOptions -> Handler (AsyncResult (Message t)) -> EventBus
+                    | EventBus -> String -> Object -> EventBus
+                    | EventBus -> String -> Object -> DeliveryOptions -> EventBus
+                    | EventBus -> String -> Object -> Handler (AsyncResult (Message t)) -> EventBus
+
+  pure native sender :: EventBus -> String -> MessageProducer t
+                      | EventBus -> String -> DeliveryOptions -> MessageProducer t
+
+  pure native start :: EventBus -> Handler (AsyncResult Void) -> ()
+
+  pure native unregisterCodec :: EventBus -> String -> EventBus
+
+  pure native unregisterDefaultCodec :: EventBus -> Class -> EventBus
+
+
+import io.vertx.Core
+
+data Message t = pure native io.vertx.core.eventbus.Message where
+
+  pure native address :: Message t -> String
+
+  pure native body :: Message t -> t
+
+  pure native fail :: Message t -> Int -> String -> ()
+
+  pure native headers :: Message t -> MultiMap
+
+  pure native reply :: Message t -> Object -> DeliveryOptions -> Handler (AsyncResult (Message r)) -> ()
+                     | Message t -> Object -> DeliveryOptions -> ()
+                     | Message t -> Object -> ()
+                     | Message t -> Object -> Handler (AsyncResult (Message r)) -> ()
+
+  pure native replyAddress :: Message t -> String
+
+
+import io.vertx.core.Streams
+import io.vertx.Core
+
+data MessageConsumer t = pure native io.vertx.core.eventbus.MessageConsumer where
+
+  pure native address :: MessageConsumer t -> String
+
+  pure native bodyStream :: MessageConsumer t -> ReadStream t
+
+  pure native completionHandler :: MessageConsumer t -> Handler (AsyncResult Void) -> ()
+
+  pure native endHandler :: MessageConsumer t -> Handler Void -> MessageConsumer t
+
+  pure native exceptionHandler :: MessageConsumer t -> Handler Throwable -> MessageConsumer t
+
+  pure native getMaxBufferedMessages :: MessageConsumer t -> Int
+
+  pure native handler :: MessageConsumer t -> Handler (Message t) -> MessageConsumer t
+
+  pure native isRegistered :: MessageConsumer t -> Bool
+
+  pure native pause :: MessageConsumer t -> MessageConsumer t
+
+  pure native resume :: MessageConsumer t -> MessageConsumer t
+
+  pure native setMaxBufferedMessages :: MessageConsumer t -> Int -> MessageConsumer t
+
+  pure native unregister :: MessageConsumer t -> Handler (AsyncResult Void) -> ()
+                          | MessageConsumer t -> ()
+
+
+import io.vertx.core.Json
+import io.vertx.Core
+
+data DeliveryOptions = pure native io.vertx.core.eventbus.DeliveryOptions where
+
+  pure native default_timeout "io.vertx.core.eventbus.DeliveryOptions.DEFAULT_TIMEOUT" :: Long
+
+  pure native new :: JsonObject -> DeliveryOptions
+                   | DeliveryOptions -> DeliveryOptions
+                   | () -> DeliveryOptions
+
+  pure native addHeader :: DeliveryOptions -> String -> String -> DeliveryOptions
+
+  pure native getCodecName :: DeliveryOptions -> String
+
+  pure native getHeaders :: DeliveryOptions -> MultiMap
+
+  pure native getSendTimeout :: DeliveryOptions -> Long
+
+  pure native setCodecName :: DeliveryOptions -> String -> DeliveryOptions
+
+  pure native setHeaders :: DeliveryOptions -> MultiMap -> DeliveryOptions
+
+  pure native setSendTimeout :: DeliveryOptions -> Long -> DeliveryOptions
+
+
+import io.vertx.Core
+
+data MessageProducer t = pure native io.vertx.core.eventbus.MessageProducer where
+
+  pure native default_write_queue_max_size "io.vertx.core.eventbus.MessageProducer.DEFAULT_WRITE_QUEUE_MAX_SIZE" :: Int
+
+  pure native address :: MessageProducer t -> String
+
+  pure native close :: MessageProducer t -> ()
+
+  pure native deliveryOptions :: MessageProducer t -> DeliveryOptions -> MessageProducer t
+
+  pure native drainHandler :: MessageProducer t -> Handler Void -> MessageProducer t
+
+  pure native end :: MessageProducer t -> ()
+
+  pure native exceptionHandler :: MessageProducer t -> Handler Throwable -> MessageProducer t
+
+  pure native send :: MessageProducer t -> t -> MessageProducer t
+                    | MessageProducer t -> t -> Handler (AsyncResult (Message r)) -> MessageProducer t
+
+  pure native setWriteQueueMaxSize :: MessageProducer t -> Int -> MessageProducer t
+
+  pure native write :: MessageProducer t -> t -> MessageProducer t
+
+
+import io.vertx.core.Buffer
+
+data MessageCodec s r = pure native io.vertx.core.eventbus.MessageCodec where
+
+  pure native decodeFromWire :: MessageCodec s r -> Int -> Buffer -> r
+
+  pure native encodeToWire :: MessageCodec s r -> Buffer -> s -> ()
+
+  pure native name :: MessageCodec s r -> String
+
+  pure native systemCodecID :: MessageCodec s r -> Byte
+
+  pure native transform :: MessageCodec s r -> s -> r
+
+
+
+data SendContext t = pure native io.vertx.core.eventbus.SendContext where
+
+  pure native message :: SendContext t -> Message t
+
+  pure native next :: SendContext t -> ()
+
+  pure native send :: SendContext t -> Bool
+
+

@@ -1,0 +1,2793 @@
+module frege.io.Vertx where
+
+import frege.java.Util 
+import frege.java.Lang
+import frege.java.IO
+
+import frege.java.Text2
+import frege.java.Time2
+import frege.java.Net2
+import frege.java.Net2
+import frege.java.Nio2
+import frege.io.Netty
+
+data Void = pure native java.lang.Void
+
+data X509Certificate = pure native javax.security.cert.X509Certificate
+
+data SSLPeerUnverifiedException = pure native javax.net.ssl.SSLPeerUnverifiedException
+
+data Stream a = native java.util.stream.Stream
+
+data Enum = pure native java.lang.Enum
+
+
+
+
+
+
+data VertxOptions = pure native io.vertx.core.VertxOptions where
+
+  pure native default_event_loop_pool_size "io.vertx.core.VertxOptions.DEFAULT_EVENT_LOOP_POOL_SIZE" :: Int
+  pure native default_worker_pool_size "io.vertx.core.VertxOptions.DEFAULT_WORKER_POOL_SIZE" :: Int
+  pure native default_internal_blocking_pool_size "io.vertx.core.VertxOptions.DEFAULT_INTERNAL_BLOCKING_POOL_SIZE" :: Int
+  pure native default_clustered "io.vertx.core.VertxOptions.DEFAULT_CLUSTERED" :: Bool
+  pure native default_cluster_host "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_HOST" :: String
+  pure native default_cluster_port "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_PORT" :: Int
+  pure native default_cluster_public_host "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_PUBLIC_HOST" :: String
+  pure native default_cluster_public_port "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_PUBLIC_PORT" :: Int
+  pure native default_cluster_ping_interval "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_PING_INTERVAL" :: Long
+  pure native default_cluster_ping_reply_interval "io.vertx.core.VertxOptions.DEFAULT_CLUSTER_PING_REPLY_INTERVAL" :: Long
+  pure native default_blocked_thread_check_interval "io.vertx.core.VertxOptions.DEFAULT_BLOCKED_THREAD_CHECK_INTERVAL" :: Long
+  pure native default_max_event_loop_execute_time "io.vertx.core.VertxOptions.DEFAULT_MAX_EVENT_LOOP_EXECUTE_TIME" :: Long
+  pure native default_max_worker_execute_time "io.vertx.core.VertxOptions.DEFAULT_MAX_WORKER_EXECUTE_TIME" :: Long
+  pure native default_quorum_size "io.vertx.core.VertxOptions.DEFAULT_QUORUM_SIZE" :: Int
+  pure native default_ha_group "io.vertx.core.VertxOptions.DEFAULT_HA_GROUP" :: String
+  pure native default_ha_enabled "io.vertx.core.VertxOptions.DEFAULT_HA_ENABLED" :: Bool
+
+  pure native new :: JsonObject -> VertxOptions
+                   | VertxOptions -> VertxOptions
+                   | () -> VertxOptions
+
+  pure native equals :: VertxOptions -> Object -> Bool
+
+  pure native getBlockedThreadCheckInterval :: VertxOptions -> Long
+
+  pure native getClusterHost :: VertxOptions -> String
+
+  pure native getClusterManager :: VertxOptions -> ClusterManager
+
+  pure native getClusterPingInterval :: VertxOptions -> Long
+
+  pure native getClusterPingReplyInterval :: VertxOptions -> Long
+
+  pure native getClusterPort :: VertxOptions -> Int
+
+  pure native getClusterPublicHost :: VertxOptions -> String
+
+  pure native getClusterPublicPort :: VertxOptions -> Int
+
+  pure native getEventLoopPoolSize :: VertxOptions -> Int
+
+  pure native getHAGroup :: VertxOptions -> String
+
+  pure native getInternalBlockingPoolSize :: VertxOptions -> Int
+
+  pure native getMaxEventLoopExecuteTime :: VertxOptions -> Long
+
+  pure native getMaxWorkerExecuteTime :: VertxOptions -> Long
+
+  pure native getMetricsOptions :: VertxOptions -> MetricsOptions
+
+  pure native getQuorumSize :: VertxOptions -> Int
+
+  pure native getWarningExceptionTime :: VertxOptions -> Long
+
+  pure native getWorkerPoolSize :: VertxOptions -> Int
+
+  pure native hashCode :: VertxOptions -> Int
+
+  pure native isClustered :: VertxOptions -> Bool
+
+  pure native isHAEnabled :: VertxOptions -> Bool
+
+  pure native setBlockedThreadCheckInterval :: VertxOptions -> Long -> VertxOptions
+
+  pure native setClusterHost :: VertxOptions -> String -> VertxOptions
+
+  pure native setClusterManager :: VertxOptions -> ClusterManager -> VertxOptions
+
+  pure native setClusterPingInterval :: VertxOptions -> Long -> VertxOptions
+
+  pure native setClusterPingReplyInterval :: VertxOptions -> Long -> VertxOptions
+
+  pure native setClusterPort :: VertxOptions -> Int -> VertxOptions
+
+  pure native setClusterPublicHost :: VertxOptions -> String -> VertxOptions
+
+  pure native setClusterPublicPort :: VertxOptions -> Int -> VertxOptions
+
+  pure native setClustered :: VertxOptions -> Bool -> VertxOptions
+
+  pure native setEventLoopPoolSize :: VertxOptions -> Int -> VertxOptions
+
+  pure native setHAEnabled :: VertxOptions -> Bool -> VertxOptions
+
+  pure native setHAGroup :: VertxOptions -> String -> VertxOptions
+
+  pure native setInternalBlockingPoolSize :: VertxOptions -> Int -> VertxOptions
+
+  pure native setMaxEventLoopExecuteTime :: VertxOptions -> Long -> VertxOptions
+
+  pure native setMaxWorkerExecuteTime :: VertxOptions -> Long -> VertxOptions
+
+  pure native setMetricsOptions :: VertxOptions -> MetricsOptions -> VertxOptions
+
+  pure native setQuorumSize :: VertxOptions -> Int -> VertxOptions
+
+  pure native setWarningExceptionTime :: VertxOptions -> Long -> VertxOptions
+
+  pure native setWorkerPoolSize :: VertxOptions -> Int -> VertxOptions
+
+  pure native toString :: VertxOptions -> String
+
+
+
+
+
+
+
+
+
+
+
+
+
+data Vertx = pure native io.vertx.core.Vertx where
+
+  pure native factory "io.vertx.core.Vertx.factory" :: VertxFactory
+
+  pure native cancelTimer :: Vertx -> Long -> Bool
+
+  native close :: Vertx -> ST s ()
+                     | Vertx -> Handler (AsyncResult Void) -> ST s ()
+
+  native clusteredVertx "io.vertx.core.Vertx.clusteredVertx" :: VertxOptions -> Handler (AsyncResult Vertx) -> ST s ()
+
+  pure native createDatagramSocket :: Vertx -> DatagramSocketOptions -> DatagramSocket
+                                    | Vertx -> DatagramSocket
+
+  pure native createDnsClient :: Vertx -> Int -> String -> DnsClient
+
+  pure native createHttpClient :: Vertx -> HttpClientOptions -> HttpClient
+                                | Vertx -> HttpClient
+
+  pure native createHttpServer :: Vertx -> HttpServerOptions -> HttpServer
+                                | Vertx -> HttpServer
+
+  pure native createNetClient :: Vertx -> NetClientOptions -> NetClient
+                               | Vertx -> NetClient
+
+  pure native createNetServer :: Vertx -> NetServerOptions -> NetServer
+                               | Vertx -> NetServer
+
+  pure native currentContext "io.vertx.core.Vertx.currentContext" :: () -> Context
+
+  native deployVerticle :: Vertx -> String -> Handler (AsyncResult String) -> ST s ()
+                              | Vertx -> String -> DeploymentOptions -> ST s ()
+                              | Vertx -> String -> DeploymentOptions -> Handler (AsyncResult String) -> ST s ()
+                              | Vertx -> Verticle -> Handler (AsyncResult String) -> ST s ()
+                              | Vertx -> Verticle -> DeploymentOptions -> ST s ()
+                              | Vertx -> Verticle -> ST s ()
+                              | Vertx -> Verticle -> DeploymentOptions -> Handler (AsyncResult String) -> ST s ()
+                              | Vertx -> String -> ST s ()
+
+  native deploymentIDs :: Vertx -> STMutable s (Set String)
+
+  pure native eventBus :: Vertx -> EventBus
+
+  native executeBlocking :: Vertx -> Handler (Future t) -> Bool -> Handler (AsyncResult t) -> ST s ()
+                               | Vertx -> Handler (Future t) -> Handler (AsyncResult t) -> ST s ()
+
+  pure native fileSystem :: Vertx -> FileSystem
+
+  pure native getOrCreateContext :: Vertx -> Context
+
+  pure native isClustered :: Vertx -> Bool
+
+  pure native nettyEventLoopGroup :: Vertx -> EventLoopGroup
+
+  pure native periodicStream :: Vertx -> Long -> TimeoutStream
+
+  native registerVerticleFactory :: Vertx -> VerticleFactory -> ST s ()
+
+  native runOnContext :: Vertx -> Handler Void -> ST s ()
+
+  pure native setPeriodic :: Vertx -> Long -> Handler Long -> Long
+
+  pure native setTimer :: Vertx -> Long -> Handler Long -> Long
+
+  pure native sharedData :: Vertx -> SharedData
+
+  pure native timerStream :: Vertx -> Long -> TimeoutStream
+
+  native undeploy :: Vertx -> String -> Handler (AsyncResult Void) -> ST s ()
+                        | Vertx -> String -> ST s ()
+
+  native unregisterVerticleFactory :: Vertx -> VerticleFactory -> ST s ()
+
+  native verticleFactories :: Vertx -> STMutable s (Set VerticleFactory)
+
+  pure native vertx "io.vertx.core.Vertx.vertx" :: () -> Vertx
+                                                 | VertxOptions -> Vertx
+
+
+
+data Handler e = pure native io.vertx.core.Handler where
+
+  native handle :: Handler e -> e -> ST s ()
+
+
+
+data AsyncResult t = pure native io.vertx.core.AsyncResult where
+
+  pure native cause :: AsyncResult t -> Throwable
+
+  pure native failed :: AsyncResult t -> Bool
+
+  pure native result :: AsyncResult t -> t
+
+  pure native succeeded :: AsyncResult t -> Bool
+
+
+
+
+
+data Context = pure native io.vertx.core.Context where
+
+  native addCloseHook :: Context -> Closeable -> ST s ()
+
+  pure native config :: Context -> JsonObject
+
+  pure native deploymentID :: Context -> String
+
+  native executeBlocking :: Context -> Handler (Future t) -> Bool -> Handler (AsyncResult t) -> ST s ()
+                               | Context -> Handler (Future t) -> Handler (AsyncResult t) -> ST s ()
+
+  pure native get :: Context -> String -> t
+
+  pure native getInstanceCount :: Context -> Int
+
+  pure native isEventLoopContext :: Context -> Bool
+
+  pure native isMultiThreadedWorkerContext :: Context -> Bool
+
+  pure native isOnEventLoopThread "io.vertx.core.Context.isOnEventLoopThread" :: () -> Bool
+
+  pure native isOnVertxThread "io.vertx.core.Context.isOnVertxThread" :: () -> Bool
+
+  pure native isOnWorkerThread "io.vertx.core.Context.isOnWorkerThread" :: () -> Bool
+
+  pure native isWorkerContext :: Context -> Bool
+
+  pure native owner :: Context -> Vertx
+
+  native processArgs :: Context -> STMutable s (List String)
+
+  native put :: Context -> String -> Object -> ST s ()
+
+  pure native remove :: Context -> String -> Bool
+
+  native removeCloseHook :: Context -> Closeable -> ST s ()
+
+  native runOnContext :: Context -> Handler Void -> ST s ()
+
+
+
+
+
+data DeploymentOptions = pure native io.vertx.core.DeploymentOptions where
+
+  pure native default_worker "io.vertx.core.DeploymentOptions.DEFAULT_WORKER" :: Bool
+  pure native default_multi_threaded "io.vertx.core.DeploymentOptions.DEFAULT_MULTI_THREADED" :: Bool
+  pure native default_isolation_group "io.vertx.core.DeploymentOptions.DEFAULT_ISOLATION_GROUP" :: String
+  pure native default_ha "io.vertx.core.DeploymentOptions.DEFAULT_HA" :: Bool
+  pure native default_instances "io.vertx.core.DeploymentOptions.DEFAULT_INSTANCES" :: Int
+
+  pure native new :: JsonObject -> DeploymentOptions
+                   | DeploymentOptions -> DeploymentOptions
+                   | () -> DeploymentOptions
+
+  pure native equals :: DeploymentOptions -> Object -> Bool
+
+  native fromJson :: DeploymentOptions -> JsonObject -> ST s ()
+
+  pure native getConfig :: DeploymentOptions -> JsonObject
+
+  native getExtraClasspath :: DeploymentOptions -> STMutable s (List String)
+
+  pure native getInstances :: DeploymentOptions -> Int
+
+  native getIsolatedClasses :: DeploymentOptions -> STMutable s (List String)
+
+  pure native getIsolationGroup :: DeploymentOptions -> String
+
+  pure native hashCode :: DeploymentOptions -> Int
+
+  pure native isHa :: DeploymentOptions -> Bool
+
+  pure native isMultiThreaded :: DeploymentOptions -> Bool
+
+  pure native isWorker :: DeploymentOptions -> Bool
+
+  pure native setConfig :: DeploymentOptions -> JsonObject -> DeploymentOptions
+
+  native setExtraClasspath :: DeploymentOptions -> Mutable s (List String) -> ST s DeploymentOptions
+
+  pure native setHa :: DeploymentOptions -> Bool -> DeploymentOptions
+
+  pure native setInstances :: DeploymentOptions -> Int -> DeploymentOptions
+
+  native setIsolatedClasses :: DeploymentOptions -> Mutable s (List String) -> ST s DeploymentOptions
+
+  pure native setIsolationGroup :: DeploymentOptions -> String -> DeploymentOptions
+
+  pure native setMultiThreaded :: DeploymentOptions -> Bool -> DeploymentOptions
+
+  pure native setWorker :: DeploymentOptions -> Bool -> DeploymentOptions
+
+  pure native toJson :: DeploymentOptions -> JsonObject
+
+
+
+data Verticle = pure native io.vertx.core.Verticle where
+
+  pure native getVertx :: Verticle -> Vertx
+
+  native init :: Verticle -> Vertx -> Context -> ST s ()
+
+  native start :: Verticle -> Future Void -> ST s () throws Exception
+
+  native stop :: Verticle -> Future Void -> ST s () throws Exception
+
+
+
+data TimeoutStream = pure native io.vertx.core.TimeoutStream where
+
+  native cancel :: TimeoutStream -> ST s ()
+
+  pure native endHandler :: TimeoutStream -> Handler Void -> TimeoutStream
+
+  pure native exceptionHandler :: TimeoutStream -> Handler Throwable -> TimeoutStream
+
+  pure native handler :: TimeoutStream -> Handler Long -> TimeoutStream
+
+  pure native pause :: TimeoutStream -> TimeoutStream
+
+  pure native resume :: TimeoutStream -> TimeoutStream
+
+
+
+
+data MultiMap = pure native io.vertx.core.MultiMap where
+
+  pure native add :: MultiMap -> CharSequence -> CharSequence -> MultiMap
+                   | MultiMap -> String -> String -> MultiMap
+                   | MultiMap -> String -> Iterable String -> MultiMap
+                   | MultiMap -> CharSequence -> Iterable CharSequence -> MultiMap
+
+  native addAll :: MultiMap -> Mutable s (Map String String) -> ST s MultiMap
+                 | MultiMap -> MultiMap -> ST s MultiMap
+
+  pure native caseInsensitiveMultiMap "io.vertx.core.MultiMap.caseInsensitiveMultiMap" :: () -> MultiMap
+
+  pure native clear :: MultiMap -> MultiMap
+
+  pure native contains :: MultiMap -> String -> Bool
+                        | MultiMap -> CharSequence -> Bool
+
+  native entries :: MultiMap -> STMutable s (List (MapEntry String String))
+
+  pure native get :: MultiMap -> CharSequence -> String
+                   | MultiMap -> String -> String
+
+  native getAll :: MultiMap -> String -> STMutable s (List String)
+                 | MultiMap -> CharSequence -> STMutable s (List String)
+
+  pure native isEmpty :: MultiMap -> Bool
+
+  native names :: MultiMap -> STMutable s (Set String)
+
+  pure native remove :: MultiMap -> String -> MultiMap
+                      | MultiMap -> CharSequence -> MultiMap
+
+  pure native set :: MultiMap -> CharSequence -> CharSequence -> MultiMap
+                   | MultiMap -> String -> Iterable String -> MultiMap
+                   | MultiMap -> String -> String -> MultiMap
+                   | MultiMap -> CharSequence -> Iterable CharSequence -> MultiMap
+
+  native setAll :: MultiMap -> MultiMap -> ST s MultiMap
+                 | MultiMap -> Mutable s (Map String String) -> ST s MultiMap
+
+  pure native size :: MultiMap -> Int
+
+
+
+data Closeable = pure native io.vertx.core.Closeable where
+
+  native close :: Closeable -> Handler (AsyncResult Void) -> ST s ()
+
+
+
+
+data Future t = pure native io.vertx.core.Future where
+
+  pure native factory "io.vertx.core.Future.factory" :: FutureFactory
+
+  native complete :: Future t -> t -> ST s ()
+                        | Future t -> ST s ()
+
+  native fail :: Future t -> Throwable -> ST s ()
+                    | Future t -> String -> ST s ()
+
+  pure native failedFuture "io.vertx.core.Future.failedFuture" :: String -> Future t
+                                                                | Throwable -> Future t
+
+  pure native future "io.vertx.core.Future.future" :: () -> Future t
+
+  pure native isComplete :: Future t -> Bool
+
+
+
+  pure native succeededFuture "io.vertx.core.Future.succeededFuture" :: () -> Future t
+                                                                      | t -> Future t
+
+
+
+
+
+
+data VertxFactory = pure native io.vertx.core.spi.VertxFactory where
+
+  native clusteredVertx :: VertxFactory -> VertxOptions -> Handler (AsyncResult Vertx) -> ST s ()
+
+  pure native context :: VertxFactory -> Context
+
+  pure native vertx :: VertxFactory -> Vertx
+                     | VertxFactory -> VertxOptions -> Vertx
+
+
+
+
+data VerticleFactory = pure native io.vertx.core.spi.VerticleFactory where
+
+  pure native blockingCreate :: VerticleFactory -> Bool
+
+  native close :: VerticleFactory -> ST s ()
+
+--  native createVerticle :: VerticleFactory -> String -> ClassLoader -> ST s Verticle throws Exception
+
+  native init :: VerticleFactory -> Vertx -> ST s ()
+
+  pure native order :: VerticleFactory -> Int
+
+  pure native prefix :: VerticleFactory -> String
+
+  pure native removePrefix "io.vertx.core.spi.VerticleFactory.removePrefix" :: String -> String
+
+  pure native requiresResolve :: VerticleFactory -> Bool
+
+--  native resolve :: VerticleFactory -> String -> DeploymentOptions -> ClassLoader -> Future String -> ST s ()
+
+
+
+
+
+data BufferFactory = pure native io.vertx.core.spi.BufferFactory where
+
+  native buffer :: BufferFactory -> ByteBuf -> ST s Buffer
+                 | BufferFactory -> Mutable s (JArray Byte) -> ST s Buffer
+                 | BufferFactory -> String -> String -> ST s Buffer
+                 | BufferFactory -> String -> ST s Buffer
+                 | BufferFactory -> ST s Buffer
+                 | BufferFactory -> Int -> ST s Buffer
+
+
+
+
+data FutureFactory = pure native io.vertx.core.spi.FutureFactory where
+
+  pure native completedFuture :: FutureFactory -> String -> Bool -> Future t
+                               | FutureFactory -> Throwable -> Future t
+                               | FutureFactory -> t -> Future t
+                               | FutureFactory -> Future t
+
+  pure native future :: FutureFactory -> Future t
+
+
+
+
+
+data WebSocketFrameFactory = pure native io.vertx.core.spi.WebSocketFrameFactory where
+
+  pure native binaryFrame :: WebSocketFrameFactory -> Buffer -> Bool -> WebSocketFrame
+
+  pure native continuationFrame :: WebSocketFrameFactory -> Buffer -> Bool -> WebSocketFrame
+
+  pure native textFrame :: WebSocketFrameFactory -> String -> Bool -> WebSocketFrame
+
+
+
+
+
+
+data DnsClient = pure native io.vertx.core.dns.DnsClient where
+
+  pure native lookup :: DnsClient -> String -> Handler (AsyncResult String) -> DnsClient
+
+  pure native lookup4 :: DnsClient -> String -> Handler (AsyncResult String) -> DnsClient
+
+  pure native lookup6 :: DnsClient -> String -> Handler (AsyncResult String) -> DnsClient
+
+  pure native resolveA :: DnsClient -> String -> Handler (AsyncResult (List String)) -> DnsClient
+
+  pure native resolveAAAA :: DnsClient -> String -> Handler (AsyncResult (List String)) -> DnsClient
+
+  pure native resolveCNAME :: DnsClient -> String -> Handler (AsyncResult (List String)) -> DnsClient
+
+  pure native resolveMX :: DnsClient -> String -> Handler (AsyncResult (List MxRecord)) -> DnsClient
+
+  pure native resolveNS :: DnsClient -> String -> Handler (AsyncResult (List String)) -> DnsClient
+
+  pure native resolvePTR :: DnsClient -> String -> Handler (AsyncResult String) -> DnsClient
+
+  pure native resolveSRV :: DnsClient -> String -> Handler (AsyncResult (List SrvRecord)) -> DnsClient
+
+  pure native resolveTXT :: DnsClient -> String -> Handler (AsyncResult (List String)) -> DnsClient
+
+  pure native reverseLookup :: DnsClient -> String -> Handler (AsyncResult String) -> DnsClient
+
+
+
+data MxRecord = pure native io.vertx.core.dns.MxRecord where
+
+  pure native name :: MxRecord -> String
+
+  pure native priority :: MxRecord -> Int
+
+
+
+data SrvRecord = pure native io.vertx.core.dns.SrvRecord where
+
+  pure native name :: SrvRecord -> String
+
+  pure native port :: SrvRecord -> Int
+
+  pure native priority :: SrvRecord -> Int
+
+  pure native protocol :: SrvRecord -> String
+
+  pure native service :: SrvRecord -> String
+
+  pure native target :: SrvRecord -> String
+
+  pure native weight :: SrvRecord -> Int
+
+
+
+
+
+
+data DatagramSocketOptions = pure native io.vertx.core.datagram.DatagramSocketOptions where
+
+  pure native default_broadcast "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_BROADCAST" :: Bool
+  pure native default_loopback_mode_disabled "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_LOOPBACK_MODE_DISABLED" :: Bool
+  pure native default_multicast_time_to_live "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_MULTICAST_TIME_TO_LIVE" :: Int
+  pure native default_multicast_network_interface "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_MULTICAST_NETWORK_INTERFACE" :: String
+  pure native default_reuse_address "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_REUSE_ADDRESS" :: Bool
+  pure native default_ipv6 "io.vertx.core.datagram.DatagramSocketOptions.DEFAULT_IPV6" :: Bool
+
+  pure native new :: JsonObject -> DatagramSocketOptions
+                   | DatagramSocketOptions -> DatagramSocketOptions
+                   | () -> DatagramSocketOptions
+
+  pure native equals :: DatagramSocketOptions -> Object -> Bool
+
+  pure native getMulticastNetworkInterface :: DatagramSocketOptions -> String
+
+  pure native getMulticastTimeToLive :: DatagramSocketOptions -> Int
+
+  pure native getReceiveBufferSize :: DatagramSocketOptions -> Int
+
+  pure native getSendBufferSize :: DatagramSocketOptions -> Int
+
+  pure native getTrafficClass :: DatagramSocketOptions -> Int
+
+  pure native hashCode :: DatagramSocketOptions -> Int
+
+  pure native isBroadcast :: DatagramSocketOptions -> Bool
+
+  pure native isIpV6 :: DatagramSocketOptions -> Bool
+
+  pure native isLoopbackModeDisabled :: DatagramSocketOptions -> Bool
+
+  pure native setBroadcast :: DatagramSocketOptions -> Bool -> DatagramSocketOptions
+
+  pure native setIpV6 :: DatagramSocketOptions -> Bool -> DatagramSocketOptions
+
+  pure native setLoopbackModeDisabled :: DatagramSocketOptions -> Bool -> DatagramSocketOptions
+
+  pure native setMulticastNetworkInterface :: DatagramSocketOptions -> String -> DatagramSocketOptions
+
+  pure native setMulticastTimeToLive :: DatagramSocketOptions -> Int -> DatagramSocketOptions
+
+  pure native setReceiveBufferSize :: DatagramSocketOptions -> Int -> DatagramSocketOptions
+
+  pure native setReuseAddress :: DatagramSocketOptions -> Bool -> DatagramSocketOptions
+
+  pure native setSendBufferSize :: DatagramSocketOptions -> Int -> DatagramSocketOptions
+
+  pure native setTrafficClass :: DatagramSocketOptions -> Int -> DatagramSocketOptions
+
+
+
+
+
+
+data DatagramSocket = pure native io.vertx.core.datagram.DatagramSocket where
+
+  pure native blockMulticastGroup :: DatagramSocket -> String -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+                                   | DatagramSocket -> String -> String -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+
+  native close :: DatagramSocket -> ST s ()
+                     | DatagramSocket -> Handler (AsyncResult Void) -> ST s ()
+
+  pure native endHandler :: DatagramSocket -> Handler Void -> DatagramSocket
+
+  pure native exceptionHandler :: DatagramSocket -> Handler Throwable -> DatagramSocket
+
+  pure native handler :: DatagramSocket -> Handler DatagramPacket -> DatagramSocket
+
+  pure native listen :: DatagramSocket -> Int -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+
+  pure native listenMulticastGroup :: DatagramSocket -> String -> String -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+                                    | DatagramSocket -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+
+  pure native localAddress :: DatagramSocket -> SocketAddress
+
+  pure native pause :: DatagramSocket -> DatagramSocket
+
+  pure native resume :: DatagramSocket -> DatagramSocket
+
+  pure native send :: DatagramSocket -> Buffer -> Int -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+                    | DatagramSocket -> String -> Int -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+                    | DatagramSocket -> String -> String -> Int -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+
+  pure native sender :: DatagramSocket -> Int -> String -> PacketWritestream
+
+  pure native unlistenMulticastGroup :: DatagramSocket -> String -> String -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+                                      | DatagramSocket -> String -> Handler (AsyncResult DatagramSocket) -> DatagramSocket
+
+
+
+
+
+data PacketWritestream = pure native io.vertx.core.datagram.PacketWritestream where
+
+  pure native drainHandler :: PacketWritestream -> Handler Void -> PacketWritestream
+
+  pure native exceptionHandler :: PacketWritestream -> Handler Throwable -> PacketWritestream
+
+  pure native setWriteQueueMaxSize :: PacketWritestream -> Int -> PacketWritestream
+
+  pure native write :: PacketWritestream -> Buffer -> PacketWritestream
+
+
+
+
+
+
+
+
+data HttpClientOptions = pure native io.vertx.core.http.HttpClientOptions where
+
+  pure native default_max_pool_size "io.vertx.core.http.HttpClientOptions.DEFAULT_MAX_POOL_SIZE" :: Int
+  pure native default_keep_alive "io.vertx.core.http.HttpClientOptions.DEFAULT_KEEP_ALIVE" :: Bool
+  pure native default_pipelining "io.vertx.core.http.HttpClientOptions.DEFAULT_PIPELINING" :: Bool
+  pure native default_try_use_compression "io.vertx.core.http.HttpClientOptions.DEFAULT_TRY_USE_COMPRESSION" :: Bool
+  pure native default_verify_host "io.vertx.core.http.HttpClientOptions.DEFAULT_VERIFY_HOST" :: Bool
+  pure native default_max_websocket_frame_size "io.vertx.core.http.HttpClientOptions.DEFAULT_MAX_WEBSOCKET_FRAME_SIZE" :: Int
+  pure native default_default_host "io.vertx.core.http.HttpClientOptions.DEFAULT_DEFAULT_HOST" :: String
+  pure native default_default_port "io.vertx.core.http.HttpClientOptions.DEFAULT_DEFAULT_PORT" :: Int
+  pure native default_protocol_version "io.vertx.core.http.HttpClientOptions.DEFAULT_PROTOCOL_VERSION" :: HttpVersion
+  pure native default_max_chunk_size "io.vertx.core.http.HttpClientOptions.DEFAULT_MAX_CHUNK_SIZE" :: Int
+  pure native default_max_wait_queue_size "io.vertx.core.http.HttpClientOptions.DEFAULT_MAX_WAIT_QUEUE_SIZE" :: Int
+
+  pure native new :: JsonObject -> HttpClientOptions
+                   | HttpClientOptions -> HttpClientOptions
+                   | () -> HttpClientOptions
+
+  pure native addCrlPath :: HttpClientOptions -> String -> HttpClientOptions
+
+  pure native addCrlValue :: HttpClientOptions -> Buffer -> HttpClientOptions
+
+  pure native addEnabledCipherSuite :: HttpClientOptions -> String -> HttpClientOptions
+
+  pure native equals :: HttpClientOptions -> Object -> Bool
+
+  pure native getDefaultHost :: HttpClientOptions -> String
+
+  pure native getDefaultPort :: HttpClientOptions -> Int
+
+  pure native getMaxChunkSize :: HttpClientOptions -> Int
+
+  pure native getMaxPoolSize :: HttpClientOptions -> Int
+
+  pure native getMaxWaitQueueSize :: HttpClientOptions -> Int
+
+  pure native getMaxWebsocketFrameSize :: HttpClientOptions -> Int
+
+  pure native getProtocolVersion :: HttpClientOptions -> HttpVersion
+
+  pure native hashCode :: HttpClientOptions -> Int
+
+  pure native isKeepAlive :: HttpClientOptions -> Bool
+
+  pure native isPipelining :: HttpClientOptions -> Bool
+
+  pure native isTryUseCompression :: HttpClientOptions -> Bool
+
+  pure native isVerifyHost :: HttpClientOptions -> Bool
+
+  pure native setConnectTimeout :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setDefaultHost :: HttpClientOptions -> String -> HttpClientOptions
+
+  pure native setDefaultPort :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setIdleTimeout :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setKeepAlive :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setKeyStoreOptions :: HttpClientOptions -> JksOptions -> HttpClientOptions
+
+  pure native setMaxChunkSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setMaxPoolSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setMaxWaitQueueSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setMaxWebsocketFrameSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setPemKeyCertOptions :: HttpClientOptions -> PemKeyCertOptions -> HttpClientOptions
+
+  pure native setPemTrustOptions :: HttpClientOptions -> PemTrustOptions -> HttpClientOptions
+
+  pure native setPfxKeyCertOptions :: HttpClientOptions -> PfxOptions -> HttpClientOptions
+
+  pure native setPfxTrustOptions :: HttpClientOptions -> PfxOptions -> HttpClientOptions
+
+  pure native setPipelining :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setProtocolVersion :: HttpClientOptions -> HttpVersion -> HttpClientOptions
+
+  pure native setReceiveBufferSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setReuseAddress :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setSendBufferSize :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setSoLinger :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setSsl :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setTcpKeepAlive :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setTcpNoDelay :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setTrafficClass :: HttpClientOptions -> Int -> HttpClientOptions
+
+  pure native setTrustAll :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setTrustStoreOptions :: HttpClientOptions -> JksOptions -> HttpClientOptions
+
+  pure native setTryUseCompression :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setUsePooledBuffers :: HttpClientOptions -> Bool -> HttpClientOptions
+
+  pure native setVerifyHost :: HttpClientOptions -> Bool -> HttpClientOptions
+
+
+
+
+data HttpClient = pure native io.vertx.core.http.HttpClient where
+
+  native close :: HttpClient -> ST s ()
+
+  pure native delete :: HttpClient -> String -> HttpClientRequest
+                      | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                      | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                      | HttpClient -> Int -> String -> String -> HttpClientRequest
+                      | HttpClient -> String -> String -> HttpClientRequest
+                      | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native deleteAbs :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                         | HttpClient -> String -> HttpClientRequest
+
+  pure native get :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                   | HttpClient -> String -> HttpClientRequest
+                   | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                   | HttpClient -> Int -> String -> String -> HttpClientRequest
+                   | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                   | HttpClient -> String -> String -> HttpClientRequest
+
+  pure native getAbs :: HttpClient -> String -> HttpClientRequest
+                      | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native getNow :: HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClient
+                      | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClient
+                      | HttpClient -> String -> Handler HttpClientResponse -> HttpClient
+
+  pure native head :: HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                    | HttpClient -> String -> HttpClientRequest
+                    | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                    | HttpClient -> Int -> String -> String -> HttpClientRequest
+                    | HttpClient -> String -> String -> HttpClientRequest
+                    | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native headAbs :: HttpClient -> String -> HttpClientRequest
+                       | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native headNow :: HttpClient -> String -> Handler HttpClientResponse -> HttpClient
+                       | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClient
+                       | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClient
+
+  pure native options :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> Int -> String -> String -> HttpClientRequest
+                       | HttpClient -> String -> String -> HttpClientRequest
+                       | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> String -> HttpClientRequest
+
+  pure native optionsAbs :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                          | HttpClient -> String -> HttpClientRequest
+
+  pure native optionsNow :: HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClient
+                          | HttpClient -> String -> Handler HttpClientResponse -> HttpClient
+                          | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClient
+
+  pure native post :: HttpClient -> Int -> String -> String -> HttpClientRequest
+                    | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                    | HttpClient -> String -> String -> HttpClientRequest
+                    | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                    | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                    | HttpClient -> String -> HttpClientRequest
+
+  pure native postAbs :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> String -> HttpClientRequest
+
+  pure native put :: HttpClient -> String -> HttpClientRequest
+                   | HttpClient -> Int -> String -> String -> HttpClientRequest
+                   | HttpClient -> String -> String -> HttpClientRequest
+                   | HttpClient -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                   | HttpClient -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                   | HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native putAbs :: HttpClient -> String -> Handler HttpClientResponse -> HttpClientRequest
+                      | HttpClient -> String -> HttpClientRequest
+
+  pure native request :: HttpClient -> HttpMethod -> String -> String -> HttpClientRequest
+                       | HttpClient -> HttpMethod -> Int -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> HttpMethod -> Int -> String -> String -> HttpClientRequest
+                       | HttpClient -> HttpMethod -> String -> HttpClientRequest
+                       | HttpClient -> HttpMethod -> String -> Handler HttpClientResponse -> HttpClientRequest
+                       | HttpClient -> HttpMethod -> String -> String -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native requestAbs :: HttpClient -> HttpMethod -> String -> Handler HttpClientResponse -> HttpClientRequest
+                          | HttpClient -> HttpMethod -> String -> HttpClientRequest
+
+  pure native websocket :: HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> MultiMap -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> Int -> String -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> MultiMap -> WebsocketVersion -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> MultiMap -> Handler WebSocket -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> String -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> Int -> String -> String -> Handler WebSocket -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> Handler WebSocket -> HttpClient
+                         | HttpClient -> String -> String -> MultiMap -> Handler WebSocket -> Handler Throwable -> HttpClient
+                         | HttpClient -> String -> String -> MultiMap -> Handler WebSocket -> HttpClient
+
+  pure native websocketStream :: HttpClient -> String -> String -> MultiMap -> WebSocketStream
+                               | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> WebSocketStream
+                               | HttpClient -> Int -> String -> String -> MultiMap -> WebSocketStream
+                               | HttpClient -> String -> String -> WebSocketStream
+                               | HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> WebSocketStream
+                               | HttpClient -> Int -> String -> String -> MultiMap -> WebsocketVersion -> String -> WebSocketStream
+                               | HttpClient -> String -> String -> MultiMap -> WebsocketVersion -> String -> WebSocketStream
+                               | HttpClient -> String -> MultiMap -> WebsocketVersion -> String -> WebSocketStream
+                               | HttpClient -> String -> MultiMap -> WebsocketVersion -> WebSocketStream
+                               | HttpClient -> String -> MultiMap -> WebSocketStream
+                               | HttpClient -> String -> WebSocketStream
+                               | HttpClient -> Int -> String -> String -> WebSocketStream
+
+
+
+data HttpVersion = pure native io.vertx.core.http.HttpVersion where
+
+  pure native http_1_0 "io.vertx.core.http.HttpVersion.HTTP_1_0" :: HttpVersion
+  pure native http_1_1 "io.vertx.core.http.HttpVersion.HTTP_1_1" :: HttpVersion
+
+  pure native valueOf "io.vertx.core.http.HttpVersion.valueOf" :: String -> HttpVersion
+
+  native values "io.vertx.core.http.HttpVersion.values" :: () -> STMutable s (JArray HttpVersion)
+
+
+
+
+
+data HttpServer = pure native io.vertx.core.http.HttpServer where
+
+  native close :: HttpServer -> ST s ()
+                     | HttpServer -> Handler (AsyncResult Void) -> ST s ()
+
+  pure native listen :: HttpServer -> Int -> Handler (AsyncResult HttpServer) -> HttpServer
+                      | HttpServer -> Int -> HttpServer
+                      | HttpServer -> Int -> String -> Handler (AsyncResult HttpServer) -> HttpServer
+                      | HttpServer -> HttpServer
+                      | HttpServer -> Int -> String -> HttpServer
+                      | HttpServer -> Handler (AsyncResult HttpServer) -> HttpServer
+
+  pure native requestHandler :: HttpServer -> Handler HttpServerRequest -> HttpServer
+                              | HttpServer -> Handler HttpServerRequest
+
+  pure native requestStream :: HttpServer -> HttpServerRequestStream
+
+  pure native websocketHandler :: HttpServer -> Handler ServerWebSocket
+                                | HttpServer -> Handler ServerWebSocket -> HttpServer
+
+  pure native websocketStream :: HttpServer -> ServerWebSocketStream
+
+
+
+
+
+
+data HttpServerOptions = pure native io.vertx.core.http.HttpServerOptions where
+
+  pure native default_port "io.vertx.core.http.HttpServerOptions.DEFAULT_PORT" :: Int
+  pure native default_compression_supported "io.vertx.core.http.HttpServerOptions.DEFAULT_COMPRESSION_SUPPORTED" :: Bool
+  pure native default_max_websocket_frame_size "io.vertx.core.http.HttpServerOptions.DEFAULT_MAX_WEBSOCKET_FRAME_SIZE" :: Int
+  pure native default_max_chunk_size "io.vertx.core.http.HttpServerOptions.DEFAULT_MAX_CHUNK_SIZE" :: Int
+  pure native default_handle_100_contine_automatically "io.vertx.core.http.HttpServerOptions.DEFAULT_HANDLE_100_CONTINE_AUTOMATICALLY" :: Bool
+
+  pure native new :: JsonObject -> HttpServerOptions
+                   | HttpServerOptions -> HttpServerOptions
+                   | () -> HttpServerOptions
+
+  pure native addCrlPath :: HttpServerOptions -> String -> HttpServerOptions
+
+  pure native addCrlValue :: HttpServerOptions -> Buffer -> HttpServerOptions
+
+  pure native addEnabledCipherSuite :: HttpServerOptions -> String -> HttpServerOptions
+
+  pure native equals :: HttpServerOptions -> Object -> Bool
+
+  pure native getMaxChunkSize :: HttpServerOptions -> Int
+
+  pure native getMaxWebsocketFrameSize :: HttpServerOptions -> Int
+
+  pure native getWebsocketSubProtocols :: HttpServerOptions -> String
+
+  pure native hashCode :: HttpServerOptions -> Int
+
+  pure native isCompressionSupported :: HttpServerOptions -> Bool
+
+  pure native isHandle100ContinueAutomatically :: HttpServerOptions -> Bool
+
+  pure native setAcceptBacklog :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setClientAuth :: HttpServerOptions -> ClientAuth -> HttpServerOptions
+
+  pure native setClientAuthRequired :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setCompressionSupported :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setHandle100ContinueAutomatically :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setHost :: HttpServerOptions -> String -> HttpServerOptions
+
+  pure native setIdleTimeout :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setKeyStoreOptions :: HttpServerOptions -> JksOptions -> HttpServerOptions
+
+  pure native setMaxChunkSize :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setMaxWebsocketFrameSize :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setPemKeyCertOptions :: HttpServerOptions -> PemKeyCertOptions -> HttpServerOptions
+
+  pure native setPemTrustOptions :: HttpServerOptions -> PemTrustOptions -> HttpServerOptions
+
+  pure native setPfxKeyCertOptions :: HttpServerOptions -> PfxOptions -> HttpServerOptions
+
+  pure native setPfxTrustOptions :: HttpServerOptions -> PfxOptions -> HttpServerOptions
+
+  pure native setPort :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setReceiveBufferSize :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setReuseAddress :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setSendBufferSize :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setSoLinger :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setSsl :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setTcpKeepAlive :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setTcpNoDelay :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setTrafficClass :: HttpServerOptions -> Int -> HttpServerOptions
+
+  pure native setTrustStoreOptions :: HttpServerOptions -> JksOptions -> HttpServerOptions
+
+  pure native setUsePooledBuffers :: HttpServerOptions -> Bool -> HttpServerOptions
+
+  pure native setWebsocketSubProtocols :: HttpServerOptions -> String -> HttpServerOptions
+
+
+
+
+
+data HttpClientRequest = pure native io.vertx.core.http.HttpClientRequest where
+
+  pure native continueHandler :: HttpClientRequest -> Handler Void -> HttpClientRequest
+
+  pure native drainHandler :: HttpClientRequest -> Handler Void -> HttpClientRequest
+
+  native end :: HttpClientRequest -> Buffer -> ST s ()
+                   | HttpClientRequest -> ST s ()
+                   | HttpClientRequest -> String -> ST s ()
+                   | HttpClientRequest -> String -> String -> ST s ()
+
+  pure native endHandler :: HttpClientRequest -> Handler Void -> HttpClientRequest
+
+  pure native exceptionHandler :: HttpClientRequest -> Handler Throwable -> HttpClientRequest
+
+  pure native handler :: HttpClientRequest -> Handler HttpClientResponse -> HttpClientRequest
+
+  pure native headers :: HttpClientRequest -> MultiMap
+
+  pure native isChunked :: HttpClientRequest -> Bool
+
+  pure native method :: HttpClientRequest -> HttpMethod
+
+  pure native pause :: HttpClientRequest -> HttpClientRequest
+
+  pure native putHeader :: HttpClientRequest -> CharSequence -> Iterable CharSequence -> HttpClientRequest
+                         | HttpClientRequest -> String -> Iterable String -> HttpClientRequest
+                         | HttpClientRequest -> String -> String -> HttpClientRequest
+                         | HttpClientRequest -> CharSequence -> CharSequence -> HttpClientRequest
+
+  pure native resume :: HttpClientRequest -> HttpClientRequest
+
+  pure native sendHead :: HttpClientRequest -> HttpClientRequest
+
+  pure native setChunked :: HttpClientRequest -> Bool -> HttpClientRequest
+
+  pure native setTimeout :: HttpClientRequest -> Long -> HttpClientRequest
+
+  pure native setWriteQueueMaxSize :: HttpClientRequest -> Int -> HttpClientRequest
+
+  pure native uri :: HttpClientRequest -> String
+
+  pure native write :: HttpClientRequest -> String -> HttpClientRequest
+                     | HttpClientRequest -> Buffer -> HttpClientRequest
+                     | HttpClientRequest -> String -> String -> HttpClientRequest
+
+
+
+
+
+
+data HttpClientResponse = pure native io.vertx.core.http.HttpClientResponse where
+
+  pure native bodyHandler :: HttpClientResponse -> Handler Buffer -> HttpClientResponse
+
+  native cookies :: HttpClientResponse -> STMutable s (List String)
+
+  pure native endHandler :: HttpClientResponse -> Handler Void -> HttpClientResponse
+
+  pure native exceptionHandler :: HttpClientResponse -> Handler Throwable -> HttpClientResponse
+
+  pure native getHeader :: HttpClientResponse -> String -> String
+                         | HttpClientResponse -> CharSequence -> String
+
+  pure native getTrailer :: HttpClientResponse -> String -> String
+
+  pure native handler :: HttpClientResponse -> Handler Buffer -> HttpClientResponse
+
+  pure native headers :: HttpClientResponse -> MultiMap
+
+  pure native netSocket :: HttpClientResponse -> NetSocket
+
+  pure native pause :: HttpClientResponse -> HttpClientResponse
+
+  pure native resume :: HttpClientResponse -> HttpClientResponse
+
+  pure native statusCode :: HttpClientResponse -> Int
+
+  pure native statusMessage :: HttpClientResponse -> String
+
+  pure native trailers :: HttpClientResponse -> MultiMap
+
+
+
+data WebsocketVersion = pure native io.vertx.core.http.WebsocketVersion where
+
+  pure native v00 "io.vertx.core.http.WebsocketVersion.V00" :: WebsocketVersion
+  pure native v07 "io.vertx.core.http.WebsocketVersion.V07" :: WebsocketVersion
+  pure native v08 "io.vertx.core.http.WebsocketVersion.V08" :: WebsocketVersion
+  pure native v13 "io.vertx.core.http.WebsocketVersion.V13" :: WebsocketVersion
+
+  pure native valueOf "io.vertx.core.http.WebsocketVersion.valueOf" :: String -> WebsocketVersion
+
+  native values "io.vertx.core.http.WebsocketVersion.values" :: () -> STMutable s (JArray WebsocketVersion)
+
+
+
+
+
+
+data WebSocket = pure native io.vertx.core.http.WebSocket where
+
+  pure native closeHandler :: WebSocket -> Handler Void -> WebSocket
+
+  pure native drainHandler :: WebSocket -> Handler Void -> WebSocket
+
+  pure native endHandler :: WebSocket -> Handler Void -> WebSocket
+
+  pure native exceptionHandler :: WebSocket -> Handler Throwable -> WebSocket
+
+  pure native frameHandler :: WebSocket -> Handler WebSocketFrame -> WebSocket
+
+  pure native handler :: WebSocket -> Handler Buffer -> WebSocket
+
+  pure native pause :: WebSocket -> WebSocket
+
+  pure native resume :: WebSocket -> WebSocket
+
+  pure native setWriteQueueMaxSize :: WebSocket -> Int -> WebSocket
+
+  pure native write :: WebSocket -> Buffer -> WebSocket
+
+  pure native writeBinaryMessage :: WebSocket -> Buffer -> WebSocket
+
+  pure native writeFinalBinaryFrame :: WebSocket -> Buffer -> WebSocket
+
+  pure native writeFinalTextFrame :: WebSocket -> String -> WebSocket
+
+  pure native writeFrame :: WebSocket -> WebSocketFrame -> WebSocket
+
+
+
+
+data WebSocketStream = pure native io.vertx.core.http.WebSocketStream where
+
+  pure native endHandler :: WebSocketStream -> Handler Void -> WebSocketStream
+
+  pure native exceptionHandler :: WebSocketStream -> Handler Throwable -> WebSocketStream
+
+  pure native handler :: WebSocketStream -> Handler WebSocket -> WebSocketStream
+
+  pure native pause :: WebSocketStream -> WebSocketStream
+
+  pure native resume :: WebSocketStream -> WebSocketStream
+
+
+
+
+data HttpServerRequestStream = pure native io.vertx.core.http.HttpServerRequestStream where
+
+  pure native endHandler :: HttpServerRequestStream -> Handler Void -> HttpServerRequestStream
+
+  pure native exceptionHandler :: HttpServerRequestStream -> Handler Throwable -> HttpServerRequestStream
+
+  pure native handler :: HttpServerRequestStream -> Handler HttpServerRequest -> HttpServerRequestStream
+
+  pure native pause :: HttpServerRequestStream -> HttpServerRequestStream
+
+  pure native resume :: HttpServerRequestStream -> HttpServerRequestStream
+
+
+
+
+
+data WebSocketFrame = pure native io.vertx.core.http.WebSocketFrame where
+
+  pure native factory "io.vertx.core.http.WebSocketFrame.factory" :: WebSocketFrameFactory
+
+  pure native binaryData :: WebSocketFrame -> Buffer
+
+  pure native binaryFrame "io.vertx.core.http.WebSocketFrame.binaryFrame" :: Buffer -> Bool -> WebSocketFrame
+
+  pure native continuationFrame "io.vertx.core.http.WebSocketFrame.continuationFrame" :: Buffer -> Bool -> WebSocketFrame
+
+  pure native isBinary :: WebSocketFrame -> Bool
+
+  pure native isContinuation :: WebSocketFrame -> Bool
+
+  pure native isFinal :: WebSocketFrame -> Bool
+
+  pure native isText :: WebSocketFrame -> Bool
+
+  pure native textData :: WebSocketFrame -> String
+
+  pure native textFrame "io.vertx.core.http.WebSocketFrame.textFrame" :: String -> Bool -> WebSocketFrame
+
+
+
+data HttpMethod = pure native io.vertx.core.http.HttpMethod where
+
+  pure native options "io.vertx.core.http.HttpMethod.OPTIONS" :: HttpMethod
+  pure native get "io.vertx.core.http.HttpMethod.GET" :: HttpMethod
+  pure native head "io.vertx.core.http.HttpMethod.HEAD" :: HttpMethod
+  pure native post "io.vertx.core.http.HttpMethod.POST" :: HttpMethod
+  pure native put "io.vertx.core.http.HttpMethod.PUT" :: HttpMethod
+  pure native delete "io.vertx.core.http.HttpMethod.DELETE" :: HttpMethod
+  pure native trace "io.vertx.core.http.HttpMethod.TRACE" :: HttpMethod
+  pure native connect "io.vertx.core.http.HttpMethod.CONNECT" :: HttpMethod
+  pure native patch "io.vertx.core.http.HttpMethod.PATCH" :: HttpMethod
+
+  pure native valueOf "io.vertx.core.http.HttpMethod.valueOf" :: String -> HttpMethod
+
+  native values "io.vertx.core.http.HttpMethod.values" :: () -> STMutable s (JArray HttpMethod)
+
+
+
+
+
+
+
+
+data HttpServerRequest = pure native io.vertx.core.http.HttpServerRequest where
+
+  pure native absoluteURI :: HttpServerRequest -> String
+
+  pure native bodyHandler :: HttpServerRequest -> Handler Buffer -> HttpServerRequest
+
+  pure native endHandler :: HttpServerRequest -> Handler Void -> HttpServerRequest
+
+  pure native exceptionHandler :: HttpServerRequest -> Handler Throwable -> HttpServerRequest
+
+  pure native formAttributes :: HttpServerRequest -> MultiMap
+
+  pure native getFormAttribute :: HttpServerRequest -> String -> String
+
+  pure native getHeader :: HttpServerRequest -> CharSequence -> String
+                         | HttpServerRequest -> String -> String
+
+  pure native getParam :: HttpServerRequest -> String -> String
+
+  pure native handler :: HttpServerRequest -> Handler Buffer -> HttpServerRequest
+
+  pure native headers :: HttpServerRequest -> MultiMap
+
+  pure native isEnded :: HttpServerRequest -> Bool
+
+  pure native isExpectMultipart :: HttpServerRequest -> Bool
+
+  pure native localAddress :: HttpServerRequest -> SocketAddress
+
+  pure native method :: HttpServerRequest -> HttpMethod
+
+  pure native netSocket :: HttpServerRequest -> NetSocket
+
+  pure native params :: HttpServerRequest -> MultiMap
+
+  pure native path :: HttpServerRequest -> String
+
+  pure native pause :: HttpServerRequest -> HttpServerRequest
+
+  native peerCertificateChain :: HttpServerRequest -> STMutable s (JArray X509Certificate) throws SSLPeerUnverifiedException
+
+  pure native query :: HttpServerRequest -> String
+
+  pure native remoteAddress :: HttpServerRequest -> SocketAddress
+
+  pure native response :: HttpServerRequest -> HttpServerResponse
+
+  pure native resume :: HttpServerRequest -> HttpServerRequest
+
+  pure native setExpectMultipart :: HttpServerRequest -> Bool -> HttpServerRequest
+
+  pure native upgrade :: HttpServerRequest -> ServerWebSocket
+
+  pure native uploadHandler :: HttpServerRequest -> Handler HttpServerFileUpload -> HttpServerRequest
+
+  pure native uri :: HttpServerRequest -> String
+
+  pure native version :: HttpServerRequest -> HttpVersion
+
+
+
+
+
+
+
+data ServerWebSocket = pure native io.vertx.core.http.ServerWebSocket where
+
+  pure native closeHandler :: ServerWebSocket -> Handler Void -> ServerWebSocket
+
+  pure native drainHandler :: ServerWebSocket -> Handler Void -> ServerWebSocket
+
+  pure native endHandler :: ServerWebSocket -> Handler Void -> ServerWebSocket
+
+  pure native exceptionHandler :: ServerWebSocket -> Handler Throwable -> ServerWebSocket
+
+  pure native frameHandler :: ServerWebSocket -> Handler WebSocketFrame -> ServerWebSocket
+
+  pure native handler :: ServerWebSocket -> Handler Buffer -> ServerWebSocket
+
+  pure native headers :: ServerWebSocket -> MultiMap
+
+  pure native path :: ServerWebSocket -> String
+
+  pure native pause :: ServerWebSocket -> ServerWebSocket
+
+  native peerCertificateChain :: ServerWebSocket -> STMutable s (JArray X509Certificate) throws SSLPeerUnverifiedException
+
+  pure native query :: ServerWebSocket -> String
+
+  native reject :: ServerWebSocket -> ST s ()
+
+  pure native resume :: ServerWebSocket -> ServerWebSocket
+
+  pure native setWriteQueueMaxSize :: ServerWebSocket -> Int -> ServerWebSocket
+
+  pure native uri :: ServerWebSocket -> String
+
+  pure native write :: ServerWebSocket -> Buffer -> ServerWebSocket
+
+  pure native writeBinaryMessage :: ServerWebSocket -> Buffer -> ServerWebSocket
+
+  pure native writeFinalBinaryFrame :: ServerWebSocket -> Buffer -> ServerWebSocket
+
+  pure native writeFinalTextFrame :: ServerWebSocket -> String -> ServerWebSocket
+
+  pure native writeFrame :: ServerWebSocket -> WebSocketFrame -> ServerWebSocket
+
+
+
+
+data ServerWebSocketStream = pure native io.vertx.core.http.ServerWebSocketStream where
+
+  pure native endHandler :: ServerWebSocketStream -> Handler Void -> ServerWebSocketStream
+
+  pure native exceptionHandler :: ServerWebSocketStream -> Handler Throwable -> ServerWebSocketStream
+
+  pure native handler :: ServerWebSocketStream -> Handler ServerWebSocket -> ServerWebSocketStream
+
+  pure native pause :: ServerWebSocketStream -> ServerWebSocketStream
+
+  pure native resume :: ServerWebSocketStream -> ServerWebSocketStream
+
+
+
+data ClientAuth = pure native io.vertx.core.http.ClientAuth where
+
+  pure native none "io.vertx.core.http.ClientAuth.NONE" :: ClientAuth
+  pure native request "io.vertx.core.http.ClientAuth.REQUEST" :: ClientAuth
+  pure native required "io.vertx.core.http.ClientAuth.REQUIRED" :: ClientAuth
+
+  pure native valueOf "io.vertx.core.http.ClientAuth.valueOf" :: String -> ClientAuth
+
+  native values "io.vertx.core.http.ClientAuth.values" :: () -> STMutable s (JArray ClientAuth)
+
+
+
+
+
+data HttpServerFileUpload = pure native io.vertx.core.http.HttpServerFileUpload where
+
+  pure native charset :: HttpServerFileUpload -> String
+
+  pure native contentTransferEncoding :: HttpServerFileUpload -> String
+
+  pure native contentType :: HttpServerFileUpload -> String
+
+  pure native endHandler :: HttpServerFileUpload -> Handler Void -> HttpServerFileUpload
+
+  pure native exceptionHandler :: HttpServerFileUpload -> Handler Throwable -> HttpServerFileUpload
+
+  pure native filename :: HttpServerFileUpload -> String
+
+  pure native handler :: HttpServerFileUpload -> Handler Buffer -> HttpServerFileUpload
+
+  pure native isSizeAvailable :: HttpServerFileUpload -> Bool
+
+  pure native name :: HttpServerFileUpload -> String
+
+  pure native pause :: HttpServerFileUpload -> HttpServerFileUpload
+
+  pure native resume :: HttpServerFileUpload -> HttpServerFileUpload
+
+  pure native size :: HttpServerFileUpload -> Long
+
+  pure native streamToFileSystem :: HttpServerFileUpload -> String -> HttpServerFileUpload
+
+
+
+
+
+data HttpServerResponse = pure native io.vertx.core.http.HttpServerResponse where
+
+  pure native bodyEndHandler :: HttpServerResponse -> Handler Void -> HttpServerResponse
+
+  pure native bytesWritten :: HttpServerResponse -> Long
+
+  native close :: HttpServerResponse -> ST s ()
+
+  pure native closeHandler :: HttpServerResponse -> Handler Void -> HttpServerResponse
+
+  pure native closed :: HttpServerResponse -> Bool
+
+  pure native drainHandler :: HttpServerResponse -> Handler Void -> HttpServerResponse
+
+  native end :: HttpServerResponse -> String -> ST s ()
+                   | HttpServerResponse -> ST s ()
+                   | HttpServerResponse -> Buffer -> ST s ()
+                   | HttpServerResponse -> String -> String -> ST s ()
+
+  pure native ended :: HttpServerResponse -> Bool
+
+  pure native exceptionHandler :: HttpServerResponse -> Handler Throwable -> HttpServerResponse
+
+  pure native getStatusCode :: HttpServerResponse -> Int
+
+  pure native getStatusMessage :: HttpServerResponse -> String
+
+  pure native headWritten :: HttpServerResponse -> Bool
+
+  pure native headers :: HttpServerResponse -> MultiMap
+
+  pure native headersEndHandler :: HttpServerResponse -> Handler Void -> HttpServerResponse
+
+  pure native isChunked :: HttpServerResponse -> Bool
+
+  pure native putHeader :: HttpServerResponse -> String -> String -> HttpServerResponse
+                         | HttpServerResponse -> CharSequence -> CharSequence -> HttpServerResponse
+                         | HttpServerResponse -> CharSequence -> Iterable CharSequence -> HttpServerResponse
+                         | HttpServerResponse -> String -> Iterable String -> HttpServerResponse
+
+  pure native putTrailer :: HttpServerResponse -> CharSequence -> CharSequence -> HttpServerResponse
+                          | HttpServerResponse -> CharSequence -> Iterable CharSequence -> HttpServerResponse
+                          | HttpServerResponse -> String -> Iterable String -> HttpServerResponse
+                          | HttpServerResponse -> String -> String -> HttpServerResponse
+
+  pure native sendFile :: HttpServerResponse -> String -> Handler (AsyncResult Void) -> HttpServerResponse
+                        | HttpServerResponse -> String -> Long -> Long -> HttpServerResponse
+                        | HttpServerResponse -> String -> Long -> HttpServerResponse
+                        | HttpServerResponse -> String -> HttpServerResponse
+                        | HttpServerResponse -> String -> Long -> Handler (AsyncResult Void) -> HttpServerResponse
+                        | HttpServerResponse -> String -> Long -> Long -> Handler (AsyncResult Void) -> HttpServerResponse
+
+  pure native setChunked :: HttpServerResponse -> Bool -> HttpServerResponse
+
+  pure native setStatusCode :: HttpServerResponse -> Int -> HttpServerResponse
+
+  pure native setStatusMessage :: HttpServerResponse -> String -> HttpServerResponse
+
+  pure native setWriteQueueMaxSize :: HttpServerResponse -> Int -> HttpServerResponse
+
+  pure native trailers :: HttpServerResponse -> MultiMap
+
+  pure native write :: HttpServerResponse -> String -> HttpServerResponse
+                     | HttpServerResponse -> Buffer -> HttpServerResponse
+                     | HttpServerResponse -> String -> String -> HttpServerResponse
+
+  pure native writeContinue :: HttpServerResponse -> HttpServerResponse
+
+
+
+
+
+
+
+
+
+data JsonObject = pure native io.vertx.core.json.JsonObject where
+
+  native new :: Mutable s (Map String Object) -> ST s JsonObject
+              | () -> ST s JsonObject
+              | String -> ST s JsonObject
+
+  pure native clear :: JsonObject -> JsonObject
+
+  pure native containsKey :: JsonObject -> String -> Bool
+
+  pure native copy :: JsonObject -> JsonObject
+
+  pure native encode :: JsonObject -> String
+
+  pure native encodePrettily :: JsonObject -> String
+
+  pure native equals :: JsonObject -> Object -> Bool
+
+  native fieldNames :: JsonObject -> STMutable s (Set String)
+
+  native getBinary :: JsonObject -> String -> Mutable s (JArray Byte) -> STMutable s (JArray Byte)
+                    | JsonObject -> String -> STMutable s (JArray Byte)
+
+  pure native getBoolean :: JsonObject -> String -> Bool -> Bool
+                          | JsonObject -> String -> Bool
+
+  pure native getDouble :: JsonObject -> String -> Double
+                         | JsonObject -> String -> Double -> Double
+
+  pure native getFloat :: JsonObject -> String -> Float -> Float
+                        | JsonObject -> String -> Float
+
+  pure native getInstant :: JsonObject -> String -> Instant
+                          | JsonObject -> String -> Instant -> Instant
+
+  pure native getInteger :: JsonObject -> String -> Int
+                          | JsonObject -> String -> Int -> Int
+
+  pure native getJsonArray :: JsonObject -> String -> JsonArray
+                            | JsonObject -> String -> JsonArray -> JsonArray
+
+  pure native getJsonObject :: JsonObject -> String -> JsonObject
+                             | JsonObject -> String -> JsonObject -> JsonObject
+
+  pure native getLong :: JsonObject -> String -> Long -> Long
+                       | JsonObject -> String -> Long
+
+  native getMap :: JsonObject -> STMutable s (Map String Object)
+
+  pure native getString :: JsonObject -> String -> String -> String
+                         | JsonObject -> String -> String
+
+  pure native getValue :: JsonObject -> String -> Object -> Object
+                        | JsonObject -> String -> Object
+
+  pure native hashCode :: JsonObject -> Int
+
+  pure native isEmpty :: JsonObject -> Bool
+
+  native iterator :: JsonObject -> STMutable s (Iterator (MapEntry String Object))
+
+  pure native mergeIn :: JsonObject -> JsonObject -> JsonObject
+
+  native put :: JsonObject -> String -> Int -> ST s JsonObject
+              | JsonObject -> String -> Long -> ST s JsonObject
+              | JsonObject -> String -> Double -> ST s JsonObject
+              | JsonObject -> String -> Float -> ST s JsonObject
+              | JsonObject -> String -> String -> ST s JsonObject
+              | JsonObject -> String -> CharSequence -> ST s JsonObject
+              | JsonObject -> String -> Enum -> ST s JsonObject
+              | JsonObject -> String -> Object -> ST s JsonObject
+              | JsonObject -> String -> Instant -> ST s JsonObject
+              | JsonObject -> String -> Mutable s (JArray Byte) -> ST s JsonObject
+              | JsonObject -> String -> JsonArray -> ST s JsonObject
+              | JsonObject -> String -> JsonObject -> ST s JsonObject
+              | JsonObject -> String -> Bool -> ST s JsonObject
+
+  pure native putNull :: JsonObject -> String -> JsonObject
+
+  pure native readFromBuffer :: JsonObject -> Int -> Buffer -> Int
+
+  pure native remove :: JsonObject -> String -> Object
+
+  pure native size :: JsonObject -> Int
+
+  native stream :: JsonObject -> STMutable s (Stream (MapEntry String Object))
+
+  pure native toString :: JsonObject -> String
+
+  native writeToBuffer :: JsonObject -> Buffer -> ST s ()
+
+
+
+
+
+
+
+data JsonArray = pure native io.vertx.core.json.JsonArray where
+
+  native new :: Mutable s (List t) -> ST s JsonArray
+              | () -> ST s JsonArray
+              | String -> ST s JsonArray
+
+  native add :: JsonArray -> Int -> ST s JsonArray
+              | JsonArray -> Long -> ST s JsonArray
+              | JsonArray -> Double -> ST s JsonArray
+              | JsonArray -> Float -> ST s JsonArray
+              | JsonArray -> String -> ST s JsonArray
+              | JsonArray -> CharSequence -> ST s JsonArray
+              | JsonArray -> Enum -> ST s JsonArray
+              | JsonArray -> Object -> ST s JsonArray
+              | JsonArray -> Instant -> ST s JsonArray
+              | JsonArray -> Mutable s (JArray Byte) -> ST s JsonArray
+              | JsonArray -> JsonArray -> ST s JsonArray
+              | JsonArray -> JsonObject -> ST s JsonArray
+              | JsonArray -> Bool -> ST s JsonArray
+
+  pure native addAll :: JsonArray -> JsonArray -> JsonArray
+
+  pure native addNull :: JsonArray -> JsonArray
+
+  pure native clear :: JsonArray -> JsonArray
+
+  pure native contains :: JsonArray -> Object -> Bool
+
+  pure native copy :: JsonArray -> JsonArray
+
+  pure native encode :: JsonArray -> String
+
+  pure native encodePrettily :: JsonArray -> String
+
+  pure native equals :: JsonArray -> Object -> Bool
+
+  native getBinary :: JsonArray -> Int -> STMutable s (JArray Byte)
+
+  pure native getBoolean :: JsonArray -> Int -> Bool
+
+  pure native getDouble :: JsonArray -> Int -> Double
+
+  pure native getFloat :: JsonArray -> Int -> Float
+
+  pure native getInstant :: JsonArray -> Int -> Instant
+
+  pure native getInteger :: JsonArray -> Int -> Int
+
+  pure native getJsonArray :: JsonArray -> Int -> JsonArray
+
+  pure native getJsonObject :: JsonArray -> Int -> JsonObject
+
+  native getList :: JsonArray -> STMutable s (List t)
+
+  pure native getLong :: JsonArray -> Int -> Long
+
+  pure native getString :: JsonArray -> Int -> String
+
+  pure native getValue :: JsonArray -> Int -> Object
+
+  pure native hasNull :: JsonArray -> Int -> Bool
+
+  pure native hashCode :: JsonArray -> Int
+
+  pure native isEmpty :: JsonArray -> Bool
+
+  native iterator :: JsonArray -> STMutable s (Iterator Object)
+
+  pure native readFromBuffer :: JsonArray -> Int -> Buffer -> Int
+
+  pure native remove :: JsonArray -> Int -> Object
+                      | JsonArray -> Object -> Bool
+
+  pure native size :: JsonArray -> Int
+
+  native stream :: JsonArray -> STMutable s (Stream Object)
+
+  pure native toString :: JsonArray -> String
+
+  native writeToBuffer :: JsonArray -> Buffer -> ST s ()
+
+
+
+
+
+
+
+data ClusterManager = pure native io.vertx.core.spi.cluster.ClusterManager where
+
+  native getAsyncMap :: ClusterManager -> String -> Handler (AsyncResult (AsyncMap k v)) -> ST s ()
+
+  native getAsyncMultiMap :: ClusterManager -> String -> Handler (AsyncResult (AsyncMultiMap k v)) -> ST s ()
+
+  native getCounter :: ClusterManager -> String -> Handler (AsyncResult Counter) -> ST s ()
+
+  native getLockWithTimeout :: ClusterManager -> String -> Long -> Handler (AsyncResult Lock) -> ST s ()
+
+  pure native getNodeID :: ClusterManager -> String
+
+  native getNodes :: ClusterManager -> STMutable s (List String)
+
+  native getSyncMap :: ClusterManager -> String -> STMutable s (Map k v)
+
+  pure native isActive :: ClusterManager -> Bool
+
+  native join :: ClusterManager -> Handler (AsyncResult Void) -> ST s ()
+
+  native leave :: ClusterManager -> Handler (AsyncResult Void) -> ST s ()
+
+  native nodeListener :: ClusterManager -> NodeListener -> ST s ()
+
+
+
+
+
+data NodeListener = pure native io.vertx.core.spi.cluster.NodeListener where
+
+  native nodeAdded :: NodeListener -> String -> ST s ()
+
+  native nodeLeft :: NodeListener -> String -> ST s ()
+
+
+
+
+data AsyncMultiMap k v = pure native io.vertx.core.spi.cluster.AsyncMultiMap where
+
+  native add :: AsyncMultiMap k v -> k -> v -> Handler (AsyncResult Void) -> ST s ()
+
+  native get :: AsyncMultiMap k v -> k -> Handler (AsyncResult (ChoosableIterable v)) -> ST s ()
+
+  native remove :: AsyncMultiMap k v -> k -> v -> Handler (AsyncResult Bool) -> ST s ()
+
+  native removeAllForValue :: AsyncMultiMap k v -> v -> Handler (AsyncResult Void) -> ST s ()
+
+
+
+data ChoosableIterable t = pure native io.vertx.core.spi.cluster.ChoosableIterable where
+
+  pure native choose :: ChoosableIterable t -> t
+
+  pure native isEmpty :: ChoosableIterable t -> Bool
+
+
+
+
+
+
+data MetricsOptions = pure native io.vertx.core.metrics.MetricsOptions where
+
+  pure native default_metrics_enabled "io.vertx.core.metrics.MetricsOptions.DEFAULT_METRICS_ENABLED" :: Bool
+
+  pure native new :: JsonObject -> MetricsOptions
+                   | MetricsOptions -> MetricsOptions
+                   | () -> MetricsOptions
+
+  pure native equals :: MetricsOptions -> Object -> Bool
+
+  pure native hashCode :: MetricsOptions -> Int
+
+  pure native isEnabled :: MetricsOptions -> Bool
+
+  pure native setEnabled :: MetricsOptions -> Bool -> MetricsOptions
+
+  pure native toJson :: MetricsOptions -> JsonObject
+
+  pure native toString :: MetricsOptions -> String
+
+
+
+
+
+
+
+data JksOptions = pure native io.vertx.core.net.JksOptions where
+
+  pure native new :: JsonObject -> JksOptions
+                   | JksOptions -> JksOptions
+                   | () -> JksOptions
+
+  pure native clone :: JksOptions -> JksOptions
+
+  pure native equals :: JksOptions -> Object -> Bool
+
+  pure native getPassword :: JksOptions -> String
+
+  pure native getPath :: JksOptions -> String
+
+  pure native getValue :: JksOptions -> Buffer
+
+  pure native hashCode :: JksOptions -> Int
+
+  pure native setPassword :: JksOptions -> String -> JksOptions
+
+  pure native setPath :: JksOptions -> String -> JksOptions
+
+  pure native setValue :: JksOptions -> Buffer -> JksOptions
+
+
+
+
+
+
+data PemKeyCertOptions = pure native io.vertx.core.net.PemKeyCertOptions where
+
+  pure native new :: JsonObject -> PemKeyCertOptions
+                   | PemKeyCertOptions -> PemKeyCertOptions
+                   | () -> PemKeyCertOptions
+
+  pure native clone :: PemKeyCertOptions -> PemKeyCertOptions
+
+  pure native equals :: PemKeyCertOptions -> Object -> Bool
+
+  pure native getCertPath :: PemKeyCertOptions -> String
+
+  pure native getCertValue :: PemKeyCertOptions -> Buffer
+
+  pure native getKeyPath :: PemKeyCertOptions -> String
+
+  pure native getKeyValue :: PemKeyCertOptions -> Buffer
+
+  pure native hashCode :: PemKeyCertOptions -> Int
+
+  pure native setCertPath :: PemKeyCertOptions -> String -> PemKeyCertOptions
+
+  pure native setCertValue :: PemKeyCertOptions -> Buffer -> PemKeyCertOptions
+
+  pure native setKeyPath :: PemKeyCertOptions -> String -> PemKeyCertOptions
+
+  pure native setKeyValue :: PemKeyCertOptions -> Buffer -> PemKeyCertOptions
+
+
+
+
+
+
+
+data PemTrustOptions = pure native io.vertx.core.net.PemTrustOptions where
+
+  pure native new :: JsonObject -> PemTrustOptions
+                   | PemTrustOptions -> PemTrustOptions
+                   | () -> PemTrustOptions
+
+  pure native addCertPath :: PemTrustOptions -> String -> PemTrustOptions
+
+  pure native addCertValue :: PemTrustOptions -> Buffer -> PemTrustOptions
+
+  pure native clone :: PemTrustOptions -> PemTrustOptions
+
+  native getCertPaths :: PemTrustOptions -> STMutable s (List String)
+
+  native getCertValues :: PemTrustOptions -> STMutable s (List Buffer)
+
+
+
+
+
+
+data PfxOptions = pure native io.vertx.core.net.PfxOptions where
+
+  pure native new :: JsonObject -> PfxOptions
+                   | PfxOptions -> PfxOptions
+                   | () -> PfxOptions
+
+  pure native clone :: PfxOptions -> PfxOptions
+
+  pure native equals :: PfxOptions -> Object -> Bool
+
+  pure native getPassword :: PfxOptions -> String
+
+  pure native getPath :: PfxOptions -> String
+
+  pure native getValue :: PfxOptions -> Buffer
+
+  pure native hashCode :: PfxOptions -> Int
+
+  pure native setPassword :: PfxOptions -> String -> PfxOptions
+
+  pure native setPath :: PfxOptions -> String -> PfxOptions
+
+  pure native setValue :: PfxOptions -> Buffer -> PfxOptions
+
+
+
+
+
+data NetClient = pure native io.vertx.core.net.NetClient where
+
+  native close :: NetClient -> ST s ()
+
+  pure native connect :: NetClient -> Int -> String -> Handler (AsyncResult NetSocket) -> NetClient
+
+
+
+
+
+data NetClientOptions = pure native io.vertx.core.net.NetClientOptions where
+
+  pure native default_reconnect_attempts "io.vertx.core.net.NetClientOptions.DEFAULT_RECONNECT_ATTEMPTS" :: Int
+  pure native default_reconnect_interval "io.vertx.core.net.NetClientOptions.DEFAULT_RECONNECT_INTERVAL" :: Long
+
+  pure native new :: JsonObject -> NetClientOptions
+                   | NetClientOptions -> NetClientOptions
+                   | () -> NetClientOptions
+
+  pure native addCrlPath :: NetClientOptions -> String -> NetClientOptions
+
+  pure native addCrlValue :: NetClientOptions -> Buffer -> NetClientOptions
+
+  pure native addEnabledCipherSuite :: NetClientOptions -> String -> NetClientOptions
+
+  pure native equals :: NetClientOptions -> Object -> Bool
+
+  pure native getReconnectAttempts :: NetClientOptions -> Int
+
+  pure native getReconnectInterval :: NetClientOptions -> Long
+
+  pure native hashCode :: NetClientOptions -> Int
+
+  pure native setConnectTimeout :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setIdleTimeout :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setKeyStoreOptions :: NetClientOptions -> JksOptions -> NetClientOptions
+
+  pure native setPemKeyCertOptions :: NetClientOptions -> PemKeyCertOptions -> NetClientOptions
+
+  pure native setPemTrustOptions :: NetClientOptions -> PemTrustOptions -> NetClientOptions
+
+  pure native setPfxKeyCertOptions :: NetClientOptions -> PfxOptions -> NetClientOptions
+
+  pure native setPfxTrustOptions :: NetClientOptions -> PfxOptions -> NetClientOptions
+
+  pure native setReceiveBufferSize :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setReconnectAttempts :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setReconnectInterval :: NetClientOptions -> Long -> NetClientOptions
+
+  pure native setReuseAddress :: NetClientOptions -> Bool -> NetClientOptions
+
+  pure native setSendBufferSize :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setSoLinger :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setSsl :: NetClientOptions -> Bool -> NetClientOptions
+
+  pure native setTcpKeepAlive :: NetClientOptions -> Bool -> NetClientOptions
+
+  pure native setTcpNoDelay :: NetClientOptions -> Bool -> NetClientOptions
+
+  pure native setTrafficClass :: NetClientOptions -> Int -> NetClientOptions
+
+  pure native setTrustAll :: NetClientOptions -> Bool -> NetClientOptions
+
+  pure native setTrustStoreOptions :: NetClientOptions -> JksOptions -> NetClientOptions
+
+  pure native setUsePooledBuffers :: NetClientOptions -> Bool -> NetClientOptions
+
+
+
+
+
+
+data NetServerOptions = pure native io.vertx.core.net.NetServerOptions where
+
+  pure native default_port "io.vertx.core.net.NetServerOptions.DEFAULT_PORT" :: Int
+  pure native default_host "io.vertx.core.net.NetServerOptions.DEFAULT_HOST" :: String
+  pure native default_accept_backlog "io.vertx.core.net.NetServerOptions.DEFAULT_ACCEPT_BACKLOG" :: Int
+  pure native default_client_auth "io.vertx.core.net.NetServerOptions.DEFAULT_CLIENT_AUTH" :: ClientAuth
+
+  pure native new :: JsonObject -> NetServerOptions
+                   | NetServerOptions -> NetServerOptions
+                   | () -> NetServerOptions
+
+  pure native addCrlPath :: NetServerOptions -> String -> NetServerOptions
+
+  pure native addCrlValue :: NetServerOptions -> Buffer -> NetServerOptions
+
+  pure native addEnabledCipherSuite :: NetServerOptions -> String -> NetServerOptions
+
+  pure native equals :: NetServerOptions -> Object -> Bool
+
+  pure native getAcceptBacklog :: NetServerOptions -> Int
+
+  pure native getClientAuth :: NetServerOptions -> ClientAuth
+
+  pure native getHost :: NetServerOptions -> String
+
+  pure native getPort :: NetServerOptions -> Int
+
+  pure native hashCode :: NetServerOptions -> Int
+
+  pure native isClientAuthRequired :: NetServerOptions -> Bool
+
+  pure native setAcceptBacklog :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setClientAuth :: NetServerOptions -> ClientAuth -> NetServerOptions
+
+  pure native setClientAuthRequired :: NetServerOptions -> Bool -> NetServerOptions
+
+  pure native setHost :: NetServerOptions -> String -> NetServerOptions
+
+  pure native setIdleTimeout :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setKeyStoreOptions :: NetServerOptions -> JksOptions -> NetServerOptions
+
+  pure native setPemKeyCertOptions :: NetServerOptions -> PemKeyCertOptions -> NetServerOptions
+
+  pure native setPemTrustOptions :: NetServerOptions -> PemTrustOptions -> NetServerOptions
+
+  pure native setPfxKeyCertOptions :: NetServerOptions -> PfxOptions -> NetServerOptions
+
+  pure native setPfxTrustOptions :: NetServerOptions -> PfxOptions -> NetServerOptions
+
+  pure native setPort :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setReceiveBufferSize :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setReuseAddress :: NetServerOptions -> Bool -> NetServerOptions
+
+  pure native setSendBufferSize :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setSoLinger :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setSsl :: NetServerOptions -> Bool -> NetServerOptions
+
+  pure native setTcpKeepAlive :: NetServerOptions -> Bool -> NetServerOptions
+
+  pure native setTcpNoDelay :: NetServerOptions -> Bool -> NetServerOptions
+
+  pure native setTrafficClass :: NetServerOptions -> Int -> NetServerOptions
+
+  pure native setTrustStoreOptions :: NetServerOptions -> JksOptions -> NetServerOptions
+
+  pure native setUsePooledBuffers :: NetServerOptions -> Bool -> NetServerOptions
+
+
+
+
+data NetServer = pure native io.vertx.core.net.NetServer where
+
+  pure native actualPort :: NetServer -> Int
+
+  native close :: NetServer -> ST s ()
+                     | NetServer -> Handler (AsyncResult Void) -> ST s ()
+
+  pure native connectHandler :: NetServer -> Handler NetSocket -> NetServer
+                              | NetServer -> Handler NetSocket
+
+  pure native connectStream :: NetServer -> NetSocketStream
+
+  pure native listen :: NetServer -> Handler (AsyncResult NetServer) -> NetServer
+                      | NetServer -> Int -> String -> NetServer
+                      | NetServer -> Int -> Handler (AsyncResult NetServer) -> NetServer
+                      | NetServer -> Int -> NetServer
+                      | NetServer -> Int -> String -> Handler (AsyncResult NetServer) -> NetServer
+                      | NetServer -> NetServer
+
+
+
+data SocketAddress = pure native io.vertx.core.net.SocketAddress where
+
+  pure native host :: SocketAddress -> String
+
+  pure native port :: SocketAddress -> Int
+
+
+
+
+
+
+
+data NetSocket = pure native io.vertx.core.net.NetSocket where
+
+  native close :: NetSocket -> ST s ()
+
+  pure native closeHandler :: NetSocket -> Handler Void -> NetSocket
+
+  pure native drainHandler :: NetSocket -> Handler Void -> NetSocket
+
+  native end :: NetSocket -> ST s ()
+
+  pure native endHandler :: NetSocket -> Handler Void -> NetSocket
+
+  pure native exceptionHandler :: NetSocket -> Handler Throwable -> NetSocket
+
+  pure native handler :: NetSocket -> Handler Buffer -> NetSocket
+
+  pure native isSsl :: NetSocket -> Bool
+
+  pure native localAddress :: NetSocket -> SocketAddress
+
+  pure native pause :: NetSocket -> NetSocket
+
+  native peerCertificateChain :: NetSocket -> STMutable s (JArray X509Certificate) throws SSLPeerUnverifiedException
+
+  pure native remoteAddress :: NetSocket -> SocketAddress
+
+  pure native resume :: NetSocket -> NetSocket
+
+  pure native sendFile :: NetSocket -> String -> Long -> Long -> NetSocket
+                        | NetSocket -> String -> NetSocket
+                        | NetSocket -> String -> Long -> NetSocket
+                        | NetSocket -> String -> Long -> Handler (AsyncResult Void) -> NetSocket
+                        | NetSocket -> String -> Long -> Long -> Handler (AsyncResult Void) -> NetSocket
+                        | NetSocket -> String -> Handler (AsyncResult Void) -> NetSocket
+
+  pure native setWriteQueueMaxSize :: NetSocket -> Int -> NetSocket
+
+  pure native upgradeToSsl :: NetSocket -> Handler Void -> NetSocket
+
+  pure native write :: NetSocket -> String -> NetSocket
+                     | NetSocket -> Buffer -> NetSocket
+                     | NetSocket -> String -> String -> NetSocket
+
+  pure native writeHandlerID :: NetSocket -> String
+
+
+
+
+data NetSocketStream = pure native io.vertx.core.net.NetSocketStream where
+
+  pure native endHandler :: NetSocketStream -> Handler Void -> NetSocketStream
+
+  pure native exceptionHandler :: NetSocketStream -> Handler Throwable -> NetSocketStream
+
+  pure native handler :: NetSocketStream -> Handler NetSocket -> NetSocketStream
+
+  pure native pause :: NetSocketStream -> NetSocketStream
+
+  pure native resume :: NetSocketStream -> NetSocketStream
+
+
+
+
+
+
+
+
+data FileSystem = pure native io.vertx.core.file.FileSystem where
+
+  pure native chmod :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native chmodBlocking :: FileSystem -> String -> String -> FileSystem
+
+  pure native chmodRecursive :: FileSystem -> String -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native chmodRecursiveBlocking :: FileSystem -> String -> String -> String -> FileSystem
+
+  pure native chown :: FileSystem -> String -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native chownBlocking :: FileSystem -> String -> String -> String -> FileSystem
+
+  pure native copy :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native copyBlocking :: FileSystem -> String -> String -> FileSystem
+
+  pure native copyRecursive :: FileSystem -> String -> String -> Bool -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native copyRecursiveBlocking :: FileSystem -> String -> String -> Bool -> FileSystem
+
+  pure native createFile :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+                          | FileSystem -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native createFileBlocking :: FileSystem -> String -> FileSystem
+                                  | FileSystem -> String -> String -> FileSystem
+
+  pure native delete :: FileSystem -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native deleteBlocking :: FileSystem -> String -> FileSystem
+
+  pure native deleteRecursive :: FileSystem -> String -> Bool -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native deleteRecursiveBlocking :: FileSystem -> String -> Bool -> FileSystem
+
+  pure native exists :: FileSystem -> String -> Handler (AsyncResult Bool) -> FileSystem
+
+  pure native existsBlocking :: FileSystem -> String -> Bool
+
+  pure native fsProps :: FileSystem -> String -> Handler (AsyncResult FileSystemProps) -> FileSystem
+
+  pure native fsPropsBlocking :: FileSystem -> String -> FileSystemProps
+
+  pure native link :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native linkBlocking :: FileSystem -> String -> String -> FileSystem
+
+  pure native lprops :: FileSystem -> String -> Handler (AsyncResult FileProps) -> FileSystem
+
+  pure native lpropsBlocking :: FileSystem -> String -> FileProps
+
+  pure native mkdir :: FileSystem -> String -> Handler (AsyncResult Void) -> FileSystem
+                     | FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native mkdirBlocking :: FileSystem -> String -> FileSystem
+                             | FileSystem -> String -> String -> FileSystem
+
+  pure native mkdirs :: FileSystem -> String -> Handler (AsyncResult Void) -> FileSystem
+                      | FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native mkdirsBlocking :: FileSystem -> String -> FileSystem
+                              | FileSystem -> String -> String -> FileSystem
+
+  pure native move :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native moveBlocking :: FileSystem -> String -> String -> FileSystem
+
+  pure native open :: FileSystem -> String -> OpenOptions -> Handler (AsyncResult AsyncFile) -> FileSystem
+
+  pure native openBlocking :: FileSystem -> String -> OpenOptions -> AsyncFile
+
+  pure native props :: FileSystem -> String -> Handler (AsyncResult FileProps) -> FileSystem
+
+  pure native propsBlocking :: FileSystem -> String -> FileProps
+
+  pure native readDir :: FileSystem -> String -> Handler (AsyncResult (List String)) -> FileSystem
+                       | FileSystem -> String -> String -> Handler (AsyncResult (List String)) -> FileSystem
+
+  native readDirBlocking :: FileSystem -> String -> String -> STMutable s (List String)
+                          | FileSystem -> String -> STMutable s (List String)
+
+  pure native readFile :: FileSystem -> String -> Handler (AsyncResult Buffer) -> FileSystem
+
+  pure native readFileBlocking :: FileSystem -> String -> Buffer
+
+  pure native readSymlink :: FileSystem -> String -> Handler (AsyncResult String) -> FileSystem
+
+  pure native readSymlinkBlocking :: FileSystem -> String -> String
+
+  pure native symlink :: FileSystem -> String -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native symlinkBlocking :: FileSystem -> String -> String -> FileSystem
+
+  pure native truncate :: FileSystem -> String -> Long -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native truncateBlocking :: FileSystem -> String -> Long -> FileSystem
+
+  pure native unlink :: FileSystem -> String -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native unlinkBlocking :: FileSystem -> String -> FileSystem
+
+  pure native writeFile :: FileSystem -> String -> Buffer -> Handler (AsyncResult Void) -> FileSystem
+
+  pure native writeFileBlocking :: FileSystem -> String -> Buffer -> FileSystem
+
+
+
+data FileSystemProps = pure native io.vertx.core.file.FileSystemProps where
+
+  pure native totalSpace :: FileSystemProps -> Long
+
+  pure native unallocatedSpace :: FileSystemProps -> Long
+
+  pure native usableSpace :: FileSystemProps -> Long
+
+
+
+data FileProps = pure native io.vertx.core.file.FileProps where
+
+  pure native creationTime :: FileProps -> Long
+
+  pure native isDirectory :: FileProps -> Bool
+
+  pure native isOther :: FileProps -> Bool
+
+  pure native isRegularFile :: FileProps -> Bool
+
+  pure native isSymbolicLink :: FileProps -> Bool
+
+  pure native lastAccessTime :: FileProps -> Long
+
+  pure native lastModifiedTime :: FileProps -> Long
+
+  pure native size :: FileProps -> Long
+
+
+
+
+data OpenOptions = pure native io.vertx.core.file.OpenOptions where
+
+  pure native default_perms "io.vertx.core.file.OpenOptions.DEFAULT_PERMS" :: String
+  pure native default_read "io.vertx.core.file.OpenOptions.DEFAULT_READ" :: Bool
+  pure native default_write "io.vertx.core.file.OpenOptions.DEFAULT_WRITE" :: Bool
+  pure native default_create "io.vertx.core.file.OpenOptions.DEFAULT_CREATE" :: Bool
+  pure native default_createnew "io.vertx.core.file.OpenOptions.DEFAULT_CREATENEW" :: Bool
+  pure native default_dsync "io.vertx.core.file.OpenOptions.DEFAULT_DSYNC" :: Bool
+  pure native default_sync "io.vertx.core.file.OpenOptions.DEFAULT_SYNC" :: Bool
+  pure native default_deleteonclose "io.vertx.core.file.OpenOptions.DEFAULT_DELETEONCLOSE" :: Bool
+  pure native default_truncateexisting "io.vertx.core.file.OpenOptions.DEFAULT_TRUNCATEEXISTING" :: Bool
+  pure native default_sparse "io.vertx.core.file.OpenOptions.DEFAULT_SPARSE" :: Bool
+
+  pure native new :: JsonObject -> OpenOptions
+                   | OpenOptions -> OpenOptions
+                   | () -> OpenOptions
+
+  pure native getPerms :: OpenOptions -> String
+
+  pure native isCreate :: OpenOptions -> Bool
+
+  pure native isCreateNew :: OpenOptions -> Bool
+
+  pure native isDeleteOnClose :: OpenOptions -> Bool
+
+  pure native isDsync :: OpenOptions -> Bool
+
+  pure native isRead :: OpenOptions -> Bool
+
+  pure native isSparse :: OpenOptions -> Bool
+
+  pure native isSync :: OpenOptions -> Bool
+
+  pure native isTruncateExisting :: OpenOptions -> Bool
+
+  pure native isWrite :: OpenOptions -> Bool
+
+  pure native setCreate :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setCreateNew :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setDeleteOnClose :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setDsync :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setPerms :: OpenOptions -> String -> OpenOptions
+
+  pure native setRead :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setSparse :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setSync :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setTruncateExisting :: OpenOptions -> Bool -> OpenOptions
+
+  pure native setWrite :: OpenOptions -> Bool -> OpenOptions
+
+
+
+
+
+data AsyncFile = pure native io.vertx.core.file.AsyncFile where
+
+  native close :: AsyncFile -> Handler (AsyncResult Void) -> ST s ()
+                     | AsyncFile -> ST s ()
+
+  pure native drainHandler :: AsyncFile -> Handler Void -> AsyncFile
+
+  native end :: AsyncFile -> ST s ()
+
+  pure native endHandler :: AsyncFile -> Handler Void -> AsyncFile
+
+  pure native exceptionHandler :: AsyncFile -> Handler Throwable -> AsyncFile
+
+  pure native flush :: AsyncFile -> AsyncFile
+                     | AsyncFile -> Handler (AsyncResult Void) -> AsyncFile
+
+  pure native handler :: AsyncFile -> Handler Buffer -> AsyncFile
+
+  pure native pause :: AsyncFile -> AsyncFile
+
+  pure native read :: AsyncFile -> Buffer -> Int -> Long -> Int -> Handler (AsyncResult Buffer) -> AsyncFile
+
+  pure native resume :: AsyncFile -> AsyncFile
+
+  pure native setReadBufferSize :: AsyncFile -> Int -> AsyncFile
+
+  pure native setReadPos :: AsyncFile -> Long -> AsyncFile
+
+  pure native setWritePos :: AsyncFile -> Long -> AsyncFile
+
+  pure native setWriteQueueMaxSize :: AsyncFile -> Int -> AsyncFile
+
+  pure native write :: AsyncFile -> Buffer -> AsyncFile
+                     | AsyncFile -> Buffer -> Long -> Handler (AsyncResult Void) -> AsyncFile
+
+
+
+
+
+
+data SharedData = pure native io.vertx.core.shareddata.SharedData where
+
+  native getClusterWideMap :: SharedData -> String -> Handler (AsyncResult (AsyncMap k v)) -> ST s ()
+
+  native getCounter :: SharedData -> String -> Handler (AsyncResult Counter) -> ST s ()
+
+  pure native getLocalMap :: SharedData -> String -> LocalMap k v
+
+  native getLock :: SharedData -> String -> Handler (AsyncResult Lock) -> ST s ()
+
+  native getLockWithTimeout :: SharedData -> String -> Long -> Handler (AsyncResult Lock) -> ST s ()
+
+
+
+
+data LocalMap k v = pure native io.vertx.core.shareddata.LocalMap where
+
+  native clear :: LocalMap k v -> ST s ()
+
+  native close :: LocalMap k v -> ST s ()
+
+  pure native get :: LocalMap k v -> k -> v
+
+  pure native isEmpty :: LocalMap k v -> Bool
+
+  native keySet :: LocalMap k v -> STMutable s (Set k)
+
+  pure native put :: LocalMap k v -> k -> v -> v
+
+  pure native putIfAbsent :: LocalMap k v -> k -> v -> v
+
+  pure native remove :: LocalMap k v -> k -> v
+
+  pure native removeIfPresent :: LocalMap k v -> k -> v -> Bool
+
+  pure native replace :: LocalMap k v -> k -> v -> v
+
+  pure native replaceIfPresent :: LocalMap k v -> k -> v -> v -> Bool
+
+  pure native size :: LocalMap k v -> Int
+
+  native values :: LocalMap k v -> STMutable s (Collection v)
+
+
+
+data Lock = pure native io.vertx.core.shareddata.Lock where
+
+  native release :: Lock -> ST s ()
+
+
+
+
+data AsyncMap k v = pure native io.vertx.core.shareddata.AsyncMap where
+
+  native clear :: AsyncMap k v -> Handler (AsyncResult Void) -> ST s ()
+
+  native get :: AsyncMap k v -> k -> Handler (AsyncResult v) -> ST s ()
+
+  native put :: AsyncMap k v -> k -> v -> Long -> Handler (AsyncResult Void) -> ST s ()
+                   | AsyncMap k v -> k -> v -> Handler (AsyncResult Void) -> ST s ()
+
+  native putIfAbsent :: AsyncMap k v -> k -> v -> Handler (AsyncResult v) -> ST s ()
+                           | AsyncMap k v -> k -> v -> Long -> Handler (AsyncResult v) -> ST s ()
+
+  native remove :: AsyncMap k v -> k -> Handler (AsyncResult v) -> ST s ()
+
+  native removeIfPresent :: AsyncMap k v -> k -> v -> Handler (AsyncResult Bool) -> ST s ()
+
+  native replace :: AsyncMap k v -> k -> v -> Handler (AsyncResult v) -> ST s ()
+
+  native replaceIfPresent :: AsyncMap k v -> k -> v -> v -> Handler (AsyncResult Bool) -> ST s ()
+
+  native size :: AsyncMap k v -> Handler (AsyncResult Int) -> ST s ()
+
+
+
+
+data Counter = pure native io.vertx.core.shareddata.Counter where
+
+  native addAndGet :: Counter -> Long -> Handler (AsyncResult Long) -> ST s ()
+
+  native compareAndSet :: Counter -> Long -> Long -> Handler (AsyncResult Bool) -> ST s ()
+
+  native decrementAndGet :: Counter -> Handler (AsyncResult Long) -> ST s ()
+
+  native get :: Counter -> Handler (AsyncResult Long) -> ST s ()
+
+  native getAndAdd :: Counter -> Long -> Handler (AsyncResult Long) -> ST s ()
+
+  native getAndIncrement :: Counter -> Handler (AsyncResult Long) -> ST s ()
+
+  native incrementAndGet :: Counter -> Handler (AsyncResult Long) -> ST s ()
+
+
+
+
+
+
+
+
+
+
+data Buffer = pure native io.vertx.core.buffer.Buffer where
+
+  pure native factory "io.vertx.core.buffer.Buffer.factory" :: BufferFactory
+
+  pure native appendBuffer :: Buffer -> Buffer -> Int -> Int -> Buffer
+                            | Buffer -> Buffer -> Buffer
+
+  pure native appendByte :: Buffer -> Byte -> Buffer
+
+  native appendBytes :: Buffer -> Mutable s (JArray Byte) -> Int -> Int -> ST s Buffer
+                      | Buffer -> Mutable s (JArray Byte) -> ST s Buffer
+
+  pure native appendDouble :: Buffer -> Double -> Buffer
+
+  pure native appendFloat :: Buffer -> Float -> Buffer
+
+  pure native appendInt :: Buffer -> Int -> Buffer
+
+  pure native appendLong :: Buffer -> Long -> Buffer
+
+  pure native appendShort :: Buffer -> Short -> Buffer
+
+  pure native appendString :: Buffer -> String -> Buffer
+                            | Buffer -> String -> String -> Buffer
+
+  pure native appendUnsignedByte :: Buffer -> Short -> Buffer
+
+  pure native appendUnsignedInt :: Buffer -> Long -> Buffer
+
+  pure native appendUnsignedShort :: Buffer -> Int -> Buffer
+
+  native buffer "io.vertx.core.buffer.Buffer.buffer" :: () -> ST s Buffer
+                                                      | String -> String -> ST s Buffer
+                                                      | Mutable s (JArray Byte) -> ST s Buffer
+                                                      | String -> ST s Buffer
+                                                      | Int -> ST s Buffer
+                                                      | ByteBuf -> ST s Buffer
+
+  pure native copy :: Buffer -> Buffer
+
+  pure native getBuffer :: Buffer -> Int -> Int -> Buffer
+
+  pure native getByte :: Buffer -> Int -> Byte
+
+  pure native getByteBuf :: Buffer -> ByteBuf
+
+  native getBytes :: Buffer -> Int -> Int -> Mutable s (JArray Byte) -> Int -> ST s Buffer
+                   | Buffer -> Mutable s (JArray Byte) -> ST s Buffer
+                   | Buffer -> Mutable s (JArray Byte) -> Int -> ST s Buffer
+                   | Buffer -> Int -> Int -> Mutable s (JArray Byte) -> ST s Buffer
+                   | Buffer -> STMutable s (JArray Byte)
+                   | Buffer -> Int -> Int -> STMutable s (JArray Byte)
+
+  pure native getDouble :: Buffer -> Int -> Double
+
+  pure native getFloat :: Buffer -> Int -> Float
+
+  pure native getInt :: Buffer -> Int -> Int
+
+  pure native getLong :: Buffer -> Int -> Long
+
+  pure native getShort :: Buffer -> Int -> Short
+
+  pure native getString :: Buffer -> Int -> Int -> String -> String
+                         | Buffer -> Int -> Int -> String
+
+  pure native getUnsignedByte :: Buffer -> Int -> Short
+
+  pure native getUnsignedInt :: Buffer -> Int -> Long
+
+  pure native getUnsignedShort :: Buffer -> Int -> Int
+
+  pure native length :: Buffer -> Int
+
+  pure native setBuffer :: Buffer -> Int -> Buffer -> Int -> Int -> Buffer
+                         | Buffer -> Int -> Buffer -> Buffer
+
+  pure native setByte :: Buffer -> Int -> Byte -> Buffer
+
+  native setBytes :: Buffer -> Int -> ByteBuffer -> ST s Buffer
+                   | Buffer -> Int -> Mutable s (JArray Byte) -> Int -> Int -> ST s Buffer
+                   | Buffer -> Int -> Mutable s (JArray Byte) -> ST s Buffer
+
+  pure native setDouble :: Buffer -> Int -> Double -> Buffer
+
+  pure native setFloat :: Buffer -> Int -> Float -> Buffer
+
+  pure native setInt :: Buffer -> Int -> Int -> Buffer
+
+  pure native setLong :: Buffer -> Int -> Long -> Buffer
+
+  pure native setShort :: Buffer -> Int -> Short -> Buffer
+
+  pure native setString :: Buffer -> Int -> String -> String -> Buffer
+                         | Buffer -> Int -> String -> Buffer
+
+  pure native setUnsignedByte :: Buffer -> Int -> Short -> Buffer
+
+  pure native setUnsignedInt :: Buffer -> Int -> Long -> Buffer
+
+  pure native setUnsignedShort :: Buffer -> Int -> Int -> Buffer
+
+  pure native slice :: Buffer -> Buffer
+                     | Buffer -> Int -> Int -> Buffer
+
+  pure native toJsonArray :: Buffer -> JsonArray
+
+  pure native toJsonObject :: Buffer -> JsonObject
+
+  native toString :: Buffer -> ST s String
+                   | Buffer -> String -> ST s String
+                   | Buffer -> Mutable s Charset -> ST s String
+
+
+
+
+
+
+data ReadStream t = pure native io.vertx.core.streams.ReadStream where
+
+  pure native endHandler :: ReadStream t -> Handler Void -> ReadStream t
+
+  pure native exceptionHandler :: ReadStream t -> Handler Throwable -> ReadStream t
+
+  pure native handler :: ReadStream t -> Handler t -> ReadStream t
+
+  pure native pause :: ReadStream t -> ReadStream t
+
+  pure native resume :: ReadStream t -> ReadStream t
+
+
+
+
+
+
+data EventBus = pure native io.vertx.core.eventbus.EventBus where
+
+  pure native addInterceptor :: EventBus -> Handler SendContext -> EventBus
+
+  native close :: EventBus -> Handler (AsyncResult Void) -> ST s ()
+
+  pure native consumer :: EventBus -> String -> MessageConsumer t
+                        | EventBus -> String -> Handler (Message t) -> MessageConsumer t
+
+  pure native localConsumer :: EventBus -> String -> MessageConsumer t
+                             | EventBus -> String -> Handler (Message t) -> MessageConsumer t
+
+  pure native publish :: EventBus -> String -> Object -> DeliveryOptions -> EventBus
+                       | EventBus -> String -> Object -> EventBus
+
+  pure native publisher :: EventBus -> String -> DeliveryOptions -> MessageProducer t
+                         | EventBus -> String -> MessageProducer t
+
+  pure native registerCodec :: EventBus -> MessageCodec s r -> EventBus
+
+  pure native registerDefaultCodec :: EventBus -> Class t -> MessageCodec t Object -> EventBus
+
+  pure native removeInterceptor :: EventBus -> Handler SendContext -> EventBus
+
+  pure native send :: EventBus -> String -> Object -> DeliveryOptions -> Handler (AsyncResult (Message t)) -> EventBus
+                    | EventBus -> String -> Object -> EventBus
+                    | EventBus -> String -> Object -> DeliveryOptions -> EventBus
+                    | EventBus -> String -> Object -> Handler (AsyncResult (Message t)) -> EventBus
+
+  pure native sender :: EventBus -> String -> MessageProducer t
+                      | EventBus -> String -> DeliveryOptions -> MessageProducer t
+
+  native start :: EventBus -> Handler (AsyncResult Void) -> ST s ()
+
+  pure native unregisterCodec :: EventBus -> String -> EventBus
+
+  pure native unregisterDefaultCodec :: EventBus -> Class a -> EventBus
+
+
+
+
+data Message t = pure native io.vertx.core.eventbus.Message where
+
+  pure native address :: Message t -> String
+
+  pure native body :: Message t -> t
+
+  native fail :: Message t -> Int -> String -> ST s ()
+
+  pure native headers :: Message t -> MultiMap
+
+  native reply :: Message t -> Object -> DeliveryOptions -> Handler (AsyncResult (Message r)) -> ST s ()
+                     | Message t -> Object -> DeliveryOptions -> ST s ()
+                     | Message t -> Object -> ST s ()
+                     | Message t -> Object -> Handler (AsyncResult (Message r)) -> ST s ()
+
+  pure native replyAddress :: Message t -> String
+
+
+
+
+
+data MessageConsumer t = pure native io.vertx.core.eventbus.MessageConsumer where
+
+  pure native address :: MessageConsumer t -> String
+
+  pure native bodyStream :: MessageConsumer t -> ReadStream t
+
+  native completionHandler :: MessageConsumer t -> Handler (AsyncResult Void) -> ST s ()
+
+  pure native endHandler :: MessageConsumer t -> Handler Void -> MessageConsumer t
+
+  pure native exceptionHandler :: MessageConsumer t -> Handler Throwable -> MessageConsumer t
+
+  pure native getMaxBufferedMessages :: MessageConsumer t -> Int
+
+  pure native handler :: MessageConsumer t -> Handler (Message t) -> MessageConsumer t
+
+  pure native isRegistered :: MessageConsumer t -> Bool
+
+  pure native pause :: MessageConsumer t -> MessageConsumer t
+
+  pure native resume :: MessageConsumer t -> MessageConsumer t
+
+  pure native setMaxBufferedMessages :: MessageConsumer t -> Int -> MessageConsumer t
+
+  native unregister :: MessageConsumer t -> Handler (AsyncResult Void) -> ST s ()
+                          | MessageConsumer t -> ST s ()
+
+
+
+
+
+data DeliveryOptions = pure native io.vertx.core.eventbus.DeliveryOptions where
+
+  pure native default_timeout "io.vertx.core.eventbus.DeliveryOptions.DEFAULT_TIMEOUT" :: Long
+
+  pure native new :: JsonObject -> DeliveryOptions
+                   | DeliveryOptions -> DeliveryOptions
+                   | () -> DeliveryOptions
+
+  pure native addHeader :: DeliveryOptions -> String -> String -> DeliveryOptions
+
+  pure native getCodecName :: DeliveryOptions -> String
+
+  pure native getHeaders :: DeliveryOptions -> MultiMap
+
+  pure native getSendTimeout :: DeliveryOptions -> Long
+
+  pure native setCodecName :: DeliveryOptions -> String -> DeliveryOptions
+
+  pure native setHeaders :: DeliveryOptions -> MultiMap -> DeliveryOptions
+
+  pure native setSendTimeout :: DeliveryOptions -> Long -> DeliveryOptions
+
+
+
+
+data MessageProducer t = pure native io.vertx.core.eventbus.MessageProducer where
+
+  pure native default_write_queue_max_size "io.vertx.core.eventbus.MessageProducer.DEFAULT_WRITE_QUEUE_MAX_SIZE" :: Int
+
+  pure native address :: MessageProducer t -> String
+
+  native close :: MessageProducer t -> ST s ()
+
+  pure native deliveryOptions :: MessageProducer t -> DeliveryOptions -> MessageProducer t
+
+  pure native drainHandler :: MessageProducer t -> Handler Void -> MessageProducer t
+
+  native end :: MessageProducer t -> ST s ()
+
+  pure native exceptionHandler :: MessageProducer t -> Handler Throwable -> MessageProducer t
+
+  pure native send :: MessageProducer t -> t -> MessageProducer t
+                    | MessageProducer t -> t -> Handler (AsyncResult (Message r)) -> MessageProducer t
+
+  pure native setWriteQueueMaxSize :: MessageProducer t -> Int -> MessageProducer t
+
+  pure native write :: MessageProducer t -> t -> MessageProducer t
+
+
+
+
+data MessageCodec s r = pure native io.vertx.core.eventbus.MessageCodec where
+
+  pure native decodeFromWire :: MessageCodec s r -> Int -> Buffer -> r
+
+  native encodeToWire :: MessageCodec s r -> Buffer -> s -> ST s ()
+
+  pure native name :: MessageCodec s r -> String
+
+  pure native systemCodecID :: MessageCodec s r -> Byte
+
+  pure native transform :: MessageCodec s r -> s -> r
+
+
+
+data SendContext t = pure native io.vertx.core.eventbus.SendContext where
+
+  pure native message :: SendContext t -> Message t
+
+  native next :: SendContext t -> ST s ()
+
+  pure native send :: SendContext t -> Bool
+
+
