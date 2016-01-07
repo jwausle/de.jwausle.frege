@@ -3,6 +3,7 @@ plugins {
    	id "org.frege-lang" version "0.5"
 	id "com.github.johnrengelman.shadow" version "1.2.2"
 	id "maven"
+	id 'eclipse'
 }
 
 group = "de.jwausle"; version = "3.23.422-ga05a487"
