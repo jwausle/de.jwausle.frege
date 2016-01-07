@@ -46,3 +46,7 @@ de.jwausle.frege.vertx/.project
 de.jwausle.frege.vertx/.settings/org.eclipse.jdt.core.prefs
 
 de.jwausle.frege.vertx/gradle/lib/run-frege-gen.sh
+
+incubator/de.jwausle.frege.sql/bin/
+
+incubator/de.jwausle.vertx/build/

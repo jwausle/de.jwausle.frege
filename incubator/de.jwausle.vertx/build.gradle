@@ -1,0 +1,163 @@
+plugins {
+	id "application"
+   	id "org.frege-lang" version "0.5"
+	id "java"
+	id "com.github.johnrengelman.shadow" version "1.2.2"
+	id "maven"
+}
+
+group = "de.jwausle"; version = "3.23.422-ga05a487"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile "org.frege-lang:frege:3.23.422-ga05a487"
+    compile "io.vertx:vertx-core:3.2.0"
+    compile "log4j:log4j:1.2.17"
+    compile "org.slf4j:slf4j-api:1.7.13"
+    compile files("lib/javax-ssl-1_1.jar")
+}
+
+task dockerPublish(type: Exec) {
+    commandLine 'bash', '-e', '-c', """
+        docker tag ...
+        docker push ...
+        docker push ...
+    """
+}
+
+//task shadowJar {
+//  classifier = "fat"
+//  mergeServiceFiles { include "META-INF/services/io.vertx.core.spi.VerticleFactory" }
+//}
+
+task fregeGenAll (dependsOn: ['fregeGenPatch', 'fregeGen','fregeGenClean'])
+
+
+task fregeGenClean (type:Exec) { 
+    commandLine 'bash', '-e', '-c', """
+       rm -f  src/main/frege/java/Time.fr
+       rm -rf src/gen/incubator/
+       mkdir  src/gen/incubator
+    """
+}
+
+task fregeGen1(type: JavaExec) { 
+    classpath = files("gradle/lib/frege-native-gen-1.4-SNAPSHOT.jar") + sourceSets.main.runtimeClasspath
+    mainClassName = "frege.nativegen.Main"
+    main = "frege.nativegen.Main"
+    args "-t", "src/main/resources/types.properties"
+    args "-d", "src/gen/incubator"
+    args '-c', "io.vertx.core.VertxOptions"
+    args '-c', "io.vertx.core.Vertx"
+    args '-c', "io.vertx.core.Handler"
+    args '-c', "io.vertx.core.spi.VertxFactory"
+    args '-c', "io.vertx.core.datagram.DatagramSocketOptions"
+    args '-c', "io.vertx.core.datagram.DatagramSocket"
+    args '-c', "io.vertx.core.dns.DnsClient"
+    args '-c', "io.vertx.core.http.HttpClientOptions"
+    args '-c', "io.vertx.core.http.HttpClient"
+    args '-c', 'io.vertx.core.json.JsonObject'
+    args '-c', 'io.vertx.core.spi.cluster.ClusterManager'
+    args '-c', 'io.vertx.core.metrics.MetricsOptions'
+    args '-c', 'io.vertx.core.AsyncResult'
+    args '-c', 'io.vertx.core.http.HttpVersion'
+    args '-c', 'io.vertx.core.net.JksOptions'
+    args '-c', 'io.vertx.core.net.PemKeyCertOptions'
+    args '-c', 'io.vertx.core.net.PemTrustOptions'
+    args '-c', 'io.vertx.core.net.PfxOptions'
+    args '-c', 'io.vertx.core.Context'
+    args '-c', 'io.vertx.core.http.HttpServer'
+    args '-c', 'io.vertx.core.http.HttpServerOptions'
+    args '-c', 'io.vertx.core.net.NetClient'
+    args '-c', 'io.vertx.core.net.NetClientOptions'
+    args '-c', 'io.vertx.core.DeploymentOptions'
+    args '-c', 'io.vertx.core.Verticle'
+    args '-c', 'io.vertx.core.file.FileSystem'
+    args '-c', 'io.netty.channel.EventLoopGroup'
+    args '-c', 'io.vertx.core.TimeoutStream'
+    args '-c', 'io.vertx.core.spi.VerticleFactory'
+    args '-c', 'io.vertx.core.shareddata.SharedData'
+    args '-c', 'io.vertx.core.http.HttpClientRequest'
+    args '-c', 'io.vertx.core.http.HttpClientResponse'
+    args '-c', 'io.vertx.core.http.WebsocketVersion'
+    args '-c', 'io.vertx.core.http.WebSocket'
+    args '-c', 'io.vertx.core.http.WebSocketStream'
+    args '-c', 'io.vertx.core.MultiMap'
+    args '-c', 'io.vertx.core.json.JsonArray'
+    args '-c', 'io.vertx.core.buffer.Buffer'
+    args '-c', 'io.vertx.core.net.NetServerOptions'
+    args '-c', 'io.vertx.core.net.NetServer'
+    args '-c', 'io.vertx.core.Closeable'
+    args '-c', 'io.vertx.core.net.SocketAddress'
+    args '-c', 'io.vertx.core.datagram.PacketWritestream'
+    args '-c', 'io.vertx.core.eventbus.EventBus'
+    args '-c', 'io.vertx.core.Future'
+    args '-c', 'io.netty.channel.EventLoop'
+    args '-c', 'io.netty.channel.Channel'
+    args '-c', 'io.netty.channel.ChannelFuture'
+    args '-c', 'io.netty.channel.ChannelPromise'
+    args '-c', 'io.vertx.core.spi.BufferFactory'
+    args '-c', 'io.vertx.core.file.FileSystemProps'
+    args '-c', 'io.vertx.core.file.FileProps'
+    args '-c', 'io.vertx.core.file.OpenOptions'
+    args '-c', 'io.vertx.core.file.AsyncFile'
+    args '-c', 'io.vertx.core.http.HttpServerRequestStream'
+    args '-c', 'io.vertx.core.net.NetSocket'
+    args '-c', 'io.vertx.core.http.WebSocketFrame'
+    args '-c', 'io.vertx.core.shareddata.LocalMap'
+    args '-c', 'io.vertx.core.shareddata.Lock'
+    args '-c', 'io.vertx.core.spi.cluster.NodeListener'
+    args '-c', 'java.time.temporal.Temporal'
+    args '-c', 'java.time.ZoneOffset'
+    args '-c', 'java.time.OffsetDateTime'
+    args '-c', 'java.time.ZonedDateTime'
+    args '-c', 'java.time.temporal.TemporalAccessor'
+    args '-c', 'java.time.temporal.TemporalField'
+    args '-c', 'java.time.temporal.TemporalUnit'
+    args '-c', 'java.time.Clock'
+    args '-c', 'java.time.temporal.TemporalAmount'
+    args '-c', 'java.time.temporal.ValueRange'
+    args '-c', 'java.time.temporal.TemporalAdjuster'
+    args '-c', 'java.time.zone.ZoneRules'
+    args '-c', 'java.time.temporal.TemporalQuery'
+    args '-c', 'java.time.Duration'
+    args '-c', 'java.time.ZoneId'
+    args '-c', 'java.time.ZonedDateTime'
+    args '-c', 'java.time.format.DateTimeFormatter'
+    args '-c', 'java.time.LocalDate'
+    args '-c', 'java.time.LocalDateTime'
+    args '-c', 'java.time.OffsetTime'
+    args '-c', 'java.time.format.ResolverStyle'
+    args '-c', 'java.time.LocalTime'
+}
+
+task fregeGenPatch(type:Exec, dependsOn: 'fregeGen') {
+    commandLine 'bash', '-e', '-c', """
+       cat src/gen/incubator/java/Time.fr src/gen/incubator/java/time/Chrono.fr src/gen/incubator/java/time/Format.fr src/gen/incubator/java/time/Temporal.fr src/gen/incubator/java/time/Zone.fr > src/gen/incubator/java/TmpTime.fr 
+       sed -i .0 's/module .* where//g'                src/gen/incubator/java/TmpTime.fr
+       sed -i .1 's/import .*//g'                      src/gen/incubator/java/TmpTime.fr
+       sed -i .2 's/derive Cloneable .*//g'            src/gen/incubator/java/TmpTime.fr
+       sed -i .3 's/derive Exceptional .*//g'          src/gen/incubator/java/TmpTime.fr
+       sed -i .4 's/derive Serializable .*//g'         src/gen/incubator/java/TmpTime.fr
+       sed -i .5 's/.*pure native set.*().*//g'        src/gen/incubator/java/TmpTime.fr
+       sed -i .6 's/.*pure native set.*().*//g'        src/gen/incubator/java/TmpTime.fr
+       sed -i .7 's/pure native .* -> r -> .* -> r//g' src/gen/incubator/java/TmpTime.fr
+       mkdir -p src/main/frege/frege/java/
+       echo module frege.java.Time where >             src/main/frege/frege/java/Time.fr
+       echo import frege.java.Util >>                  src/main/frege/frege/java/Time.fr 
+       echo import frege.java.Lang >>                  src/main/frege/frege/java/Time.fr
+       echo import frege.java.IO >>                    src/main/frege/frege/java/Time.fr  
+       echo import frege.java.Text >>                  src/main/frege/frege/java/Time.fr  
+       cat src/gen/incubator/java/TmpTime.fr >>        src/main/frege/frege/java/Time.fr
+    """
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+	maven { url "https://plugins.gradle.org/m2/" }
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}

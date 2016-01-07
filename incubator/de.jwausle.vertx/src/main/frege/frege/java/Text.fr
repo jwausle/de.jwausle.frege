@@ -1,0 +1,94 @@
+module frege.java.Text where
+
+import frege.java.Lang
+
+data ParsePosition = pure native java.text.ParsePosition where
+
+  pure native new :: Int -> ParsePosition
+
+  pure native equals :: ParsePosition -> Object -> Bool
+
+  pure native getErrorIndex :: ParsePosition -> Int
+
+  pure native getIndex :: ParsePosition -> Int
+
+  pure native hashCode :: ParsePosition -> Int
+
+  pure native toString :: ParsePosition -> String
+
+
+
+data Format = pure native java.text.Format where
+
+  pure native clone :: Format -> Object 
+
+  native format :: Format -> Object -> Mutable s StringBuffer -> FieldPosition -> STMutable s StringBuffer
+                 | Format -> Object -> ST s String
+
+  native parseObject :: Format -> String -> ST s Object throws ParseException
+                      | Format -> String -> ParsePosition -> ST s Object
+
+data FieldPosition = pure native java.text.FieldPosition where
+
+  pure native new :: Format_Field -> Int -> FieldPosition
+                   | Format_Field -> FieldPosition
+                   | Int -> FieldPosition
+
+  pure native equals :: FieldPosition -> Object -> Bool
+
+  pure native getBeginIndex :: FieldPosition -> Int
+
+  pure native getEndIndex :: FieldPosition -> Int
+
+  pure native getField :: FieldPosition -> Int
+
+  pure native getFieldAttribute :: FieldPosition -> Format_Field
+
+  pure native hashCode :: FieldPosition -> Int
+
+  pure native toString :: FieldPosition -> String
+
+
+import frege.java.Util
+
+data AttributedCharacterIterator = pure native java.text.AttributedCharacterIterator where
+
+  native getAllAttributeKeys :: AttributedCharacterIterator -> STMutable s (Set AttributedCharacterIterator_Attribute)
+
+  pure native getAttribute :: AttributedCharacterIterator -> AttributedCharacterIterator_Attribute -> Object
+
+  native getAttributes :: AttributedCharacterIterator -> STMutable s (Map AttributedCharacterIterator_Attribute Object)
+
+  native getRunLimit :: AttributedCharacterIterator -> Mutable s (Set AttributedCharacterIterator_Attribute) -> ST s Int
+                      | AttributedCharacterIterator -> AttributedCharacterIterator_Attribute -> ST s Int
+                      | AttributedCharacterIterator -> ST s Int
+
+  native getRunStart :: AttributedCharacterIterator -> ST s Int
+                      | AttributedCharacterIterator -> Mutable s (Set AttributedCharacterIterator_Attribute) -> ST s Int
+                      | AttributedCharacterIterator -> AttributedCharacterIterator_Attribute -> ST s Int
+
+
+data ParseException = pure native java.text.ParseException where
+
+  pure native new :: String -> Int -> ParseException
+
+  pure native getErrorOffset :: ParseException -> Int
+
+derive Exceptional ParseException
+
+data Format_Field = pure native java.text.Format.Field
+
+data AttributedCharacterIterator_Attribute = pure native java.text.AttributedCharacterIterator.Attribute where
+
+  pure native language "java.text.AttributedCharacterIterator.Attribute.LANGUAGE" :: AttributedCharacterIterator_Attribute
+  pure native reading "java.text.AttributedCharacterIterator.Attribute.READING" :: AttributedCharacterIterator_Attribute
+  pure native input_method_segment "java.text.AttributedCharacterIterator.Attribute.INPUT_METHOD_SEGMENT" :: AttributedCharacterIterator_Attribute
+
+  pure native equals :: AttributedCharacterIterator_Attribute -> Object -> Bool
+
+  pure native hashCode :: AttributedCharacterIterator_Attribute -> Int
+
+  pure native toString :: AttributedCharacterIterator_Attribute -> String
+
+
+

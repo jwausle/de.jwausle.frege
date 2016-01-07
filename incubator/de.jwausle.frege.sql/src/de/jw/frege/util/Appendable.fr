@@ -1,0 +1,36 @@
+module Appendable where 
+
+public class Appendable2 a where
+    --
+     -- Returns the empty value of the instance type.
+     -- @return the empty value.
+     --
+    public empty2 :: a
+    
+    --
+     -- Returns whether the specified value is the empty value.
+     -- @arg value the value to check.
+     -- @return {@link True@} if the argument is the empty value; {@link False@} otherwise.
+     --
+    public isEmpty2 :: a -> Boolean
+    
+    --
+     -- Returns the concatenation of the two values.
+     --
+     -- The operator form of append is {@code ++@}.
+     -- 
+     -- @arg x the first value to be concatenated.
+     -- @arg y the second value to be concatenated.
+     -- @return the concatenation of {@code x@} and {@code y@}.
+     --
+    public append2 :: a -> a -> a
+    
+    --
+     -- Returns the concatenation of the values in the specified list.
+     -- 
+     -- @arg listOfValues the list of values to be concatenated together.
+     -- @return the concatenation of the values in the list.
+     --
+    public concat2 :: [a] -> a
+    public concat2 = foldr append2 empty2
+    

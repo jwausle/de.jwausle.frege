@@ -1,0 +1,29 @@
+--- Documentation for HelloFrege
+module HelloFrege where
+
+import frege.java.Net
+import frege.java.IO
+
+test :: Bool
+test = true
+
+main2 _ =
+  do 
+    println "GET 'http://www.google.com'"       
+    --url :: () -> IO ( URL 
+    url   <- URL.new "http://www.google.com"    >>= return
+    ios   <- url.openStream                     >>= return
+    rdr   <- InputStreamReader.new ios "UTF-8"  >>= return
+    bfr   <- BufferedReader.new rdr             >>= return
+    maybe <- bfr.readLine                       >>= println
+    iosclose ios
+    return()
+  where
+    iosclose ios = ios.close
+
+
+main _ =
+  do 
+    println "GET 'http://www.google.com'"       
+    URL.new "http://www.google.com" >>=  \url -> url.openStream  >>= \ios -> InputStreamReader.new ios "UTF-8" >>= BufferedReader.new  >>=  \bfr -> bfr.readLine >>=  println  >> ios.close
+    return()
